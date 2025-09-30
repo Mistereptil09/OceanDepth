@@ -10,16 +10,13 @@ set(CMAKE_C_FLAGS_DEBUG "-g -Wall -Wextra -Wshadow -Wstrict-prototypes")
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 
 # Include directories
-include_directories(include)
-
+include_directories(${CMAKE_SOURCE_DIR}/code/Include)
 # Source files
-file(GLOB_RECURSE CORE_SOURCES "src/core/*.c")
-file(GLOB_RECURSE INTERFACE_SOURCES "src/interface/*.c")
+file(GLOB_RECURSE CORE_SOURCES "${CMAKE_SOURCE_DIR}/code/src/core/*.c")
 
 set(SOURCES
         code/src/main.c
         ${CORE_SOURCES}
-        ${INTERFACE_SOURCES}
 )
 
 # Main executable
