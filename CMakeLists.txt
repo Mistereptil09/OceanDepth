@@ -16,7 +16,13 @@ include_directories(${CMAKE_SOURCE_DIR}/code/includes)
 file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/code/src/*.c")
 
 # Main executable
-add_executable(OceanDepth ${SOURCES})
+add_executable(OceanDepth ${SOURCES}
+        code/src/core/inventory.c
+        code/includes/core/inventory.h
+        code/src/core/item.c
+        code/includes/core/item.h
+        code/src/core/stats.c
+        code/includes/core/stats.h)
 
 # Optional: SDL version (future)
 if(ENABLE_SDL)

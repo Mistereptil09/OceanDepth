@@ -4,6 +4,6 @@
 
 int main(void)
 {
-    printf("%d!\n", test());
+    printf("Hello, World!\n");
     return 0;
 }
