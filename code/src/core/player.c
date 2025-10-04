@@ -34,7 +34,7 @@ void init_player(Player *p) {
     p->pearls = 10;
 
     // Inventory
-    p->inventory = create_inventory();
+    p->inventory = *create_inventory();
 }
 
 /**

@@ -5,6 +5,7 @@
 #define OCEANDEPTH_PLAYER_H
 #include "inventory.h"
 #include "stats.h"
+#include "effect.h"
 
 #endif //OCEANDEPTH_PLAYER_H
 
@@ -17,6 +18,7 @@ typedef struct {
     int max_oxygen_level;
     int fatigue_level;
     int pearls;
+    Effect *active_effects;// loop through this
     Inventory inventory;
 } Player;
 
