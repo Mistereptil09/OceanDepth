@@ -4,10 +4,10 @@
 
 #ifndef OCEANDEPTH_CREATURE_H
 #define OCEANDEPTH_CREATURE_H
-#include "effect.h"
+#include "action.h"
 #include "stats.h"
+#include "effect.h"
 
-#endif //OCEANDEPTH_CREATURE_H
 
 typedef enum {
     KRAKEN,
@@ -24,6 +24,9 @@ typedef struct {
     CreatureType type;
     Stats stats;
     int is_alive;
-    Effect *active_effects;
-    Effect *creature_effects;
+    Effect * active_effects;
+    Action *creature_actions;
 } Creature;
+
+#endif //OCEANDEPTH_CREATURE_H
+

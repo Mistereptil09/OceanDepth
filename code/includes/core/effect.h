@@ -5,7 +5,6 @@
 #ifndef OCEANDEPTH_EFFECT_H
 #define OCEANDEPTH_EFFECT_H
 
-#endif //OCEANDEPTH_EFFECT_H
 
 typedef enum {
     EFFECT_POISON,
@@ -39,3 +38,5 @@ typedef struct {
 
     int is_active;
 } Effect;
+
+#endif //OCEANDEPTH_EFFECT_H

@@ -5,8 +5,6 @@
 #ifndef OCEANDEPTH_STATS_H
 #define OCEANDEPTH_STATS_H
 
-#endif //OCEANDEPTH_STATS_H
-
 typedef struct {
     int base_attack;
     int current_attack;
@@ -19,3 +17,5 @@ typedef struct {
 
     int speed;
 } Stats;
+
+#endif //OCEANDEPTH_STATS_H

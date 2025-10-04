@@ -6,7 +6,6 @@
 #define OCEANDEPTH_INVENTORY_H
 #include "item.h"
 
-#endif //OCEANDEPTH_INVENTORY_H
 #define INVENTORY_SIZE 8
 
 typedef struct {
@@ -17,3 +16,5 @@ typedef struct {
 
 Inventory *create_inventory(void);
 void free_inventory(Inventory *inventory);
+
+#endif //OCEANDEPTH_INVENTORY_H

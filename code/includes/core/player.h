@@ -7,8 +7,6 @@
 #include "stats.h"
 #include "effect.h"
 
-#endif //OCEANDEPTH_PLAYER_H
-
 #define MAX_FATIGUE 5
 
 typedef struct {
@@ -34,3 +32,5 @@ int recover_oxygen(Player *p, int oxygen);
 int recover_fatigue(Player *p, int fatigue);
 void increase_pearls(Player *p, int amount);
 int decrease_pearls(Player *p, int amount);
+
+#endif //OCEANDEPTH_PLAYER_H

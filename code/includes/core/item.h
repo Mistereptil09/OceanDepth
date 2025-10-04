@@ -1,11 +1,9 @@
 //
 // Created by Yasmine Slamani on 02/10/2025.
 //
-#include "action.h"
 #ifndef OCEANDEPTH_ITEM_H
 #define OCEANDEPTH_ITEM_H
-
-#endif //OCEANDEPTH_ITEM_H
+#include "action.h"
 
 typedef enum {
     ITEM_WEAPON,
@@ -19,3 +17,5 @@ typedef struct {
     int max_uses;
     int current_uses;
 } Item;
+
+#endif //OCEANDEPTH_ITEM_H
