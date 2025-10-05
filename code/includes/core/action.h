@@ -21,4 +21,7 @@ typedef struct {
     // Or essentially creating a copy of it in the receivers active effects
 } Action;
 
+// create action
+// free action
+
 #endif //OCEANDEPTH_ACTION_H

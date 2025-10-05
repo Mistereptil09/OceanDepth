@@ -39,4 +39,7 @@ typedef struct {
     int is_active;
 } Effect;
 
+// create effect
+// free effect
+
 #endif //OCEANDEPTH_EFFECT_H

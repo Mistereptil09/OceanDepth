@@ -18,4 +18,7 @@ typedef struct {
     int current_uses;
 } Item;
 
+// create
+// free
+// use
 #endif //OCEANDEPTH_ITEM_H

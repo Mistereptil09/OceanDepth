@@ -18,4 +18,6 @@ typedef struct {
     int speed;
 } Stats;
 
+// create stats
+// free stats
 #endif //OCEANDEPTH_STATS_H

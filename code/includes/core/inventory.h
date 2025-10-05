@@ -17,4 +17,7 @@ typedef struct {
 Inventory *create_inventory(void);
 void free_inventory(Inventory *inventory);
 
+// add
+// remove
+// ...
 #endif //OCEANDEPTH_INVENTORY_H

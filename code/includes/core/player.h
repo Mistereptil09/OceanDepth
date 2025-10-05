@@ -9,28 +9,103 @@
 
 #define MAX_FATIGUE 5
 
+/**
+ * @struct Player
+ * @brief Represents the player's state, statistics, and resources.
+ */
 typedef struct {
-    char *name;
+    char name[30];
     Stats stats;
     int oxygen_level;
     int max_oxygen_level;
     int fatigue_level;
     int pearls;
-    Effect *active_effects;// loop through this
+    Effect *active_effects;
     Inventory inventory;
 } Player;
 
+/**
+ * @brief Initializes default values of a Player instance (used internally by create_player).
+ * @param p Pointer to a Player (must not be NULL).
+ */
 void init_player(Player *p);
-Player *create_player(char *name);
+
+/**
+ * @brief Allocates and initializes a new Player instance.
+ * @param name Name of the player (string copied into fixed buffer).
+ * @return Pointer to the new Player, or NULL if allocation failed.
+ * @note Caller must free the returned Player with free_player().
+ */
+Player *create_player(const char *name);
+
+/**
+ * @brief Frees allocated memory for a Player instance.
+ * @param p Pointer to the Player instance.
+ * @note Safe to call with NULL (no effect).
+ */
 void free_player(Player *p);
 
-void take_damage(Player *p, int damage); // HP
-void consume_oxygen(Player *p, int amount); // OXYGEN
-int increase_fatigue(Player *p, int amount); // FATIGUE
+/**
+ * @brief Applies damage to the Player's HP.
+ * @param p Pointer to the Player.
+ * @param damage Amount of damage to apply (must be >= 0).
+ * @note HP cannot drop below 0.
+ */
+void take_damage(Player *p, int damage);
+
+/**
+ * @brief Consumes oxygen from the Player.
+ * @param p Pointer to the Player.
+ * @param amount Oxygen consumed (must be >= 0).
+ * @note Oxygen cannot go below 0. If at 0, the player will lose HP each turn.
+ */
+void consume_oxygen(Player *p, int amount);
+
+/**
+ * @brief Increases Player fatigue.
+ * @param p Pointer to the Player.
+ * @param amount Fatigue increase (must be >= 0).
+ * @return 0 if applied normally, -1 if saturated at MAX_FATIGUE.
+ */
+int increase_fatigue(Player *p, int amount);
+
+/**
+ * @brief Recovers Player HP.
+ * @param p Pointer to the Player.
+ * @param hp Amount of HP recovered (must be >= 0).
+ * @return 0 if recovered normally, -1 if already at max.
+ */
 int recover_hp(Player *p, int hp);
+
+/**
+ * @brief Recovers oxygen for the Player.
+ * @param p Pointer to the Player.
+ * @param oxygen Amount to recover (must be >= 0).
+ * @return 0 if recovered normally, -1 if already at max.
+ */
 int recover_oxygen(Player *p, int oxygen);
+
+/**
+ * @brief Recovers fatigue (reduces fatigue level).
+ * @param p Pointer to the Player.
+ * @param fatigue Amount of fatigue to remove (must be >= 0).
+ * @return 0 if recovered normally, -1 if already at 0.
+ */
 int recover_fatigue(Player *p, int fatigue);
+
+/**
+ * @brief Increases pearls owned by the Player.
+ * @param p Pointer to the Player.
+ * @param amount Number of pearls to add (must be >= 0).
+ */
 void increase_pearls(Player *p, int amount);
+
+/**
+ * @brief Decreases pearls owned by the Player.
+ * @param p Pointer to the Player.
+ * @param amount Number of pearls to remove (must be >= 0).
+ * @return 0 if removed normally, -1 if insufficient (saturated at 0).
+ */
 int decrease_pearls(Player *p, int amount);
 
 #endif //OCEANDEPTH_PLAYER_H
