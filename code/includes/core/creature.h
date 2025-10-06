@@ -159,8 +159,11 @@ void free_generated_creatures(Creature **creatures, int count);
  * @param tier The CreatureTier to generate (defines the strength category).
  * @param id   Unique identifier of the creature within the current lineup.
  * @return Pointer to a newly allocated Creature, or NULL if allocation fails.
+ * @note MUST seed srand time once at the entry point of the project
  */
 Creature *create_from_template(CreatureTier tier, int id);
+
+// Select random action from creature Actions
 
 #endif //OCEANDEPTH_CREATURE_H
 

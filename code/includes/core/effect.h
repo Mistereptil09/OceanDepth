@@ -6,19 +6,9 @@
 #define OCEANDEPTH_EFFECT_H
 
 
-typedef enum {
-    EFFECT_POISON,
-    EFFECT_PARALYSIS,
-    EFFECT_RAGE,
-    EFFECT_SHIELD,
-    EFFECT_HEAL_POISON,
-    EFFECT_HEAL_PARALYSIS,
-} TypeEffect;
-
 typedef void (*FonctionEffect)(void *target);
 
 typedef struct {
-    TypeEffect type;
     char name[30];
     int turns_left;
 

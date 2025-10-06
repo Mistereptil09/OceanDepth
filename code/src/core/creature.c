@@ -89,3 +89,31 @@ Creature **generate_creatures(Difficulty d, int *count) {
 
     return lineup;
 }
+
+Creature *create_from_template(CreatureTier tier, int id) {
+    int count = 0;
+    int indexes[CREATURE_TEMPLATE_COUNT];
+    // get all indexes where Creatures match CreatureTier
+    for (int i = 0; i < CREATURE_TEMPLATE_COUNT; i++) {
+        if (tier == CREATURE_TEMPLATES[i].tier) {
+            indexes[count++] = i;
+        }
+    }
+    if (count == 0) return NULL;
+    // random select of one of these indexes (seed srand time once at the beginning of the program)
+    int random_index = indexes[rand() % count];
+    const CreatureTemplate *t = &CREATURE_TEMPLATES[random_index];
+    // Random select of stats within range
+    Stats s;
+    s.max_health_points = t->min_hp + rand() % (t->max_hp - t->min_hp + 1);
+    s.current_health_points = s.max_health_points;
+    s.base_attack = t->min_atk + rand() % (t->max_atk - t->min_atk + 1);
+    s.current_attack = s.base_attack;
+    s.base_defense = t->defense;
+    s.current_defense = t->defense;
+    s.speed = t->speed;
+
+    // Create creature
+    Action actions
+    return create_creature(id, t->type, s, );
+}
