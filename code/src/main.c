@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include "core/effects.h"
+#include <stdlib.h>
+#include "core/player.h"
 
 int main(void)
 {
     printf("Hello, World!\n");
-    effect_poison_test();
     return 0;
 }
