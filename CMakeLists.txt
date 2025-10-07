@@ -29,7 +29,9 @@ add_executable(OceanDepth ${SOURCES}
         code/src/core/action.c
         code/includes/core/action.h
         code/src/core/effect.c
-        code/includes/core/effect.h)
+        code/includes/core/effect.h
+        code/src/core/creature_data.c
+        code/includes/core/creature_data.h)
 
 # Optional: SDL version (future)
 if(ENABLE_SDL)

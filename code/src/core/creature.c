@@ -3,12 +3,12 @@
 //
 
 #include "../../includes/core/creature.h"
-
+#include "../../includes/core/creature_data.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[5]) {
+Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[2]) {
     Creature *creature = malloc(sizeof(Creature));
     if (creature == NULL) return NULL;
     creature->id = id;
@@ -17,11 +17,11 @@ Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[
     creature->is_alive = 1;
     creature->active_effects = NULL;
     if (actions != NULL) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             creature->creature_actions[i] = actions[i];
         }
     } else {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 2; i++) {
             memset(&creature->creature_actions[i], 0, sizeof(Action));
         }
     }
@@ -39,8 +39,9 @@ void free_creature(Creature *c) {
 
 void take_damage(Creature *c, int damage) {
     c->stats.current_health_points -= damage;
-    if (c->stats.current_health_points < 0) {
+    if (c->stats.current_health_points <= 0) {
         c->stats.current_health_points = 0;
+        c->is_alive = 0;
     }
 }
 
@@ -86,23 +87,36 @@ Creature **generate_creatures(Difficulty d, int *count) {
             return NULL;
         }
     }
-
     return lineup;
 }
 
+void free_generated_creatures(Creature **creatures, int count) {
+    if (!creatures) return;
+    for (int i = 0; i < count; i++) {
+        free_creature(creatures[i]);
+    }
+    free(creatures);
+}
+
 Creature *create_from_template(CreatureTier tier, int id) {
+    const CreatureTemplate *templates = get_creature_templates();
+    int template_count = get_creature_template_count();
+
     int count = 0;
-    int indexes[CREATURE_TEMPLATE_COUNT];
+    int indexes[template_count];
+
     // get all indexes where Creatures match CreatureTier
-    for (int i = 0; i < CREATURE_TEMPLATE_COUNT; i++) {
-        if (tier == CREATURE_TEMPLATES[i].tier) {
+    for (int i = 0; i < template_count; i++) {
+        if (tier == templates[i].tier) {
             indexes[count++] = i;
         }
     }
     if (count == 0) return NULL;
+
     // random select of one of these indexes (seed srand time once at the beginning of the program)
     int random_index = indexes[rand() % count];
-    const CreatureTemplate *t = &CREATURE_TEMPLATES[random_index];
+    const CreatureTemplate *t = &templates[random_index];
+
     // Random select of stats within range
     Stats s;
     s.max_health_points = t->min_hp + rand() % (t->max_hp - t->min_hp + 1);
@@ -113,7 +127,12 @@ Creature *create_from_template(CreatureTier tier, int id) {
     s.current_defense = t->defense;
     s.speed = t->speed;
 
-    // Create creature
-    Action actions
-    return create_creature(id, t->type, s, );
+    // Copie des actions depuis le template
+    Action template_actions[2];
+    for (int i = 0; i < 2; i++) {
+        template_actions[i] = t->actions[i];
+    }
+
+    // Create creature with template actions
+    return create_creature(id, t->type, s, template_actions);
 }
