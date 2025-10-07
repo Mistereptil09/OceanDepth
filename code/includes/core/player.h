@@ -4,7 +4,7 @@
 #ifndef OCEANDEPTH_PLAYER_H
 #define OCEANDEPTH_PLAYER_H
 #include "inventory.h"
-#include "stats.h"
+#include "entity.h"
 #include "effect.h"
 
 #define MAX_FATIGUE 5
@@ -14,13 +14,11 @@
  * @brief Represents the player's state, statistics, and resources.
  */
 typedef struct {
-    char name[30];
-    Stats stats;
+    EntityBase base;
     int oxygen_level;
     int max_oxygen_level;
     int fatigue_level;
     int pearls;
-    Effect *active_effects;
     Inventory inventory;
 } Player;
 
@@ -51,7 +49,7 @@ void free_player(Player *p);
  * @param damage Amount of damage to apply (must be >= 0).
  * @note HP cannot drop below 0.
  */
-void take_damage(Player *p, int damage);
+void player_take_damage(Player *p, int damage);
 
 /**
  * @brief Consumes oxygen from the Player.

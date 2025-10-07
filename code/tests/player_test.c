@@ -17,19 +17,19 @@ int main(void) {
 
     printf("Player créé: %s\n", p->name);
     printf("HP: %d/%d | ATK: %d | DEF: %d | O2: %d/%d | Pearls: %d | Fatigue: %d\n\n",
-           p->stats.current_health_points, p->stats.max_health_points,
-           p->stats.current_attack, p->stats.current_defense,
+           p->base.current_health_points, p->base.max_health_points,
+           p->base.current_attack, p->base.current_defense,
            p->oxygen_level, p->max_oxygen_level,
            p->pearls, p->fatigue_level);
 
     // --- TEST HP ---
     printf("[HP] Inflige 30 dégâts...\n");
     take_damage(p, 30);
-    printf("HP: %d/%d\n", p->stats.current_health_points, p->stats.max_health_points);
+    printf("HP: %d/%d\n", p->base.current_health_points, p->base.max_health_points);
 
     printf("[HP] Soigne 20 HP...\n");
     recover_hp(p, 20);
-    printf("HP: %d/%d\n\n", p->stats.current_health_points, p->stats.max_health_points);
+    printf("HP: %d/%d\n\n", p->base.current_health_points, p->base.max_health_points);
 
     // --- TEST OXYGEN ---
     printf("[O2] Consomme 30 oxygène...\n");

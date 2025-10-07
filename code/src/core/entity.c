@@ -2,4 +2,4 @@
 // Created by Yasmine Slamani on 02/10/2025.
 //
 
-#include "../../includes/core/stats.h"
+#include "core/entity.h"

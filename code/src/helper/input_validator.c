@@ -2,8 +2,7 @@
 // Created by cantonio on 29/09/2025.
 //
 
-#include "../../Include/core/helper.h"
-
+#include "helper/input_validator.h"
 #include <ctype.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -50,7 +49,7 @@ int get_sanitized_input(char *buffer, size_t max_len) {
     }
     buffer[len] = '\0';
 
-    // Check if empty after trimming
+    // Check if empty after trimming (e.g., user entered only whitespace)
     if (len == 0) {
         return 0;
     }
