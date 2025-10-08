@@ -14,11 +14,6 @@ Player *create_player(char *name) {
     Player *p = malloc(sizeof(Player));
     if (p == NULL) return NULL;
 
-    if (name != NULL)
-        strncpy(p->base.name, name, sizeof(p->base.name) - 1);
-    else
-        strncpy(p->base.name, "Player", sizeof(p->base.name) - 1);
-
     p->base = create_entity_base(ENTITY_PLAYER, name, 100, 5);
 
     // Resources

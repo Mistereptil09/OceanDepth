@@ -103,7 +103,7 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
         LEVIATHAN, CREATURE_BOSS, 210, 230, 45, 45, 15, 1,
         {
-            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_bleed_effect(4),},
+            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_bleed_effect(4)},
             {"Abyssal Roar", SPECIAL_SKILL, 4, create_paralysis_effect(2)}
         }
     };
