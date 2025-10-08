@@ -9,29 +9,27 @@ set(CMAKE_C_FLAGS_DEBUG "-g -Wall -Wextra -Wshadow -Wstrict-prototypes")
 # Release flags for submission
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
 
-# Include directories (headers)
+# Include directories
 include_directories(${CMAKE_SOURCE_DIR}/code/includes)
+# Source files
+file(GLOB_RECURSE CORE_SOURCES "${CMAKE_SOURCE_DIR}/code/src/core/*.c")
+file(GLOB_RECURSE INTERFACE_SOURCES "${CMAKE_SOURCE_DIR}/code/src/interface/*.c")
+file(GLOB_RECURSE HELPER_SOURCES "${CMAKE_SOURCE_DIR}/code/src/helper/*.c")
 
-# Source files (tous les .c dans src)
-file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/code/src/*.c")
+# Debug statement
+message(STATUS "Core sources found: ${CORE_SOURCES}")
+message(STATUS "Interface sources found: ${INTERFACE_SOURCES}")
+message(STATUS "Helper sources found: ${HELPER_SOURCES}")
+
+set(SOURCES
+        code/src/main.c
+        ${CORE_SOURCES}
+        ${INTERFACE_SOURCES}
+        ${HELPER_SOURCES}
+)
 
 # Main executable
-add_executable(OceanDepth ${SOURCES}
-        code/src/core/inventory.c
-        code/includes/core/inventory.h
-        code/src/core/item.c
-        code/includes/core/item.h
-        code/src/core/stats.c
-        code/includes/core/stats.h
-        code/tests/player_test.c
-        code/src/core/creature.c
-        code/includes/core/creature.h
-        code/src/core/action.c
-        code/includes/core/action.h
-        code/src/core/effect.c
-        code/includes/core/effect.h
-        code/src/core/creature_data.c
-        code/includes/core/creature_data.h)
+add_executable(oceandepths ${SOURCES})
 
 # Optional: SDL version (future)
 if(ENABLE_SDL)

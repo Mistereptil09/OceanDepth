@@ -6,7 +6,7 @@
 #define OCEANDEPTH_CREATURE_H
 
 #include "action.h"
-#include "stats.h"
+#include "entity.h"
 #include "effect.h"
 
 /**
@@ -62,22 +62,20 @@ typedef enum {
 typedef struct {
     int id;
     CreatureType type;
-    Stats stats;
-    int is_alive;
-    Effect *active_effects; // active effects (same logic as Player)
-    Action creature_actions[2]; // available actions (unlike Player, doesn't have to attack through items)
+    EntityBase base;
+    Action creature_actions[5]; // available actions (unlike Player, doesn't have to attack through items)
 } Creature;
 
 /**
  * @brief Creates a new creature of the given type.
  * @param id
  * @param type The creature type (e.g., SHARK, KRAKEN...).
- * @param stats
+ * @param base
  * @param actions
  * @return Pointer to the allocated Creature, or NULL on failure.
  * @note This is a low-level function, logic will be handled by create_from_template()
  */
-Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[2]);
+Creature *create_creature(int id, CreatureType type, EntityBase base,Action actions[5]);
 
 /**
  * @brief Frees memory allocated for a creature.
@@ -91,7 +89,7 @@ void free_creature(Creature *c);
  * @param damage Amount of damage to apply (must be >= 0).
  * @note Sets is_alive to 0 if HP reaches 0.
  */
-void take_damage(Creature *c, int damage);
+void creature_take_damage(Creature *c, int damage);
 
 /**
  * @brief The function uses the global CREATURE_TEMPLATES array as a base to randomly select

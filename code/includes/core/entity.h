@@ -5,7 +5,17 @@
 #ifndef OCEANDEPTH_STATS_H
 #define OCEANDEPTH_STATS_H
 
-typedef struct {
+#include "core/effect.h"
+
+typedef enum {
+    ENTITY_PLAYER,
+    ENTITY_CREATURE
+} EntityType;
+
+typedef struct EntityBase{
+    EntityType type;
+    char name[30];
+
     int base_attack;
     int current_attack;
 
@@ -16,7 +26,13 @@ typedef struct {
     int current_health_points;
 
     int speed;
-} Stats;
+
+    // possibly add effects list here ?
+    int effects_number;
+    Effect* effects;
+
+    int is_alive;
+} EntityBase;
 
 // create stats
 // free stats

@@ -2,8 +2,7 @@
 // Created by Yasmine Slamani on 02/10/2025.
 //
 
-#include "../../includes/core/inventory.h"
-
+#include "core/inventory.h"
 #include <stdlib.h>
 
 Inventory *create_inventory(void) {

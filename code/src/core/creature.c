@@ -3,19 +3,17 @@
 //
 
 #include "../../includes/core/creature.h"
-#include "../../includes/core/creature_data.h"
+
 
 #include <stdlib.h>
 #include <string.h>
 
-Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[2]) {
+Creature *create_creature(int id, CreatureType type, EntityBase base, Action actions[2]) {
     Creature *creature = malloc(sizeof(Creature));
     if (creature == NULL) return NULL;
     creature->id = id;
     creature->type = type;
-    creature->stats = stats;
-    creature->is_alive = 1;
-    creature->active_effects = NULL;
+    creature->base = base;
     if (actions != NULL) {
         for (int i = 0; i < 2; i++) {
             creature->creature_actions[i] = actions[i];
@@ -31,19 +29,35 @@ Creature *create_creature(int id, CreatureType type, Stats stats,Action actions[
 
 void free_creature(Creature *c) {
     if (c == NULL) return;
-    if (c->active_effects != NULL) {
-        free(c->active_effects);
+
+    // Free the effects array if it exists
+    if (c->base.effects != NULL) {
+        free(c->base.effects);
+        // depends on how we handle the effects
+        // free_effects(c->base.effects, c->base.effects_number);
+        c->base.effects = NULL;
     }
+
+    // Free the creature itself
     free(c);
 }
 
 void take_damage(Creature *c, int damage) {
-    c->stats.current_health_points -= damage;
-    if (c->stats.current_health_points <= 0) {
-        c->stats.current_health_points = 0;
+    c->base.current_health_points -= damage;
+    if (c->base.current_health_points <= 0) {
+        c->base.current_health_points = 0;
         c->is_alive = 0;
     }
 }
+
+// made dirty for now
+/*Creature* create_from_template(CreatureTier tier, int id)
+{
+    CreatureType type = rand() % 8;
+    EntityBase base;
+    base.type = ENTITY_CREATURE;
+    return create_creature(id, type, base, NULL);
+}*/
 
 Creature **generate_creatures(Difficulty d, int *count) {
     if (!count) return NULL;
@@ -87,6 +101,7 @@ Creature **generate_creatures(Difficulty d, int *count) {
             return NULL;
         }
     }
+
     return lineup;
 }
 

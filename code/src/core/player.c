@@ -12,16 +12,16 @@
 
 void init_player(Player *p) {
     // Stats
-    p->stats.max_health_points = 100;
-    p->stats.current_health_points = 100;
+    p->base.max_health_points = 100;
+    p->base.current_health_points = 100;
 
-    p->stats.base_attack = 10;
-    p->stats.current_attack = 10;
+    p->base.base_attack = 10;
+    p->base.current_attack = 10;
 
-    p->stats.base_defense = 5;
-    p->stats.current_defense = 5;
+    p->base.base_defense = 5;
+    p->base.current_defense = 5;
 
-    p->stats.speed = 0;
+    p->base.speed = 0;
 
     // Resources
     p->oxygen_level = 50;
@@ -31,9 +31,6 @@ void init_player(Player *p) {
 
     // Inventory
     p->inventory = *create_inventory();
-
-    // Effects
-    p->active_effects = NULL;
 }
 
 Player *create_player(const char *name) {
@@ -41,27 +38,28 @@ Player *create_player(const char *name) {
     if (p == NULL) return NULL;
 
     if (name != NULL)
-        strncpy(p->name, name, sizeof(p->name) - 1);
+        strncpy(p->base.name, name, sizeof(p->base.name) - 1);
     else
-        strncpy(p->name, "Player", sizeof(p->name) - 1);
+        strncpy(p->base.name, "Player", sizeof(p->base.name) - 1);
 
-    p->name[sizeof(p->name) - 1] = '\0';
+    p->base.name[sizeof(p->base.name) - 1] = '\0';
     init_player(p);
     return p;
 }
 
 void free_player(Player *p) {
     if (p == NULL) return;
-    if (p->active_effects != NULL) {
-        free(p->active_effects);
+    if (p->base.effects != NULL) {
+        free(p->base.effects);
+        p->base.effects = NULL;
     }
     free(p);
 }
 
-void take_damage(Player *p, int damage) {
-    p->stats.current_health_points -= damage;
-    if (p->stats.current_health_points < 0) {
-        p->stats.current_health_points = 0;
+void player_take_damage(Player *p, const int damage) {
+    p->base.current_health_points -= damage;
+    if (p->base.current_health_points < 0) {
+        p->base.current_health_points = 0;
     }
 }
 
@@ -83,12 +81,12 @@ int increase_fatigue(Player *p, int amount) {
 }
 
 int recover_hp(Player *p, int hp) {
-    int new_value = p->stats.current_health_points + hp;
-    if (new_value > p->stats.max_health_points) {
-        p->stats.current_health_points = p->stats.max_health_points;
+    int new_value = p->base.current_health_points + hp;
+    if (new_value > p->base.max_health_points) {
+        p->base.current_health_points = p->base.max_health_points;
         return -1; // saturated
     }
-    p->stats.current_health_points = new_value;
+    p->base.current_health_points = new_value;
     return 0;
 }
 
