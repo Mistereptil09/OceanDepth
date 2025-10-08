@@ -10,30 +10,7 @@
  * player.c = Player stats, actions, resources (HP, oxygen, fatigue, pearls, inventory)
  */
 
-void init_player(Player *p) {
-    // Stats
-    p->base.max_health_points = 100;
-    p->base.current_health_points = 100;
-
-    p->base.base_attack = 10;
-    p->base.current_attack = 10;
-
-    p->base.base_defense = 5;
-    p->base.current_defense = 5;
-
-    p->base.speed = 0;
-
-    // Resources
-    p->oxygen_level = 50;
-    p->max_oxygen_level = 50;
-    p->fatigue_level = 0;
-    p->pearls = 10;
-
-    // Inventory
-    p->inventory = *create_inventory();
-}
-
-Player *create_player(const char *name) {
+Player *create_player(char *name) {
     Player *p = malloc(sizeof(Player));
     if (p == NULL) return NULL;
 
@@ -42,10 +19,19 @@ Player *create_player(const char *name) {
     else
         strncpy(p->base.name, "Player", sizeof(p->base.name) - 1);
 
-    p->base.name[sizeof(p->base.name) - 1] = '\0';
-    init_player(p);
+    p->base = create_entity_base(ENTITY_PLAYER, name, 100, 5);
+
+    // Resources
+    p->oxygen_level = 50;
+    p->max_oxygen_level = 50;
+    p->fatigue_level = 0;
+    p->pearls = 10;
+
+    // Inventory mockup function
+    p->inventory = *create_inventory();
     return p;
 }
+
 
 void free_player(Player *p) {
     if (p == NULL) return;
@@ -54,13 +40,6 @@ void free_player(Player *p) {
         p->base.effects = NULL;
     }
     free(p);
-}
-
-void player_take_damage(Player *p, const int damage) {
-    p->base.current_health_points -= damage;
-    if (p->base.current_health_points < 0) {
-        p->base.current_health_points = 0;
-    }
 }
 
 void consume_oxygen(Player *p, int amount) {
@@ -80,15 +59,6 @@ int increase_fatigue(Player *p, int amount) {
     return 0;
 }
 
-int recover_hp(Player *p, int hp) {
-    int new_value = p->base.current_health_points + hp;
-    if (new_value > p->base.max_health_points) {
-        p->base.current_health_points = p->base.max_health_points;
-        return -1; // saturated
-    }
-    p->base.current_health_points = new_value;
-    return 0;
-}
 
 int recover_oxygen(Player *p, int oxygen) {
     int new_value = p->oxygen_level + oxygen;

@@ -16,12 +16,15 @@ typedef struct {
     ActionType type;
     int cooldown;
     Effect effect; // The effect the action applies on the receiver
-    void (*apply)(void *user, void *target); // Applies the effect by :
-    // Either just applying the effect if it's a one time action (initial turns_left = 1)
-    // Or essentially creating a copy of it in the receivers active effects
 } Action;
 
-// create action
-// free action
+/**
+* @brief Applies the effect by :
+    Either calling on_tick once if it's a one time action (initial turns_left = 1, after = 0)
+     Or essentially creating a copy of it in the receivers active effects
+* @param target Entity base pointer
+ * @param effect Effect pointer
+ */
+void apply_effect_to_target(EntityBase *target, Effect effect);
 
 #endif //OCEANDEPTH_ACTION_H

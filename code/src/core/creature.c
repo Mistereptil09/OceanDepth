@@ -8,14 +8,17 @@
 #include <stdlib.h>
 #include <string.h>
 
-Creature *create_creature(int id, CreatureType type, EntityBase base, Action actions[2]) {
+#include "core/creature_data.h"
+
+Creature *create_creature(int id, CreatureType type, EntityBase base, Action actions[2], int speed) {
     Creature *creature = malloc(sizeof(Creature));
     if (creature == NULL) return NULL;
     creature->id = id;
     creature->type = type;
     creature->base = base;
+    creature->speed = speed;
     if (actions != NULL) {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) { // might want to have an action_count in creature_data's template
             creature->creature_actions[i] = actions[i];
         }
     } else {
@@ -30,25 +33,14 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
 void free_creature(Creature *c) {
     if (c == NULL) return;
 
-    // Free the effects array if it exists
     if (c->base.effects != NULL) {
         free(c->base.effects);
-        // depends on how we handle the effects
-        // free_effects(c->base.effects, c->base.effects_number);
         c->base.effects = NULL;
     }
 
-    // Free the creature itself
     free(c);
 }
 
-void take_damage(Creature *c, int damage) {
-    c->base.current_health_points -= damage;
-    if (c->base.current_health_points <= 0) {
-        c->base.current_health_points = 0;
-        c->is_alive = 0;
-    }
-}
 
 // made dirty for now
 /*Creature* create_from_template(CreatureTier tier, int id)
@@ -133,21 +125,20 @@ Creature *create_from_template(CreatureTier tier, int id) {
     const CreatureTemplate *t = &templates[random_index];
 
     // Random select of stats within range
-    Stats s;
-    s.max_health_points = t->min_hp + rand() % (t->max_hp - t->min_hp + 1);
-    s.current_health_points = s.max_health_points;
-    s.base_attack = t->min_atk + rand() % (t->max_atk - t->min_atk + 1);
-    s.current_attack = s.base_attack;
-    s.base_defense = t->defense;
-    s.current_defense = t->defense;
-    s.speed = t->speed;
+    int hp = t->min_hp + rand() % (t->max_hp - t->min_hp + 1);
+    int defense = t->defense;
+    int speed = t->speed;
 
-    // Copie des actions depuis le template
+    // Create EntityBase using the new function
+    EntityBase base = create_entity_base(ENTITY_CREATURE, "Creature", hp, defense);
+
+
+    // Copy template actions
     Action template_actions[2];
     for (int i = 0; i < 2; i++) {
         template_actions[i] = t->actions[i];
     }
 
     // Create creature with template actions
-    return create_creature(id, t->type, s, template_actions);
+    return create_creature(id, t->type, base, template_actions, speed);
 }

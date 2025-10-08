@@ -12,7 +12,7 @@ typedef enum {
 } ItemType;
 
 typedef struct {
-    char *name;
+    char name[30];
     Action action;
     int max_uses;
     int current_uses;

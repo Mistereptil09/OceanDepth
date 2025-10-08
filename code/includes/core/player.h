@@ -23,18 +23,12 @@ typedef struct {
 } Player;
 
 /**
- * @brief Initializes default values of a Player instance (used internally by create_player).
- * @param p Pointer to a Player (must not be NULL).
- */
-void init_player(Player *p);
-
-/**
  * @brief Allocates and initializes a new Player instance.
  * @param name Name of the player (string copied into fixed buffer).
  * @return Pointer to the new Player, or NULL if allocation failed.
  * @note Caller must free the returned Player with free_player().
  */
-Player *create_player(const char *name);
+Player *create_player(char *name);
 
 /**
  * @brief Frees allocated memory for a Player instance.
@@ -42,14 +36,6 @@ Player *create_player(const char *name);
  * @note Safe to call with NULL (no effect).
  */
 void free_player(Player *p);
-
-/**
- * @brief Applies damage to the Player's HP.
- * @param p Pointer to the Player.
- * @param damage Amount of damage to apply (must be >= 0).
- * @note HP cannot drop below 0.
- */
-void player_take_damage(Player *p, int damage);
 
 /**
  * @brief Consumes oxygen from the Player.
@@ -66,14 +52,6 @@ void consume_oxygen(Player *p, int amount);
  * @return 0 if applied normally, -1 if saturated at MAX_FATIGUE.
  */
 int increase_fatigue(Player *p, int amount);
-
-/**
- * @brief Recovers Player HP.
- * @param p Pointer to the Player.
- * @param hp Amount of HP recovered (must be >= 0).
- * @return 0 if recovered normally, -1 if already at max.
- */
-int recover_hp(Player *p, int hp);
 
 /**
  * @brief Recovers oxygen for the Player.

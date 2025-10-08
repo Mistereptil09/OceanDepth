@@ -63,7 +63,8 @@ typedef struct {
     int id;
     CreatureType type;
     EntityBase base;
-    Action creature_actions[5]; // available actions (unlike Player, doesn't have to attack through items)
+    Action creature_actions[2]; // available actions (unlike Player, doesn't have to attack through items)
+    int speed;
 } Creature;
 
 /**
@@ -72,10 +73,11 @@ typedef struct {
  * @param type The creature type (e.g., SHARK, KRAKEN...).
  * @param base
  * @param actions
+ * @param speed
  * @return Pointer to the allocated Creature, or NULL on failure.
  * @note This is a low-level function, logic will be handled by create_from_template()
  */
-Creature *create_creature(int id, CreatureType type, EntityBase base,Action actions[5]);
+Creature *create_creature(int id, CreatureType type, EntityBase base,Action actions[2], int speed);
 
 /**
  * @brief Frees memory allocated for a creature.
@@ -83,13 +85,6 @@ Creature *create_creature(int id, CreatureType type, EntityBase base,Action acti
  */
 void free_creature(Creature *c);
 
-/**
- * @brief Applies damage to the creature.
- * @param c Pointer to the Creature instance.
- * @param damage Amount of damage to apply (must be >= 0).
- * @note Sets is_alive to 0 if HP reaches 0.
- */
-void creature_take_damage(Creature *c, int damage);
 
 /**
  * @brief The function uses the global CREATURE_TEMPLATES array as a base to randomly select
@@ -125,7 +120,7 @@ void free_generated_creatures(Creature **creatures, int count);
  */
 Creature *create_from_template(CreatureTier tier, int id);
 
-// Select random action from creature Actions
+// Select random action from creature Actions (not done yet)
 Action *select_action(Creature *c);
 
 #endif //OCEANDEPTH_CREATURE_H
