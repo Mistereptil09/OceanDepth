@@ -3,61 +3,16 @@
 //
 #include "../../includes/core/creature_data.h"
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-// Helper function to create effects
-Effect create_poison_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Poison");
-    effect.turns_left = turns;
-    effect.hp_cost = 5;
-    effect.is_active = 1;
-    return effect;
-}
+// Global templates array
+static CreatureTemplate CREATURE_TEMPLATES[8];
+static int templates_initialized = 0;
 
-Effect create_paralysis_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Paralysis");
-    effect.turns_left = turns;
-    effect.speed_boost = -1;
-    effect.is_active = 1;
-    return effect;
-}
-
-Effect create_defense_boost_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Defense Boost");
-    effect.turns_left = turns;
-    effect.defense_boost = 5;
-    effect.is_active = 1;
-    return effect;
-}
-
-Effect create_attack_boost_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Attack Boost");
-    effect.turns_left = turns;
-    effect.attack_boost = 8;
-    effect.is_active = 1;
-    return effect;
-}
-
-Effect create_speed_boost_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Speed Boost");
-    effect.turns_left = turns;
-    effect.speed_boost = 1;
-    effect.is_active = 1;
-    return effect;
-}
-
-Effect create_bleed_effect(int turns) {
-    Effect effect = {0};
-    strcpy(effect.name, "Bleeding");
-    effect.turns_left = turns;
-    effect.hp_cost = 8;
-    effect.is_active = 1;
-    return effect;
+int random_range(int min, int max) {
+    if (min > max) return min;
+    if (min == max) return min;
+    return min + rand() % (max - min + 1);
 }
 
 void init_creature_templates(void) {
@@ -67,8 +22,8 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
         KRAKEN, CREATURE_HARD, 120, 180, 25, 40, 10, 2,
         {
-            {"Tentacle Strike", PHYSICAL_ATTACK, 0, create_bleed_effect(2)},
-            {"Ink Cloud", SPECIAL_SKILL, 2, create_paralysis_effect(1)}
+            {"Tentacle Strike", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Tentacles tear flesh!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Ink Cloud", PHYSICAL_ATTACK, 2, create_effect(EFFECT_PARALYSIS, "Engulfed in darkness!", 2, 0, 0, 0, 0, 0, 0, 0)}
         }
     };
 
@@ -76,8 +31,8 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
         KING_CRAB, CREATURE_MEDIUM, 80, 120, 12, 20, 10, 2,
         {
-            {"Claw Pinch", PHYSICAL_ATTACK, 0, {0}},
-            {"Shell Defense", SPECIAL_SKILL, 2, create_defense_boost_effect(3)}
+            {"Claw Pinch", PHYSICAL_ATTACK, 0, create_effect(EFFECT_PARALYSIS, "Pinned by mighty claws!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Shell Defense", SPECIAL_SKILL, 2, create_effect(EFFECT_DEFENSE_BOOST, "Shell hardens!", 2, 0, 0, 0, 0, 10, 0, 0)}
         }
     };
 
@@ -85,8 +40,8 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
         JELLYFISH, CREATURE_EASY, 20, 40, 8, 15, 5, 3,
         {
-            {"Tentacle Sting", PHYSICAL_ATTACK, 0, create_poison_effect(3)},
-            {"Electric Shock", SPECIAL_SKILL, 1, create_paralysis_effect(1)}
+            {"Tentacle Sting", PHYSICAL_ATTACK, 0, create_effect(EFFECT_POISON, "Venomous sting!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Electric Shock", PHYSICAL_ATTACK, 0, create_effect(EFFECT_PARALYSIS, "Electric jolt!", 1, 0, 0, 0, 0, 0, 0, 0)}
         }
     };
 
@@ -94,17 +49,17 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[3] = (CreatureTemplate){
         SHARK, CREATURE_MEDIUM, 60, 100, 15, 25, 20, 1,
         {
-            {"Bite", PHYSICAL_ATTACK, 0, create_bleed_effect(2)},
-            {"Blood Frenzy", SPECIAL_SKILL, 3, create_attack_boost_effect(3)}
+            {"Bite", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Razor teeth bite deep!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Blood Frenzy", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Frenzied bloodlust!", 1, 0, 0, 3, 0, 0, 0, 0)}
         }
     };
 
     // LEVIATHAN - Boss with massive damage
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
-        LEVIATHAN, CREATURE_BOSS, 210, 230, 45, 45, 15, 1,
+        LEVIATHAN, CREATURE_BOSS, 210, 230, 30, 45, 15, 1,
         {
-            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_bleed_effect(4)},
-            {"Abyssal Roar", SPECIAL_SKILL, 4, create_paralysis_effect(2)}
+            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Primordial jaws rend!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Abyssal Roar", PHYSICAL_ATTACK, 0, create_effect(EFFECT_PARALYSIS, "Terror from the deep!", 1, 0, 0, 0, 0, 0, 0, 0)}
         }
     };
 
@@ -112,26 +67,26 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[5] = (CreatureTemplate){
         ANGLERFISH, CREATURE_HARD, 180, 180, 12, 20, 15, 3,
         {
-            {"Lure Attack", PHYSICAL_ATTACK, 0, {0}},
-            {"Darkness Veil", SPECIAL_SKILL, 2, {0}}
+            {"Lure Attack", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Ambushed from shadows!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Darkness Veil", PHYSICAL_ATTACK, 0, create_effect(EFFECT_PARALYSIS, "Lost in darkness!", 1, 0, 0, 0, 0, 0, 0, 0)}
         }
     };
 
     // SWORDFISH - Fast striker
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
-        SWORDFISH, CREATURE_MEDIUM, 70, 90, 18, 28, 15, 1,
+        SWORDFISH, CREATURE_MEDIUM, 70, 90, 18, 28, 10, 1,
         {
-            {"Sword Thrust", PHYSICAL_ATTACK, 0, create_bleed_effect(2)},
-            {"Speed Boost", SPECIAL_SKILL, 2, create_speed_boost_effect(3)}
+            {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect(EFFECT_BLEED, "Pierced by blade!", 1, 0, 0, 0, 0, 0, 0, 0)},
+            {"Attack Boost", SPECIAL_SKILL, 2, create_effect(EFFECT_ATTACK_BOOST, "Speed surge!", 2, 0, 0, 0, 10, 0, 0, 0)}
         }
     };
 
     // MEGALODON - Ultimate boss
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
-        MEGALODON, CREATURE_BOSS, 210, 230, 45, 45, 15, 1,
+        MEGALODON, CREATURE_BOSS, 210, 230, 25, 45, 15, 1,
         {
-            {"Prehistoric Bite", PHYSICAL_ATTACK, 0, create_bleed_effect(5)},
-            {"Apex Predator", SPECIAL_SKILL, 4, create_attack_boost_effect(4)}
+            {"Prehistoric Bite", PHYSICAL_ATTACK, 2, create_effect(EFFECT_BLEED, "Ancient fury unleashed!", 2, 0, 0, 0, 0, 0, 0, 0)},
+            {"Apex Predator", PHYSICAL_ATTACK, 0, create_effect(EFFECT_POISON, "Apex venom!", 1, 0, 0, 0, 0, 0, 0, 0)}
         }
     };
 
@@ -147,4 +102,17 @@ const CreatureTemplate* get_creature_templates(void) {
 
 int get_creature_template_count(void) {
     return 8;
+}
+
+void cleanup_creature_templates(void) {
+    if (!templates_initialized) return;
+
+    // Free all display_messages from effects in all creature templates
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < MAX_ACTIONS; j++) {
+            free_effect_content(&CREATURE_TEMPLATES[i].actions[j].effect);
+        }
+    }
+
+    templates_initialized = 0;
 }

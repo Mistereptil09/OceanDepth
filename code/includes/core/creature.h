@@ -4,7 +4,7 @@
 
 #ifndef OCEANDEPTH_CREATURE_H
 #define OCEANDEPTH_CREATURE_H
-
+#define MAX_ACTIONS 2
 #include "action.h"
 #include "entity.h"
 #include "effect.h"
@@ -13,14 +13,14 @@
  * @brief Enum representing the different types of sea creatures.
  */
 typedef enum {
-    KRAKEN,
-    KING_CRAB,
-    JELLYFISH,
-    SHARK,
-    LEVIATHAN,
-    ANGLERFISH,
-    SWORDFISH,
-    MEGALODON
+    KRAKEN,  // hard
+    KING_CRAB, // medium
+    JELLYFISH, // easy
+    SHARK, // medium
+    LEVIATHAN, // boss
+    ANGLERFISH, // hard
+    SWORDFISH, // medium
+    MEGALODON // boss
 } CreatureType;
 
 /**
@@ -43,7 +43,7 @@ typedef struct {
     int min_atk, max_atk;
     int defense;
     int speed;
-    Action actions[2]; /** Predefined actions, see creature_data */
+    Action actions[MAX_ACTIONS]; /** Predefined actions, see creature_data */
 } CreatureTemplate;
 
 /**
@@ -64,7 +64,7 @@ typedef struct {
     CreatureType type;
     EntityBase base;
     Action creature_actions[2]; // available actions (unlike Player, doesn't have to attack through items)
-    int speed;
+    // speed now in base
 } Creature;
 
 /**
@@ -73,11 +73,10 @@ typedef struct {
  * @param type The creature type (e.g., SHARK, KRAKEN...).
  * @param base
  * @param actions
- * @param speed
  * @return Pointer to the allocated Creature, or NULL on failure.
  * @note This is a low-level function, logic will be handled by create_from_template()
  */
-Creature *create_creature(int id, CreatureType type, EntityBase base,Action actions[2], int speed);
+Creature *create_creature(int id, CreatureType type, EntityBase base,Action actions[MAX_ACTIONS]);
 
 /**
  * @brief Frees memory allocated for a creature.
@@ -120,7 +119,11 @@ void free_generated_creatures(Creature **creatures, int count);
  */
 Creature *create_from_template(CreatureTier tier, int id);
 
-// Select random action from creature Actions (not done yet)
+/**
+ *
+ * @param c Creature pointer
+ * @return
+ */
 Action *select_action(Creature *c);
 
 #endif //OCEANDEPTH_CREATURE_H

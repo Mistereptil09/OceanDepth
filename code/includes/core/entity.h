@@ -6,7 +6,8 @@
 #define OCEANDEPTH_ENTITY_H
 #define MAX_EFFECTS 10
 
-typedef struct Effect Effect;
+#include "effect.h"
+
 typedef enum {
     ENTITY_PLAYER,
     ENTITY_CREATURE
@@ -25,13 +26,19 @@ typedef struct EntityBase{
     int max_health_points;
     int current_health_points;
 
+    // Player-specific stats (unused by creatures)
+    int oxygen_level;
+    int max_oxygen_level;
+    int fatigue_level;
+
+    // Creature-specific stats (can be used by player for movement)
+    int speed;
+
     int effects_number;
-    Effect* effects;
+    Effect effects[MAX_EFFECTS];
 
     int is_alive;
 } EntityBase;
-
-// create function for creatures
 
 /**
  * @brief Applies damage to the Entity's HP.
@@ -39,16 +46,15 @@ typedef struct EntityBase{
  * @param hp Amount of damage to apply (must be >= 0).
  * @note HP cannot drop below 0.
  */
-void entity_take_damage(EntityBase *base, int hp);
+int entity_take_damage(EntityBase *base, int hp);
 
 /**
  * @brief Recovers Entity HP.
  * @param base Pointer to the Entity base.
  * @param hp Amount of HP recovered (must be >= 0).
- * @return 0 if recovered normally, -1 if already at max.
  */
 int entity_recover_hp(EntityBase *base, int hp);
 
-EntityBase create_entity_base(EntityType type, char* name, int max_hp,int base_defense);
+EntityBase create_entity_base(EntityType type, char* name, int max_hp,int base_defense, int speed);
 
 #endif //OCEANDEPTH_ENTITY_H

@@ -18,6 +18,7 @@ typedef struct {
     int current_uses;
 } Item;
 
+int use_item(Item *item, EntityBase *target);
 // create
 // free
 // use

@@ -15,9 +15,7 @@
  */
 typedef struct {
     EntityBase base;
-    int oxygen_level;
-    int max_oxygen_level;
-    int fatigue_level;
+    // oxygen_level, max_oxygen_level, fatigue_level now in base
     int pearls;
     Inventory inventory;
 } Player;
@@ -43,7 +41,7 @@ void free_player(Player *p);
  * @param amount Oxygen consumed (must be >= 0).
  * @note Oxygen cannot go below 0. If at 0, the player will lose HP each turn.
  */
-void consume_oxygen(Player *p, int amount);
+int consume_oxygen(Player *p, int amount);
 
 /**
  * @brief Increases Player fatigue.
@@ -74,7 +72,7 @@ int recover_fatigue(Player *p, int fatigue);
  * @param p Pointer to the Player.
  * @param amount Number of pearls to add (must be >= 0).
  */
-void increase_pearls(Player *p, int amount);
+int increase_pearls(Player *p, int amount);
 
 /**
  * @brief Decreases pearls owned by the Player.

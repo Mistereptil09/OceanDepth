@@ -8,13 +8,13 @@
 typedef enum {
     PHYSICAL_ATTACK,
     SPECIAL_SKILL,
-    ITEM_ATTACK
+    // ITEM_ATTACK (unnecessary)
 } ActionType;
 
 typedef struct {
     char name[30];
     ActionType type;
-    int cooldown;
+    int cooldown; // should we do base vs current cooldown ?
     Effect effect; // The effect the action applies on the receiver
 } Action;
 
@@ -23,8 +23,9 @@ typedef struct {
     Either calling on_tick once if it's a one time action (initial turns_left = 1, after = 0)
      Or essentially creating a copy of it in the receivers active effects
 * @param target Entity base pointer
- * @param effect Effect pointer
+ * @param action Action
+ * @return 0 if applied,
  */
-void apply_effect_to_target(EntityBase *target, Effect effect);
+int apply_effect_to_target(EntityBase *target, Action action);
 
 #endif //OCEANDEPTH_ACTION_H

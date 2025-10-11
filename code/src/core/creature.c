@@ -10,19 +10,18 @@
 
 #include "core/creature_data.h"
 
-Creature *create_creature(int id, CreatureType type, EntityBase base, Action actions[2], int speed) {
+Creature *create_creature(int id, CreatureType type, EntityBase base, Action actions[MAX_ACTIONS]) {
     Creature *creature = malloc(sizeof(Creature));
     if (creature == NULL) return NULL;
     creature->id = id;
     creature->type = type;
     creature->base = base;
-    creature->speed = speed;
     if (actions != NULL) {
-        for (int i = 0; i < 2; i++) { // might want to have an action_count in creature_data's template
+        for (int i = 0; i < MAX_ACTIONS; i++) {
             creature->creature_actions[i] = actions[i];
         }
     } else {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < MAX_ACTIONS; i++) {
             memset(&creature->creature_actions[i], 0, sizeof(Action));
         }
     }
@@ -33,9 +32,14 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
 void free_creature(Creature *c) {
     if (c == NULL) return;
 
-    if (c->base.effects != NULL) {
-        free(c->base.effects);
-        c->base.effects = NULL;
+    // Free all effect display_messages
+    for (int i = 0; i < c->base.effects_number; i++) {
+        free_effect_content(&c->base.effects[i]);
+    }
+
+    // free actions effects' display messages
+    for (int i = 0; i < MAX_ACTIONS; i++) {
+        free_effect_content(&c->creature_actions[i].effect);
     }
 
     free(c);
@@ -100,6 +104,7 @@ Creature **generate_creatures(Difficulty d, int *count) {
 void free_generated_creatures(Creature **creatures, int count) {
     if (!creatures) return;
     for (int i = 0; i < count; i++) {
+        if (creatures[i] == NULL) continue;
         free_creature(creatures[i]);
     }
     free(creatures);
@@ -124,21 +129,54 @@ Creature *create_from_template(CreatureTier tier, int id) {
     int random_index = indexes[rand() % count];
     const CreatureTemplate *t = &templates[random_index];
 
-    // Random select of stats within range
     int hp = t->min_hp + rand() % (t->max_hp - t->min_hp + 1);
     int defense = t->defense;
     int speed = t->speed;
 
-    // Create EntityBase using the new function
-    EntityBase base = create_entity_base(ENTITY_CREATURE, "Creature", hp, defense);
+    EntityBase base = create_entity_base(ENTITY_CREATURE, "Creature", hp, defense, speed);
 
-
-    // Copy template actions
-    Action template_actions[2];
-    for (int i = 0; i < 2; i++) {
+    Action template_actions[MAX_ACTIONS];
+    for (int i = 0; i < MAX_ACTIONS; i++) {
         template_actions[i] = t->actions[i];
+        template_actions[i].effect = effect_copy(&t->actions[i].effect);
+        if (template_actions[i].type == PHYSICAL_ATTACK) {
+            template_actions[i].effect.hp_cost = random_range(t->min_atk, t->max_atk);
+        }
     }
 
-    // Create creature with template actions
-    return create_creature(id, t->type, base, template_actions, speed);
+    return create_creature(id, t->type, base, template_actions);
+}
+
+Action* select_action(Creature *c) {
+    if (c == NULL) return NULL;
+
+    Action* available_actions[2];
+    int available_count = 0;
+
+    for (int i = 0; i < 2; i++) {
+        Action* action = &c->creature_actions[i];
+
+        if (action->type == PHYSICAL_ATTACK) {
+            available_actions[available_count++] = action;
+        }
+        else if (action->type == SPECIAL_SKILL) {
+            int effect_active = 0;
+            for (int j = 0; j < c->base.effects_number; j++) {
+                if (strcmp(c->base.effects[j].name, action->effect.name) == 0 &&
+                    c->base.effects[j].is_active) {
+                    effect_active = 1;
+                    break;
+                    }
+            }
+
+            if (!effect_active) {
+                available_actions[available_count++] = action;
+            }
+        }
+    }
+
+    if (available_count == 0) return NULL;
+
+    int choice = rand() % available_count;
+    return available_actions[choice];
 }

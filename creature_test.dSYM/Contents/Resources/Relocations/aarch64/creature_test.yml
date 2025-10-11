@@ -1,5 +1,5 @@
 ---
 triple:          'arm64-apple-darwin'
-binary-path:     player_test
+binary-path:     creature_test
 relocations:     []
 ...

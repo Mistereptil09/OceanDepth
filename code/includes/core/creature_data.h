@@ -6,7 +6,6 @@
 #define OCEANDEPTH_CREATURE_DATA_H
 
 #include "creature.h"
-#include "effect.h"
 
 /**
  * @brief Initializes all creature templates with their stats and actions
@@ -26,9 +25,13 @@ const CreatureTemplate* get_creature_templates(void);
  */
 int get_creature_template_count(void);
 
+/**
+ * @brief Cleans up all allocated memory in creature templates (effects' display_messages)
+ * @note Should be called at program shutdown to free all effect display messages
+ */
+void cleanup_creature_templates(void);
 
-// Global templates array
-static CreatureTemplate CREATURE_TEMPLATES[8];
-static int templates_initialized = 0;
+
+int random_range(int min, int max);
 
 #endif //OCEANDEPTH_CREATURE_DATA_H
