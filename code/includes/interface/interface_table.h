@@ -17,6 +17,7 @@ typedef struct {
     int (*get_choice)(const char* prompt, int min, int max);
     void (*show_attack)(EntityBase* attacker, EntityBase* target, int damage);
     void (*show_inventory)(Inventory* inv);
+    void (*get_input)(const char* prompt, char* result, size_t result_size);
 } InterfaceVTable;
 
 // Global interface pointer (declared here, defined in interface_table.c)

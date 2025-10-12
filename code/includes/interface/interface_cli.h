@@ -17,5 +17,5 @@ void cli_display_combat(Player* player, Creature* creatures, int count);
 int cli_get_choice(const char* prompt, int min, int max);
 void cli_show_attack(EntityBase* attacker, EntityBase* target, int damage);
 void cli_show_inventory(Inventory* inv);
-
+void cli_get_input(const char* prompt, char* result, size_t result_size);
 #endif //OCEANDEPTHS_INTERFACE_CLI_H
