@@ -4,9 +4,190 @@
 
 #include "core/entity.h"
 #include "core/error_codes.h"
+#include "core/effect.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+// ========== STAT FUNCTIONS ==========
+
+void stat_init(Stat* stat, int default_value)
+{
+    stat->base_value = default_value;
+    stat->cached_value = default_value;
+    stat->to_calculate = false;
+    stat->modifier_count = 0;
+    stat->modifier_capacity = 10;
+
+    stat->modifiers = calloc(stat->modifier_capacity, sizeof(StatModifier));
+
+    if (stat->modifiers == NULL) {
+        stat->modifier_capacity = 0;
+    }
+}
+
+void free_stat(Stat* stat)
+{
+    if (stat == NULL) return;
+
+    if (stat->modifiers != NULL) {
+        free(stat->modifiers);
+        stat->modifiers = NULL;
+    }
+
+    stat->modifier_count = 0;
+    stat->modifier_capacity = 0;
+}
+
+int stat_get_value(Stat* stat)
+{
+    if (stat == NULL) return 0;
+
+    // Use cached value if it's still fresh
+    if (!stat->to_calculate) {
+        return stat->cached_value;
+    }
+
+    // Cache is stale we recalculate
+    float result = (float)stat->base_value;
+
+    // Apply all FLAT based modifiers
+    for (int i = 0; i < stat->modifier_count; i++) {
+        if (stat->modifiers[i].type == MOD_FLAT) {
+            result += stat->modifiers[i].value;
+        }
+    }
+
+    // Apply all PERCENTAGE based modifiers (based on BASE value)
+    float percentage_sum = 0.0f;
+    for (int i = 0; i < stat->modifier_count; i++) {
+        if (stat->modifiers[i].type == MOD_PERCENTAGE) {
+            percentage_sum += stat->modifiers[i].value;
+        }
+    }
+    result += (float)stat->base_value * percentage_sum;
+
+    // Step 3: Update cache and mark clean
+    stat->cached_value = (int)result;
+    stat->to_calculate = false;
+
+    return stat->cached_value;
+}
+
+void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
+{
+    // Check if array is full and needs expansion
+    if (stat->modifier_count >= stat->modifier_capacity) {
+        int new_capacity = stat->modifier_capacity == 0 ? 4 : stat->modifier_capacity * 2;
+        StatModifier* new_modifiers = realloc(stat->modifiers,
+                                              new_capacity * sizeof(StatModifier));
+
+        if (new_modifiers == NULL) {
+            // Allocation failed
+            // throw error
+            fprintf(stderr, "Warning: Failed to expand modifier array\n");
+            return; // don't right into stat the null pointer
+        }
+        stat->modifiers = new_modifiers;
+        stat->modifier_capacity = new_capacity;
+    }
+
+    stat->modifiers[stat->modifier_count].value = value;
+    stat->modifiers[stat->modifier_count].type = type;
+    stat->modifiers[stat->modifier_count].source = source;
+    stat->modifier_count++;
+
+    stat->to_calculate = true;
+}
+
+
+void stat_modifier_remove_by_source(Stat* stat, Effect* source)
+{
+    if (stat == NULL || stat->modifiers == NULL) return;
+
+    int write_index = 0;
+    for (int read_index = 0; read_index < stat->modifier_count; read_index++) {
+        // we compare pointers directly
+        if (stat->modifiers[read_index].source != source) {
+            // overwrites precedent value, so erases the one we don't want
+            if (write_index != read_index) {
+                stat->modifiers[write_index] = stat->modifiers[read_index];
+            }
+            // increment only on values we want to keep
+            write_index++;
+        }
+    }
+
+    // we flag to recalculate the stat if we removed a modifier
+    if (write_index != stat->modifier_count) {
+        stat->modifier_count = write_index;
+        stat->to_calculate = true;
+    }
+}
+
+// ========== ENTITY FUNCTIONS ==========
+
+EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed)
+{
+    EntityBase base = {0};  // Zero-initialize
+
+    base.type = type;
+    if (name != NULL) {
+        strncpy(base.name, name, sizeof(base.name) - 1);
+        base.name[sizeof(base.name) - 1] = '\0';
+    }
+
+    int attack = 0;
+    int oxygen_level = 100;
+
+    // Initialize stats
+    stat_init(&base.attack, attack);
+    stat_init(&base.defense, base_defense);
+    stat_init(&base.max_health_points, max_hp);
+    stat_init(&base.speed, speed);
+    stat_init(&base.max_oxygen_level, oxygen_level);
+
+    // Initialize resources
+    base.current_health_points = max_hp;
+    base.oxygen_level = oxygen_level;
+    base.fatigue_level = 0;
+
+    base.effects_number = 0;
+    base.is_alive = 1;
+
+    return base;
+}
+
+void free_entity_base(EntityBase* base)
+{
+    if (base == NULL) return;
+
+    // Clean up all effects
+    for (int i = 0; i < base->effects_number; i++)
+    {
+        Effect* effect = &base->effects[i];
+
+        // Remove modifiers if still active
+        if (effect->is_active) {
+            stat_modifier_remove_by_source(&base->attack, effect);
+            stat_modifier_remove_by_source(&base->defense, effect);
+            stat_modifier_remove_by_source(&base->speed, effect);
+            stat_modifier_remove_by_source(&base->max_health_points, effect);
+            stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
+        }
+
+        // Free display message
+        free_effect_content(effect);
+    }
+    base->effects_number = 0;
+
+    // Clean up stats
+    free_stat(&base->attack);
+    free_stat(&base->defense);
+    free_stat(&base->max_health_points);
+    free_stat(&base->speed);
+    free_stat(&base->max_oxygen_level);
+}
 
 int entity_take_damage(EntityBase *base, int hp) {
     if (base == NULL) return POINTER_NULL;
@@ -21,33 +202,13 @@ int entity_take_damage(EntityBase *base, int hp) {
 int entity_recover_hp(EntityBase *base, int hp) {
     if (base == NULL) return POINTER_NULL ;
     if (base->is_alive == 0) return UNPROCESSABLE_REQUEST_ERROR;
+
     int new_value = base->current_health_points + hp;
-    if (new_value > base->max_health_points) {
-        base->current_health_points = base->max_health_points;
+    int max_hp = stat_get_value(&base->max_health_points);
+    if (new_value > max_hp) {
+        base->current_health_points = max_hp;
         return SUCCESS_SATURATED; // saturated
     }
     base->current_health_points = new_value;
     return SUCCESS;
-}
-
-EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed) {
-    EntityBase base = {0};
-
-    base.type = type;
-    if (name != NULL) {
-        strncpy(base.name, name, sizeof(base.name) - 1);
-        base.name[sizeof(base.name) - 1] = '\0';
-    }
-
-    base.max_health_points = max_hp;
-    base.current_health_points = max_hp;
-    base.base_attack = 0;
-    base.current_attack = 0;
-    base.base_defense = base_defense;
-    base.current_defense = base_defense;
-    base.speed = speed;
-    base.effects_number = 0;
-    base.is_alive = 1;
-
-    return base;
 }

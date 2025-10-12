@@ -6,22 +6,25 @@
 #include <string.h>
 #include "core/player.h"
 #include "core/error_codes.h"
+#include "core/entity.h"
 /*
  * player.c = Player stats, actions, resources (HP, oxygen, fatigue, pearls, inventory)
  */
 
-Player *create_player(char *name) {
+Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) {
     Player *p = malloc(sizeof(Player));
     if (p == NULL) return NULL;
 
-    p->base = create_entity_base(ENTITY_PLAYER, name, 100, 5, 0);
+    p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0);
 
-    // Resources (now in base)
-    p->base.oxygen_level = 50;
-    p->base.max_oxygen_level = 50;
-    p->base.fatigue_level = 0;
+    // entity base values
+    EntityBase base = p->base;
+    base.oxygen_level = max_oxygen;
+    base.max_oxygen_level.base_value = max_oxygen;
+    base.fatigue_level = 0;
+
+    // player unique values
     p->pearls = 10;
-
     // Inventory mockup function
     p->inventory = *create_inventory();
     return p;
@@ -63,8 +66,9 @@ int increase_fatigue(Player *p, int amount) {
 int recover_oxygen(Player *p, int oxygen) {
     if (p == NULL) return POINTER_NULL;
     int new_value = p->base.oxygen_level + oxygen;
-    if (new_value > p->base.max_oxygen_level) {
-        p->base.oxygen_level = p->base.max_oxygen_level;
+    int max_oxygen = stat_get_value(&p->base.max_oxygen_level);
+    if (new_value > max_oxygen) {
+        p->base.oxygen_level = max_oxygen;
         return SUCCESS_SATURATED;
     }
     p->base.oxygen_level = new_value;

@@ -23,10 +23,13 @@ typedef struct {
 /**
  * @brief Allocates and initializes a new Player instance.
  * @param name Name of the player (string copied into fixed buffer).
+ * @param max_hp Maximum hp of the player
+ * @param base_defense Base defense of the player
+ * @param max_oxygen Maximum oxygen of the player
  * @return Pointer to the new Player, or NULL if allocation failed.
  * @note Caller must free the returned Player with free_player().
  */
-Player *create_player(char *name);
+Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen);
 
 /**
  * @brief Frees allocated memory for a Player instance.

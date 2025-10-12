@@ -37,5 +37,6 @@ int apply_effect_to_target(EntityBase *target, Action action) {
         return SUCCESS;
     }
     // si c'est physical attack
-    return generic_tick(target, &effect);
+    effect_tick(target, &effect);
+    return SUCCESS;
 }

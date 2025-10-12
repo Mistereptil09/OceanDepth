@@ -4,16 +4,22 @@
 
 #include "core/effect.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "core/entity.h"
 
-// todo include effect triggering here
-
-
-
-Effect create_effect(const char* name, const char *display_message, const int turns, const int hp_cost,
-    const int attack_boost, const int defense_boost, const int oxygen_boost, const int speed_boost)
+// ========== EFFECT HANDLING ==========
+Effect create_effect(const char* name, const char *display_message, const int turns,
+    // ressources
+    const int hp_cost, const int oxygen_cost,
+    // flat modifiers
+    const int attack_boost_flat, const int defense_boost_flat, const int speed_boost_flat,
+    const int oxygen_max_boost_flat, const int hp_max_boost_flat,
+    // percent modifiers
+    const float attack_boost_percent, const float defense_boost_percent,const float speed_boost_percent,
+    const float oxygen_max_boost_percent, const float hp_max_boost_percent)
 {
     Effect effect = {0};
 
@@ -32,12 +38,26 @@ Effect create_effect(const char* name, const char *display_message, const int tu
     }
 
     effect.turns_left = turns;
+
+    // ressources
     effect.hp_cost = hp_cost;
-    effect.attack_boost = attack_boost;
-    effect.defense_boost = defense_boost;
-    effect.oxygen_boost = oxygen_boost;
-    effect.speed_boost = speed_boost;
-    effect.is_active = 1;
+    effect.oxygen_cost = oxygen_cost;
+
+    // flat modifiers
+    effect.attack_boost_flat = attack_boost_flat;
+    effect.defense_boost_flat = defense_boost_flat;
+    effect.speed_boost_flat = speed_boost_flat;
+    effect.oxygen_max_boost_flat = oxygen_max_boost_flat;
+    effect.hp_max_boost_flat = hp_max_boost_flat;
+
+    // percent modifiers
+    effect.attack_boost_percent = attack_boost_percent;
+    effect.defense_boost_percent = defense_boost_percent;
+    effect.speed_boost_percent = speed_boost_percent;
+    effect.oxygen_max_boost_percent = oxygen_max_boost_percent;
+    effect.hp_max_boost_percent = hp_max_boost_percent;
+
+    effect.is_active = 0;
 
     return effect;
 }
@@ -69,4 +89,122 @@ void free_effect_content(Effect *effect) {
         free(effect->display_message);
         effect->display_message = NULL;
     }
+}
+
+// ========== EFFECT LOGIC ==========
+
+void effect_apply(EntityBase* base, Effect* effect)
+{
+    if (effect->is_active) return;  // Already applied
+
+    // Apply FLAT modifiers
+    if (effect->attack_boost_flat != 0) {
+        stat_modifier_add(&base->attack, MOD_FLAT, effect, (float)effect->attack_boost_flat);
+    }
+    if (effect->defense_boost_flat != 0) {
+        stat_modifier_add(&base->defense, MOD_FLAT, effect, (float)effect->defense_boost_flat);
+    }
+    if (effect->speed_boost_flat != 0) {
+        stat_modifier_add(&base->speed, MOD_FLAT, effect, (float)effect->speed_boost_flat);
+    }
+    if (effect->hp_max_boost_flat != 0) {
+        stat_modifier_add(&base->max_health_points, MOD_FLAT, effect, (float)effect->hp_max_boost_flat);
+    }
+    if (effect->oxygen_max_boost_flat != 0) {
+        stat_modifier_add(&base->max_oxygen_level, MOD_FLAT, effect, (float)effect->oxygen_max_boost_flat);
+    }
+
+    // Apply PERCENTAGE modifiers
+    if (effect->attack_boost_percent != 0.0) {
+        stat_modifier_add(&base->attack, MOD_PERCENTAGE, effect, effect->attack_boost_percent);
+    }
+    if (effect->defense_boost_percent != 0.0) {
+        stat_modifier_add(&base->defense, MOD_PERCENTAGE, effect, effect->defense_boost_percent);
+    }
+    if (effect->speed_boost_percent != 0.0) {
+        stat_modifier_add(&base->speed, MOD_PERCENTAGE, effect, effect->speed_boost_percent);
+    }
+    if (effect->hp_max_boost_percent != 0.0) {
+        stat_modifier_add(&base->max_health_points, MOD_PERCENTAGE, effect, effect->hp_max_boost_percent);
+    }
+    if (effect->oxygen_max_boost_percent != 0.0) {
+        stat_modifier_add(&base->max_oxygen_level, MOD_PERCENTAGE, effect, effect->oxygen_max_boost_percent);
+    }
+
+    effect->is_active = 1;
+}
+
+void all_effects_tick(EntityBase* base)
+{
+    // Apply and tick active effects
+    for (int i = 0; i < base->effects_number; i++) {
+        Effect* effect = &base->effects[i];
+        if (!effect->is_active && effect->turns_left > 0) {
+            effect_apply(base, effect);
+        }
+        if (effect->is_active) {
+            effect_tick(base, effect);
+        }
+    }
+
+    // Compact array: remove expired effects
+    int write_index = 0;
+    for (int read_index = 0; read_index < base->effects_number; read_index++) {
+        if (base->effects[read_index].is_active ||
+            base->effects[read_index].turns_left > 0) {
+            if (write_index != read_index) {
+                base->effects[write_index] = base->effects[read_index];
+            }
+            write_index++;
+            }
+    }
+    base->effects_number = write_index;
+}
+
+void effect_tick(EntityBase* target, Effect* effect)
+{
+    if (!effect->is_active) return;
+
+    // Display message
+    if (effect->display_message) {
+        printf("%s\n", effect->display_message);
+    }
+
+    // Apply per-turn costs
+    target->current_health_points -= effect->hp_cost;
+    target->oxygen_level -= effect->oxygen_cost;
+
+    // Clamp resources
+    int max_hp = stat_get_value(&target->max_health_points);
+    if (target->current_health_points > max_hp) {
+        target->current_health_points = max_hp;
+    }
+
+    int max_oxygen = stat_get_value(&target->max_oxygen_level);
+    if (target->oxygen_level > max_oxygen) {
+        target->oxygen_level = max_oxygen;
+    }
+
+    // Decrement duration
+    effect->turns_left--;
+
+    // ✅ Remove modifiers when effect expires
+    if (effect->turns_left <= 0) {
+        effect_remove(target, effect);  // This cleans up modifiers!
+    }
+}
+
+void effect_remove(EntityBase* base, Effect* effect)
+{
+    if (!effect->is_active) return;
+
+    // Remove modifiers from this effect (using pointer)
+    stat_modifier_remove_by_source(&base->attack, effect);
+    stat_modifier_remove_by_source(&base->defense, effect);
+    stat_modifier_remove_by_source(&base->speed, effect);
+    stat_modifier_remove_by_source(&base->max_health_points, effect);
+    stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
+
+    effect->is_active = 0;
+    free_effect_content(effect);
 }
