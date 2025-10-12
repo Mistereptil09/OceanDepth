@@ -26,11 +26,6 @@ set(SOURCES
         ${CORE_SOURCES}
         ${INTERFACE_SOURCES}
         ${HELPER_SOURCES}
-        code/tests/creature_data_test.c
-        code/tests/effect_test.c
-        code/tests/effect_test.h
-        code/tests/creature_test.c
-        code/includes/core/error_codes.h
 )
 
 # Main executable
