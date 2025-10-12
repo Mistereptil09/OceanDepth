@@ -25,10 +25,15 @@ int get_sanitized_input(char *buffer, size_t max_len) {
         buffer[len - 1] = '\0';
         len--;
     } else if (len == max_len - 1) {
-        // Input was too long, clear remaining input from stdin
-        int c;
-        while ((c = getchar()) != '\n' && c != EOF);
-        return 0; // Input exceeded buffer
+        // Buffer is full - check if input was exactly right size or too long
+        int next = getchar();
+        if (next != '\n' && next != EOF) {
+            // Input was too long - clear the rest
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            return 0; // Input exceeded buffer
+        }
+        // If next is '\n' or EOF, input was exactly the right size - continue
     }
 
     // Skip leading whitespace
