@@ -28,4 +28,5 @@ typedef struct {
  */
 int apply_effect_to_target(EntityBase *target, Action action);
 
+int insert_effect_in_effects(EntityBase* target, Effect effect);
 #endif //OCEANDEPTH_ACTION_H
