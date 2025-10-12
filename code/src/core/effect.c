@@ -10,31 +10,16 @@
 
 // todo include effect triggering here
 
-Effect create_effect(EffectType type, char *display_message, int turns,
-                    int hp_cost, int oxygen_cost, int defense_cost,
-                    int attack_boost, int defense_boost, int oxygen_boost, int speed_boost) {
+
+
+Effect create_effect(const char* name, const char *display_message, const int turns, const int hp_cost,
+    const int attack_boost, const int defense_boost, const int oxygen_boost, const int speed_boost)
+{
     Effect effect = {0};
 
-    switch (type) {
-        case EFFECT_POISON:
-            strcpy(effect.name, "Poison");
-            break;
-
-        case EFFECT_PARALYSIS:
-            strcpy(effect.name, "Paralysis");
-            break;
-
-        case EFFECT_DEFENSE_BOOST:
-            strcpy(effect.name, "Defense Boost");
-            break;
-
-        case EFFECT_ATTACK_BOOST:
-            strcpy(effect.name, "Attack Boost");
-            break;
-
-        case EFFECT_BLEED:
-            strcpy(effect.name, "Bleeding");
-            break;
+    if (name != NULL) {
+        strncpy(effect.name, name, sizeof(effect.name) - 1);
+        effect.name[sizeof(effect.name) - 1] = '\0';  // Ensure null termination
     }
 
     if (display_message != NULL) {
@@ -48,8 +33,6 @@ Effect create_effect(EffectType type, char *display_message, int turns,
 
     effect.turns_left = turns;
     effect.hp_cost = hp_cost;
-    effect.oxygen_cost = oxygen_cost;
-    effect.defense_cost = defense_cost;
     effect.attack_boost = attack_boost;
     effect.defense_boost = defense_boost;
     effect.oxygen_boost = oxygen_boost;

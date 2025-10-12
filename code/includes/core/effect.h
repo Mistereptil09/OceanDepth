@@ -36,16 +36,32 @@ typedef struct Effect {
 } Effect;
 
 /**
- * @brief Applies and remove effect on target
+ * @brief Applies all active effects on a given entity
  * @param target Entity base pointer
- * @param effect Effect pointer
  */
-int generic_tick(EntityBase* target, Effect* effect);
-int generic_remove(EntityBase* target, Effect* effect);
+void effect_tick(EntityBase* target);
 
-Effect create_effect(EffectType type, char *display_message, int turns,
-                    int hp_cost, int oxygen_cost, int defense_cost,
-                    int attack_boost, int defense_boost, int oxygen_boost, int speed_boost);
+/**
+ * @brief Remove all inactive effects on a given entity
+ * @param target Entity base pointer
+ */
+void effect_remove(EntityBase* target);
+
+/**
+ * @brief Creates an effect with the given parameters. (put negative values like -2 for health or
+ * boost to inverse the effect, -2 at health will make it regenarate health instead of costing it)
+ * @param name the effect name expects a char of length smaller than 30
+ * @param display_message the message to display on effect tick
+ * @param turns the duration of the effect
+ * @param hp_cost the damage of the effect
+ * @param attack_boost how much we boost the attack
+ * @param defense_boost how much we boost the defense
+ * @param oxygen_boost  how much we give oxygen to the entity
+ * @param speed_boost  how much we boost the speed of the entity
+ * @return
+ */
+Effect create_effect(const char* name, const char *display_message, int turns, int hp_cost,
+int attack_boost, int defense_boost, int oxygen_boost, int speed_boost);
 
 /**
  * @brief Copies an effect and duplicates its display_message (used to handle effect application)
