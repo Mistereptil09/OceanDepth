@@ -58,7 +58,7 @@ void cli_get_input(const char* prompt, char* result, size_t result_size){
     char* buffer = malloc(result_size * sizeof(char));
     while (1)
     {
-        printf("%s", prompt);
+        printf("%s : ", prompt);
         if (get_sanitized_input(buffer, result_size))
         {
             strcpy(result, buffer);
