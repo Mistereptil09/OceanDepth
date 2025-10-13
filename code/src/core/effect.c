@@ -11,15 +11,15 @@
 #include "core/entity.h"
 
 // ========== EFFECT HANDLING ==========
-Effect create_effect(const char* name, const char *display_message, const int turns,
-    // ressources
-    const int hp_cost, const int oxygen_cost,
-    // flat modifiers
-    const int attack_boost_flat, const int defense_boost_flat, const int speed_boost_flat,
-    const int oxygen_max_boost_flat, const int hp_max_boost_flat,
-    // percent modifiers
-    const float attack_boost_percent, const float defense_boost_percent,const float speed_boost_percent,
-    const float oxygen_max_boost_percent, const float hp_max_boost_percent)
+Effect create_effect(const char* name, const char *display_message, int turns,
+                     // ressources
+                     int hp_cost,  int oxygen_cost,
+                     // flat modifiers
+                     int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
+                     int oxygen_max_boost_flat, int hp_max_boost_flat,
+                     // percent modifiers
+                     float attack_boost_percent, float defense_boost_percent,float speed_boost_percent,
+                     float oxygen_max_boost_percent, float hp_max_boost_percent,FonctionEffect on_tick)
 {
     Effect effect = {0};
 
@@ -59,6 +59,12 @@ Effect create_effect(const char* name, const char *display_message, const int tu
 
     effect.is_active = 0;
 
+    effect.on_tick = NULL;
+
+    if (on_tick != NULL) {
+        effect.on_tick = on_tick;
+    }
+
     return effect;
 }
 
@@ -95,7 +101,12 @@ void free_effect_content(Effect *effect) {
 
 void effect_apply(EntityBase* base, Effect* effect)
 {
-    if (effect->is_active) return;  // Already applied
+    if (effect->is_active) return;  // simple effect already applied
+
+    if (effect->on_tick != NULL) {
+        effect->is_active = 1;
+        return;
+    }
 
     // Apply FLAT modifiers
     if (effect->attack_boost_flat != 0) {
@@ -165,32 +176,35 @@ void effect_tick(EntityBase* target, Effect* effect)
 {
     if (!effect->is_active) return;
 
-    // Display message
-    if (effect->display_message) {
-        printf("%s\n", effect->display_message);
+    if (effect->on_tick != NULL) {
+        // special effect, apply special logic instead of stat modifiers
+        effect->on_tick(target);
+    } else {
+        // Display message
+        if (effect->display_message) {
+            printf("%s\n", effect->display_message);
+        }
+
+        // Apply per-turn costs
+        /*target->current_health_points -= effect->hp_cost;
+        target->oxygen_level -= effect->oxygen_cost;*/
+
+        // Clamp resources
+        int max_hp = stat_get_value(&target->max_health_points);
+        if (target->current_health_points > max_hp) {
+            target->current_health_points = max_hp;
+        }
+
+        int max_oxygen = stat_get_value(&target->max_oxygen_level);
+        if (target->oxygen_level > max_oxygen) {
+            target->oxygen_level = max_oxygen;
+        }
     }
+        effect->turns_left--;
 
-    // Apply per-turn costs
-    target->current_health_points -= effect->hp_cost;
-    target->oxygen_level -= effect->oxygen_cost;
-
-    // Clamp resources
-    int max_hp = stat_get_value(&target->max_health_points);
-    if (target->current_health_points > max_hp) {
-        target->current_health_points = max_hp;
-    }
-
-    int max_oxygen = stat_get_value(&target->max_oxygen_level);
-    if (target->oxygen_level > max_oxygen) {
-        target->oxygen_level = max_oxygen;
-    }
-
-    // Decrement duration
-    effect->turns_left--;
-
-    // ✅ Remove modifiers when effect expires
+    // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
-        effect_remove(target, effect);  // This cleans up modifiers!
+            effect_remove(target, effect);  // This cleans up modifiers
     }
 }
 
@@ -198,12 +212,14 @@ void effect_remove(EntityBase* base, Effect* effect)
 {
     if (!effect->is_active) return;
 
-    // Remove modifiers from this effect (using pointer)
-    stat_modifier_remove_by_source(&base->attack, effect);
-    stat_modifier_remove_by_source(&base->defense, effect);
-    stat_modifier_remove_by_source(&base->speed, effect);
-    stat_modifier_remove_by_source(&base->max_health_points, effect);
-    stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
+    if (effect->on_tick == NULL) {
+        // Remove modifiers from this effect (using pointer)
+        stat_modifier_remove_by_source(&base->attack, effect);
+        stat_modifier_remove_by_source(&base->defense, effect);
+        stat_modifier_remove_by_source(&base->speed, effect);
+        stat_modifier_remove_by_source(&base->max_health_points, effect);
+        stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
+    }
 
     effect->is_active = 0;
     free_effect_content(effect);

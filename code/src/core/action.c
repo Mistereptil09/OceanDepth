@@ -1,42 +1,71 @@
 //
-// Created by Yasmine Slamani on 03/10/2025.
+// Ta fonction adaptée pour le système hybride
 //
 
 #include "../../includes/core/action.h"
-
 #include <string.h>
-
 #include "core/entity.h"
 #include "core/error_codes.h"
+#include "core/effect.h"
+
+static int last_replaced = -1;
 
 int apply_effect_to_target(EntityBase *target, Action action) {
     if (target == NULL) return POINTER_NULL;
     Effect effect = action.effect;
 
-    // si c'est special skill
-    if (action.type == SPECIAL_SKILL) {
-        Effect *active_effects = target->effects;
         for (int i = 0; i < target->effects_number; i++) {
-            if (strcmp(active_effects[i].name, effect.name) == 0) {
-                if (active_effects[i].is_active) {
-                    return ALREADY_ACTIVE; // already active
+            if (strcmp(target->effects[i].name, effect.name) == 0) {
+                if (target->effects[i].is_active) {
+                    return ALREADY_ACTIVE;
                 }
-               // if not active, reactivate it
-                active_effects[i].is_active = 1;
-                active_effects[i].turns_left = effect.turns_left;
+                // reactivate old effect
+                target->effects[i].is_active = 1;
+                target->effects[i].turns_left = effect.turns_left;
+
+                // apply effect if simple effect
+                effect_apply(target, &target->effects[i]);
                 return SUCCESS;
             }
         }
-        // effect not found
+
+        // else, add new effect to list
         if (target->effects_number >= MAX_EFFECTS) {
-            // handle adding to the array even when max is reached (looking for !is_active to replace, otherwise
-            // replace or keep untouched)
+            return insert_effect_in_effects(target, effect);
         }
+
         target->effects[target->effects_number] = effect_copy(&effect);
         target->effects_number++;
+
+        effect_apply(target, &target->effects[target->effects_number - 1]);
+
         return SUCCESS;
+}
+
+int insert_effect_in_effects(EntityBase* target, Effect effect) {
+    if (target == NULL) return POINTER_NULL;
+
+    // look for an inactive slot
+    for (int i = 0; i < target->effects_number; i++) {
+        if (!target->effects[i].is_active) {
+            effect_remove(target, &target->effects[i]);
+            free_effect_content(&target->effects[i]);
+
+            // insert new effect
+            target->effects[i] = effect_copy(&effect);
+            effect_apply(target, &target->effects[i]);
+            return SUCCESS;
+        }
     }
-    // si c'est physical attack
-    effect_tick(target, &effect);
+
+    // replace oldest
+    last_replaced = (last_replaced + 1) % MAX_EFFECTS;
+
+    effect_remove(target, &target->effects[last_replaced]);
+    free_effect_content(&target->effects[last_replaced]);
+
+    target->effects[last_replaced] = effect_copy(&effect);
+    effect_apply(target, &target->effects[last_replaced]);
+
     return SUCCESS;
 }

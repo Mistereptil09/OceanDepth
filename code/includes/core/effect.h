@@ -5,7 +5,11 @@
 #ifndef OCEANDEPTH_EFFECT_H
 #define OCEANDEPTH_EFFECT_H
 
+
 typedef struct EntityBase EntityBase;
+
+typedef int (*FonctionEffect)(EntityBase *target); // for special effects
+
 typedef struct Effect Effect;
 
 typedef struct Effect {
@@ -16,6 +20,8 @@ typedef struct Effect {
     // Per-turn costs
     int hp_cost;
     int oxygen_cost;
+
+    FonctionEffect on_tick;             // NULL if it isn't a special effect
 
     // FLAT modifiers (once, for duration)
     int attack_boost_flat;
@@ -35,8 +41,16 @@ typedef struct Effect {
 } Effect;
 
 /**
+ *
+ * @param base
+ * @param effect
+ */
+void effect_apply(EntityBase* base, Effect* effect);
+
+/**
  * @brief Applies all active effects on a given entity
  * @param target Entity base pointer
+ * @param effect to apply
  */
 void effect_tick(EntityBase* target, Effect* effect);
 
@@ -75,15 +89,15 @@ void effect_remove(EntityBase* target, Effect* effect);
  * @param hp_max_boost_percent max health points boost in percentage
  * @return
  */
-Effect create_effect(const char* name, const char *display_message, const int turns,
+Effect create_effect(const char* name, const char *display_message, int turns,
                      // ressources
-                     const int hp_cost, const int oxygen_cost,
+                     int hp_cost,  int oxygen_cost,
                      // flat modifiers
-                     const int attack_boost_flat, const int defense_boost_flat, const int speed_boost_flat,
-                     const int oxygen_max_boost_flat, const int hp_max_boost_flat,
+                     int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
+                     int oxygen_max_boost_flat, int hp_max_boost_flat,
                      // percent modifiers
-                     const float attack_boost_percent, const float defense_boost_percent,const float speed_boost_percent,
-                     const float oxygen_max_boost_percent, const float hp_max_boost_percent);
+                     float attack_boost_percent, float defense_boost_percent,float speed_boost_percent,
+                     float oxygen_max_boost_percent, float hp_max_boost_percent, FonctionEffect on_tick);
 
 /**
  * @brief Copies an effect and duplicates its display_message (used to handle effect application)
