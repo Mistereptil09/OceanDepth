@@ -62,6 +62,7 @@ void cli_get_input(const char* prompt, char* result, size_t result_size){
         if (get_sanitized_input(buffer, result_size))
         {
             strcpy(result, buffer);
+            free(buffer);
             return;
         }
         printf("Invalid input. Please try again.\n");
