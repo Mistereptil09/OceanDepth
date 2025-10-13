@@ -28,14 +28,18 @@ void init_creature_templates(void) {
                 // flat modifiers (attack, defense, speed, max_oxygen, max_health)
                 0, 0, 0, 0, 0,
                 // percentage modifiers
-                0, 0, 0, 0, 0)},
+                0, 0, 0, 0, 0,
+                // special effect for now NULL pointer
+                NULL)},
             {"Ink Cloud", PHYSICAL_ATTACK, 2, create_effect("Paralysis", "Engulfed in darkness!", 2,
                 // ressources (hp_cost, oxygen_cost)
                 0, 0,
                 // flat modifiers (attack, defense, speed, max_oxygen, max_health)
                 0, 0, 0, 0, 0,
                 // percentage modifiers
-                0, 0, 0, 0, 0)}
+                0, 0, 0, 0, 0,
+                // special effect for now NULL pointer
+                NULL)},
         }
     };
 
@@ -49,14 +53,18 @@ void init_creature_templates(void) {
                 // flat modifiers (attack, defense, speed, max_oxygen, max_health)
                 0, 0, 0, 0, 0,
                 // percentage modifiers
-                0, 0, 0, 0, 0)},
+                0, 0, 0, 0, 0,
+                // special effect for now NULL pointer
+                NULL)},
             {"Shell Defense", SPECIAL_SKILL, 2, create_effect("Defense boost", "Shell hardens!", 2,
                 // ressources (hp_cost, oxygen_cost)
                 0, 0,
                 // flat modifiers (attack, defense, speed, max_oxygen, max_health)
                 0, 10, 0, 0, 0,
                 // percentage modifiers
-                0, 0, 0, 0, 0)}
+                0, 0, 0, 0, 0,
+                // special effect for now NULL pointer
+                NULL)},
         }
     };
 
@@ -70,14 +78,18 @@ void init_creature_templates(void) {
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 10, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Electric Shock", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Electric jolt!", 1,
             // ressources (hp_cost, oxygen_cost)
             0, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 
@@ -91,14 +103,18 @@ void init_creature_templates(void) {
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Blood Frenzy", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
             // ressources (hp_cost, oxygen_cost)
             15, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 
@@ -112,14 +128,18 @@ void init_creature_templates(void) {
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Abyssal Roar", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Terror from the deep!", 1,
             // ressources (hp_cost, oxygen_cost)
             0, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 
@@ -133,14 +153,18 @@ void init_creature_templates(void) {
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Darkness Veil", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Lost in darkness!", 1,
             // ressources (hp_cost, oxygen_cost)
             0, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 
@@ -148,20 +172,24 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
         SWORDFISH, CREATURE_MEDIUM, 70, 90, 18, 28, 10, 1,
         {
-                {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Pierced by blade!", 1,
-                    // ressources (hp_cost, oxygen_cost)
-                    10, 0,
-                    // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                    0, 0, 0, 0, 0,
-                    // percentage modifiers
-                    0, 0, 0, 0, 0)},
+            {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Pierced by blade!", 1,
+            // ressources (hp_cost, oxygen_cost)
+            10, 0,
+            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            0, 0, 0, 0, 0,
+            // percentage modifiers
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Attack Boost", SPECIAL_SKILL, 2, create_effect("Attack boost", "Speed surge!", 2,
             // ressources (hp_cost, oxygen_cost)
             0, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             10, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 
@@ -175,14 +203,18 @@ void init_creature_templates(void) {
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
             {"Apex Predator", PHYSICAL_ATTACK, 0, create_effect("Poison", "Apex venom!", 1,
             // ressources (hp_cost, oxygen_cost)
             10, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
             0, 0, 0, 0, 0,
             // percentage modifiers
-            0, 0, 0, 0, 0)},
+            0, 0, 0, 0, 0,
+            // special effect for now NULL pointer
+            NULL)},
         }
     };
 

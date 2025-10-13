@@ -87,6 +87,7 @@ void effect_remove(EntityBase* target, Effect* effect);
  * @param speed_boost_percent speed boost in percentage
  * @param oxygen_max_boost_percent max oxygen boost in percentage
  * @param hp_max_boost_percent max health points boost in percentage
+ * @param on_tick Effect to apply on tick, is expected to be a pointer to a function
  * @return
  */
 Effect create_effect(const char* name, const char *display_message, int turns,
@@ -97,7 +98,9 @@ Effect create_effect(const char* name, const char *display_message, int turns,
                      int oxygen_max_boost_flat, int hp_max_boost_flat,
                      // percent modifiers
                      float attack_boost_percent, float defense_boost_percent,float speed_boost_percent,
-                     float oxygen_max_boost_percent, float hp_max_boost_percent, FonctionEffect on_tick);
+                     float oxygen_max_boost_percent, float hp_max_boost_percent,
+                     // special effect of the function (is a pointer to the function)
+                     FonctionEffect on_tick);
 
 /**
  * @brief Copies an effect and duplicates its display_message (used to handle effect application)
