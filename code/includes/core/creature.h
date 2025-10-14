@@ -39,6 +39,7 @@ typedef enum {
 typedef struct {
     CreatureType type;
     CreatureTier tier;
+    char name[30];  // Display name for this creature type
     int min_hp, max_hp;
     int min_atk, max_atk;
     int defense;

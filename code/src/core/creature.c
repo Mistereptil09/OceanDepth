@@ -45,16 +45,6 @@ void free_creature(Creature *c) {
     free(c);
 }
 
-
-// made dirty for now
-/*Creature* create_from_template(CreatureTier tier, int id)
-{
-    CreatureType type = rand() % 8;
-    EntityBase base;
-    base.type = ENTITY_CREATURE;
-    return create_creature(id, type, base, NULL);
-}*/
-
 Creature **generate_creatures(Difficulty d, int *count) {
     if (!count) return NULL;
 
@@ -133,7 +123,8 @@ Creature *create_from_template(CreatureTier tier, int id) {
     int defense = t->defense;
     int speed = t->speed;
 
-    EntityBase base = create_entity_base(ENTITY_CREATURE, "Creature", hp, defense, speed);
+    // Use the template's name instead of generic "Creature"
+    EntityBase base = create_entity_base(ENTITY_CREATURE, t->name, hp, defense, speed);
 
     Action template_actions[MAX_ACTIONS];
     for (int i = 0; i < MAX_ACTIONS; i++) {
