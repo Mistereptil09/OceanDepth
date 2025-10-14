@@ -173,21 +173,28 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         }
 
         // Apply per-turn costs
-        /*target->current_health_points -= effect->hp_cost;
-        target->oxygen_level -= effect->oxygen_cost;*/
+        self->current_health_points -= effect->hp_cost;
+        self->oxygen_level -= effect->oxygen_cost;
 
         // Clamp resources
         int max_hp = self->max_health_points;
         if (self->current_health_points > max_hp) {
             self->current_health_points = max_hp;
         }
+        if (self->current_health_points <= 0) {
+            self->current_health_points = 0;
+            self->is_alive = 0;
+        }
 
         int max_oxygen = self->max_oxygen_level;
         if (self->oxygen_level > max_oxygen) {
             self->oxygen_level = max_oxygen;
         }
+        if (self->oxygen_level < 0) {
+            self->oxygen_level = 0;
+        }
     }
-        effect->turns_left--;
+    effect->turns_left--;
 
     // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
@@ -199,13 +206,10 @@ void effect_remove(EntityBase* base, Effect* effect)
 {
     if (!effect->is_active) return;
 
-    if (effect->on_tick == NULL) {
-        // Remove modifiers from this effect (using pointer)
-        stat_modifier_remove_by_source(&base->attack, effect);
-        stat_modifier_remove_by_source(&base->defense, effect);
-        stat_modifier_remove_by_source(&base->speed, effect);
-    }
+    // Remove all stat modifiers associated with this effect
+    stat_modifier_remove_by_source(&base->attack, effect);
+    stat_modifier_remove_by_source(&base->defense, effect);
+    stat_modifier_remove_by_source(&base->speed, effect);
 
     effect->is_active = 0;
-    free_effect_content(effect);
 }
