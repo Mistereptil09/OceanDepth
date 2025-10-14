@@ -14,6 +14,7 @@
 void stat_init(Stat* stat, int default_value)
 {
     stat->base_value = default_value;
+    stat->current_value = default_value;
     stat->cached_value = default_value;
     stat->to_calculate = false;
     stat->modifier_count = 0;
@@ -72,6 +73,10 @@ int stat_get_value(Stat* stat)
     stat->to_calculate = false;
 
     return stat->cached_value;
+}
+
+void stat_prepare_for_turn(Stat* stat) {
+    stat->current_value = stat_get_value(stat);
 }
 
 void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)

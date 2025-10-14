@@ -145,40 +145,39 @@ void effect_apply(EntityBase* base, Effect* effect)
     effect->is_active = 1;
 }
 
-void all_effects_tick(EntityBase* base)
+void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 {
     // Apply and tick active effects
-    for (int i = 0; i < base->effects_number; i++) {
-        Effect* effect = &base->effects[i];
+    for (int i = 0; i < self->effects_number; i++) {
+        Effect* effect = &self->effects[i];
         if (!effect->is_active && effect->turns_left > 0) {
-            effect_apply(base, effect);
+            effect_apply(self, effect);
         }
         if (effect->is_active) {
-            effect_tick(base, effect);
+            effect_tick(self, ennemy, effect);
         }
     }
 
     // Compact array: remove expired effects
     int write_index = 0;
-    for (int read_index = 0; read_index < base->effects_number; read_index++) {
-        if (base->effects[read_index].is_active ||
-            base->effects[read_index].turns_left > 0) {
+    for (int read_index = 0; read_index < self->effects_number; read_index++) {
+        if (self->effects[read_index].is_active ||
+            self->effects[read_index].turns_left > 0) {
             if (write_index != read_index) {
-                base->effects[write_index] = base->effects[read_index];
+                self->effects[write_index] = self->effects[read_index];
             }
             write_index++;
             }
     }
-    base->effects_number = write_index;
+    self->effects_number = write_index;
 }
 
-void effect_tick(EntityBase* target, Effect* effect)
+void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 {
     if (!effect->is_active) return;
 
     if (effect->on_tick != NULL) {
-        // special effect, apply special logic instead of stat modifiers
-        effect->on_tick(target);
+          effect->on_tick(self, ennemy);
     } else {
         // Display message
         if (effect->display_message) {
@@ -190,21 +189,21 @@ void effect_tick(EntityBase* target, Effect* effect)
         target->oxygen_level -= effect->oxygen_cost;*/
 
         // Clamp resources
-        int max_hp = stat_get_value(&target->max_health_points);
-        if (target->current_health_points > max_hp) {
-            target->current_health_points = max_hp;
+        int max_hp = stat_get_value(&self->max_health_points);
+        if (self->current_health_points > max_hp) {
+            self->current_health_points = max_hp;
         }
 
-        int max_oxygen = stat_get_value(&target->max_oxygen_level);
-        if (target->oxygen_level > max_oxygen) {
-            target->oxygen_level = max_oxygen;
+        int max_oxygen = stat_get_value(&self->max_oxygen_level);
+        if (self->oxygen_level > max_oxygen) {
+            self->oxygen_level = max_oxygen;
         }
     }
         effect->turns_left--;
 
     // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
-            effect_remove(target, effect);  // This cleans up modifiers
+            effect_remove(self, effect);  // This cleans up modifiers
     }
 }
 

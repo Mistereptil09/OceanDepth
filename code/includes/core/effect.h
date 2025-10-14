@@ -5,10 +5,9 @@
 #ifndef OCEANDEPTH_EFFECT_H
 #define OCEANDEPTH_EFFECT_H
 
-
 typedef struct EntityBase EntityBase;
 
-typedef int (*FonctionEffect)(EntityBase *target); // for special effects
+typedef int (*FonctionEffect)(EntityBase *self, EntityBase *ennemy); // for special effects
 
 typedef struct Effect Effect;
 
@@ -52,13 +51,13 @@ void effect_apply(EntityBase* base, Effect* effect);
  * @param target Entity base pointer
  * @param effect to apply
  */
-void effect_tick(EntityBase* target, Effect* effect);
+void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect);
 
 /**
  * Apply effects, removes effects and make them tick each turn. Clear up decayed effects
  * @param base Base to make effect tick
  */
-void all_effects_tick(EntityBase* base);
+void all_effects_tick(EntityBase* self, EntityBase* ennemy);
 
 
 

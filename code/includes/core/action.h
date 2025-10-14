@@ -6,8 +6,8 @@
 #include "effect.h"
 
 typedef enum {
-    PHYSICAL_ATTACK,
-    SPECIAL_SKILL,
+    PHYSICAL_ATTACK, // TARGET ENNEMY
+    SPECIAL_SKILL, // TARGET SELF
     // ITEM_ATTACK (unnecessary)
 } ActionType;
 

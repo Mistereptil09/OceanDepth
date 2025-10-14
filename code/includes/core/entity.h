@@ -31,6 +31,7 @@ typedef struct {
 // allows to calculate the effect modified stats
 typedef struct {
     int base_value;
+    int current_value;
     int cached_value;
     bool to_calculate;
     StatModifier* modifiers;
