@@ -32,15 +32,13 @@ int get_creature_template_count(void);
 void cleanup_creature_templates(void);
 
 /** Kraken : "Étreinte tentaculaire" → 2 attaques consécutives */
-int etreinte_tentaculaire_tick(void);
+int etreinte_tentaculaire_tick(EntityBase* self, EntityBase* ennemy);
 
 /** Requin : "Frénésie sanguinaire" → +30% dégâts si PV < 50% */
-int frénésie_sanguinaire_tick(void);
+int frénésie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy);
 
-int carapace_durciel_tick(void);
-
-Poisson-Épée : "Charge perforante" → Ignore 2 points de défense
-Crabe Géant : "Carapace durcie" → Réduit tous les dégâts subis de 20%
+/** Crabe Géant : "Carapace durcie" → Réduit tous les dégâts subis de 20%**/
+int carapace_durcie_tick(EntityBase* self, EntityBase* ennemy);
 
 
 int random_range(int min, int max);
