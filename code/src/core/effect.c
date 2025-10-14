@@ -146,7 +146,7 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
         }
     }
 
-    // Compact array: remove expired effects
+    // Compact array: remove expired effects and free their memory
     int write_index = 0;
     for (int read_index = 0; read_index < self->effects_number; read_index++) {
         if (self->effects[read_index].is_active ||
@@ -155,7 +155,10 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
                 self->effects[write_index] = self->effects[read_index];
             }
             write_index++;
-            }
+        } else {
+            // Effect is expired - free its display_message before discarding
+            free_effect_content(&self->effects[read_index]);
+        }
     }
     self->effects_number = write_index;
 }
