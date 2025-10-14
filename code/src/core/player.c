@@ -24,8 +24,14 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     // player unique values
     p->pearls = 10;
-    // Inventory mockup function
-    p->inventory = *create_inventory();
+    // Inventory initialization - properly handle memory
+    Inventory* inv = create_inventory();
+    if (inv == NULL) {
+        free(p);
+        return NULL;
+    }
+    p->inventory = *inv;
+    free(inv);  // Free the temporary inventory pointer after copying
     return p;
 }
 
