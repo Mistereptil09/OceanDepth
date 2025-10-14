@@ -142,7 +142,7 @@ EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_
         base.name[sizeof(base.name) - 1] = '\0';
     }
 
-    int attack = 0;
+    int attack = 10;
     int oxygen_level = 100;
 
     // Initialize stats
