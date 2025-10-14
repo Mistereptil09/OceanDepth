@@ -20,7 +20,7 @@ void init_creature_templates(void) {
 
     // KRAKEN - Physical attacker with bleeding
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
-        KRAKEN, CREATURE_HARD, 120, 180, 25, 40, 10, 2,
+        KRAKEN, CREATURE_HARD, "Kraken", 120, 180, 25, 40, 10, 2,
         {
             {"Tentacle Strike", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Tentacles tear flesh!", 1,
                 // ressources (hp_cost, oxygen_cost)
@@ -45,7 +45,7 @@ void init_creature_templates(void) {
 
     // KING_CRAB - Tank with defense
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
-        KING_CRAB, CREATURE_MEDIUM, 80, 120, 12, 20, 10, 2,
+        KING_CRAB, CREATURE_MEDIUM, "King Crab", 80, 120, 12, 20, 10, 2,
         {
             {"Claw Pinch", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Pinned by mighty claws!", 1,
                 // ressources (hp_cost, oxygen_cost)
@@ -70,7 +70,7 @@ void init_creature_templates(void) {
 
     // JELLYFISH - Poison specialist
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
-        JELLYFISH, CREATURE_EASY, 20, 40, 8, 15, 5, 3,
+        JELLYFISH, CREATURE_EASY, "Jellyfish", 20, 40, 8, 15, 5, 3,
         {
             {"Tentacle Sting", PHYSICAL_ATTACK, 0, create_effect("Poison", "Venomous sting!", 1,
             // ressources (hp_cost, oxygen_cost)
@@ -95,7 +95,7 @@ void init_creature_templates(void) {
 
     // SHARK - Berserker with bleeding and frenzy
     CREATURE_TEMPLATES[3] = (CreatureTemplate){
-        SHARK, CREATURE_MEDIUM, 60, 100, 15, 25, 20, 1,
+        SHARK, CREATURE_MEDIUM, "Shark", 60, 100, 15, 25, 20, 1,
         {
             {"Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Razor teeth bite deep!", 1,
             // ressources (hp_cost, oxygen_cost)
@@ -120,7 +120,7 @@ void init_creature_templates(void) {
 
     // LEVIATHAN - Boss with massive damage
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
-        LEVIATHAN, CREATURE_BOSS, 210, 230, 30, 45, 15, 1,
+        LEVIATHAN, CREATURE_BOSS, "Leviathan", 210, 230, 30, 45, 15, 1,
         {
             {"Ancient Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Primordial jaws rend!", 1,
             // ressources (hp_cost, oxygen_cost)
@@ -145,7 +145,7 @@ void init_creature_templates(void) {
 
     // ANGLERFISH - Ambush predator
     CREATURE_TEMPLATES[5] = (CreatureTemplate){
-        ANGLERFISH, CREATURE_HARD, 180, 180, 12, 20, 15, 3,
+        ANGLERFISH, CREATURE_HARD, "Anglerfish", 180, 180, 12, 20, 15, 3,
         {
             {"Lure Attack", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Ambushed from shadows!", 1,
             // ressources (hp_cost, oxygen_cost)
@@ -170,7 +170,7 @@ void init_creature_templates(void) {
 
     // SWORDFISH - Fast striker
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
-        SWORDFISH, CREATURE_MEDIUM, 70, 90, 18, 28, 10, 1,
+        SWORDFISH, CREATURE_MEDIUM, "Swordfish", 70, 90, 18, 28, 10, 1,
         {
             {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Pierced by blade!", 1,
             // ressources (hp_cost, oxygen_cost)
@@ -195,7 +195,7 @@ void init_creature_templates(void) {
 
     // MEGALODON - Ultimate boss
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
-        MEGALODON, CREATURE_BOSS, 210, 230, 25, 45, 15, 1,
+        MEGALODON, CREATURE_BOSS, "Megalodon", 210, 230, 25, 45, 15, 1,
         {
             {"Prehistoric Bite", PHYSICAL_ATTACK, 2, create_effect("Bleed", "Ancient fury unleashed!", 2,
             // ressources (hp_cost, oxygen_cost)
