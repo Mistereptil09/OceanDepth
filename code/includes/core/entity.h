@@ -15,7 +15,7 @@ typedef enum {
     ENTITY_CREATURE
 } EntityType;
 
-// Modifier types for different calculation methods
+/** @brief Modifier types for different calculation methods **/
 typedef enum {
     MOD_FLAT,        // Direct addition: +10 attack
     MOD_PERCENTAGE   // Percentage of base: +20% attack
@@ -30,9 +30,9 @@ typedef struct {
 
 // allows to calculate the effect modified stats
 typedef struct {
-    int base_value;
-    int current_value;
-    int cached_value;
+    int base_value; // entity initial value for that stat
+    int cached_value; // value after all modifiers were applied
+    int current_value; // a copy of cached_value that can be modified by functions that aren't tracked by StatModifier
     bool to_calculate;
     StatModifier* modifiers;
     int modifier_count;
@@ -46,19 +46,17 @@ typedef struct EntityBase{
     // stats that are modified by effects
     Stat attack;
     Stat defense;
+    int max_health_points;
     // Creature-specific stats (can be used by player for movement)
     Stat speed;
 
-    // Not modified but not ressources either
-    int max_health_points;
-    // Player-specific stats (unused by creatures)
-    int max_oxygen_level;
-
-    // Ressources (health, oxygen)
+    // Resources (health, oxygen)
     int current_health_points;
+
     // Player-specific stats (unused by creatures)
     int fatigue_level;
     int oxygen_level;
+    int max_oxygen_level;
 
     // Effects
     int effects_number;
