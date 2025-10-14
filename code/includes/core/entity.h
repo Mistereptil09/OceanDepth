@@ -46,11 +46,13 @@ typedef struct EntityBase{
     // stats that are modified by effects
     Stat attack;
     Stat defense;
-    Stat max_health_points;
     // Creature-specific stats (can be used by player for movement)
     Stat speed;
+
+    // Not modified but not ressources either
+    int max_health_points;
     // Player-specific stats (unused by creatures)
-    Stat max_oxygen_level;
+    int max_oxygen_level;
 
     // Ressources (health, oxygen)
     int current_health_points;

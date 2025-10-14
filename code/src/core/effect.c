@@ -118,12 +118,6 @@ void effect_apply(EntityBase* base, Effect* effect)
     if (effect->speed_boost_flat != 0) {
         stat_modifier_add(&base->speed, MOD_FLAT, effect, (float)effect->speed_boost_flat);
     }
-    if (effect->hp_max_boost_flat != 0) {
-        stat_modifier_add(&base->max_health_points, MOD_FLAT, effect, (float)effect->hp_max_boost_flat);
-    }
-    if (effect->oxygen_max_boost_flat != 0) {
-        stat_modifier_add(&base->max_oxygen_level, MOD_FLAT, effect, (float)effect->oxygen_max_boost_flat);
-    }
 
     // Apply PERCENTAGE modifiers
     if (effect->attack_boost_percent != 0.0) {
@@ -134,12 +128,6 @@ void effect_apply(EntityBase* base, Effect* effect)
     }
     if (effect->speed_boost_percent != 0.0) {
         stat_modifier_add(&base->speed, MOD_PERCENTAGE, effect, effect->speed_boost_percent);
-    }
-    if (effect->hp_max_boost_percent != 0.0) {
-        stat_modifier_add(&base->max_health_points, MOD_PERCENTAGE, effect, effect->hp_max_boost_percent);
-    }
-    if (effect->oxygen_max_boost_percent != 0.0) {
-        stat_modifier_add(&base->max_oxygen_level, MOD_PERCENTAGE, effect, effect->oxygen_max_boost_percent);
     }
 
     effect->is_active = 1;
@@ -189,12 +177,12 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         target->oxygen_level -= effect->oxygen_cost;*/
 
         // Clamp resources
-        int max_hp = stat_get_value(&self->max_health_points);
+        int max_hp = self->max_health_points;
         if (self->current_health_points > max_hp) {
             self->current_health_points = max_hp;
         }
 
-        int max_oxygen = stat_get_value(&self->max_oxygen_level);
+        int max_oxygen = self->max_oxygen_level;
         if (self->oxygen_level > max_oxygen) {
             self->oxygen_level = max_oxygen;
         }
@@ -216,8 +204,6 @@ void effect_remove(EntityBase* base, Effect* effect)
         stat_modifier_remove_by_source(&base->attack, effect);
         stat_modifier_remove_by_source(&base->defense, effect);
         stat_modifier_remove_by_source(&base->speed, effect);
-        stat_modifier_remove_by_source(&base->max_health_points, effect);
-        stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
     }
 
     effect->is_active = 0;

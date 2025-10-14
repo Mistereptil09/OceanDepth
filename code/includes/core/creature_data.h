@@ -37,11 +37,7 @@ int etreinte_tentaculaire_tick(void);
 /** Requin : "Frénésie sanguinaire" → +30% dégâts si PV < 50% */
 int frénésie_sanguinaire_tick(void);
 
-int carapace_durciel_tick(void);
-
-Poisson-Épée : "Charge perforante" → Ignore 2 points de défense
-Crabe Géant : "Carapace durcie" → Réduit tous les dégâts subis de 20%
-
+int carapace_durcie_tick(void);
 
 int random_range(int min, int max);
 

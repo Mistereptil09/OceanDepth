@@ -15,8 +15,8 @@
 void display_creature(const Creature* c) {
     printf("  ID: %d, Type: %d\n", c->id, c->type);
     printf("  HP: %d/%d, DEF: %d, SPD: %d, Alive: %s\n", 
-           c->base.current_health_points, c->base.max_health_points, 
-           c->base.base_defense, c->base.speed, 
+           c->base.current_health_points, c->base.max_health_points,
+           stat_get_value(&c->base.defense), stat_get_value(&c->base.speed),
            c->base.is_alive ? "YES" : "NO");
     printf("  Actions: '%s', '%s'\n", 
            c->creature_actions[0].name, c->creature_actions[1].name);

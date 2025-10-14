@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
 project(OceanDepth C)
 
+# Option to enable tests (default ON)
+option(ENABLE_TESTS "Build and run tests" ON)
+
 set(CMAKE_C_STANDARD 99)
 
 # Debug flags for development

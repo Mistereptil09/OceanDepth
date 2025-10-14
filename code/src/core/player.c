@@ -17,11 +17,10 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0);
 
-    // entity base values
-    EntityBase base = p->base;
-    base.oxygen_level = max_oxygen;
-    base.max_oxygen_level.base_value = max_oxygen;
-    base.fatigue_level = 0;
+    // entity base values (operate directly on p->base)
+    p->base.oxygen_level = max_oxygen;
+    p->base.max_oxygen_level = max_oxygen;
+    p->base.fatigue_level = 0;
 
     // player unique values
     p->pearls = 10;
@@ -66,7 +65,7 @@ int increase_fatigue(Player *p, int amount) {
 int recover_oxygen(Player *p, int oxygen) {
     if (p == NULL) return POINTER_NULL;
     int new_value = p->base.oxygen_level + oxygen;
-    int max_oxygen = stat_get_value(&p->base.max_oxygen_level);
+    int max_oxygen = p->base.max_oxygen_level;
     if (new_value > max_oxygen) {
         p->base.oxygen_level = max_oxygen;
         return SUCCESS_SATURATED;
