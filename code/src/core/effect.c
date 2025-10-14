@@ -135,6 +135,11 @@ void effect_apply(EntityBase* base, Effect* effect)
 
 void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 {
+    // DEBUG: Show which entity's effects are ticking
+    if (self->effects_number > 0) {
+        printf("[DEBUG] Ticking %d effects on %s\n", self->effects_number, self->name);
+    }
+
     // Apply and tick active effects
     for (int i = 0; i < self->effects_number; i++) {
         Effect* effect = &self->effects[i];
@@ -166,6 +171,7 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 {
     if (!effect->is_active) return;
+
 
     if (effect->on_tick != NULL) {
           effect->on_tick(self, ennemy);

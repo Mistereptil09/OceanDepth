@@ -4,7 +4,7 @@
 
 #ifndef OCEANDEPTH_CREATURE_H
 #define OCEANDEPTH_CREATURE_H
-#define MAX_ACTIONS 2
+#define MAX_ACTIONS 4
 #include "action.h"
 #include "entity.h"
 #include "effect.h"
@@ -64,8 +64,7 @@ typedef struct {
     int id;
     CreatureType type;
     EntityBase base;
-    Action creature_actions[2]; // available actions (unlike Player, doesn't have to attack through items)
-    // speed now in base
+    // Actions now in base
 } Creature;
 
 /**

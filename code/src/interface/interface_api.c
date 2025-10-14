@@ -128,6 +128,6 @@ const char* get_creature_action_name(Creature* creature, int action_index) {
     if (!creature || action_index < 0 || action_index >= MAX_ACTIONS) {
         return NULL;
     }
-    return creature->creature_actions[action_index].name;
+    return creature->base.actions[action_index].name;
 }
 

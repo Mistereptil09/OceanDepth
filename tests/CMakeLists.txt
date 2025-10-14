@@ -3,7 +3,7 @@
 # We assume ENABLE_TESTS and enable_testing() were handled by parent CMakeLists.
 
 # Use parent include directories and source lists:
-# - CORE_SOURCES, HELPER_SOURCES are defined in the top-level CMakeLists.
+# - CORE_SOURCES, HELPER_SOURCES, INTERFACE_SOURCES are defined in the top-level CMakeLists.
 
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/code/tests)
 
@@ -12,6 +12,7 @@ function(od_add_test target_name source_file)
         ${TEST_DIR}/${source_file}
         ${CORE_SOURCES}
         ${HELPER_SOURCES}
+        ${INTERFACE_SOURCES}
     )
     # Ensure C standard matches the project
     set_property(TARGET ${target_name} PROPERTY C_STANDARD 99)
@@ -26,6 +27,7 @@ foreach(TEST_SRC ${TEST_SOURCES})
         ${TEST_SRC}
         ${CORE_SOURCES}
         ${HELPER_SOURCES}
+        ${INTERFACE_SOURCES}
     )
     set_property(TARGET ${TEST_NAME} PROPERTY C_STANDARD 99)
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})

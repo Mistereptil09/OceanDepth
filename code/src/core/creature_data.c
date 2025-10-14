@@ -22,24 +22,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
         KRAKEN, CREATURE_HARD, "Kraken", 120, 180, 25, 40, 10, 2,
         {
-            {"Tentacle Strike", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Tentacles tear flesh!", 1,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                0, 0, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
-                NULL)},
-            {"Ink Cloud", PHYSICAL_ATTACK, 2, create_effect("Paralysis", "Engulfed in darkness!", 2,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                0, 0, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
-                NULL)},
+            {"Tentacle Strike", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Tentacles tear flesh!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Ink Cloud", PHYSICAL_ATTACK, 2, 0, create_effect("Paralysis", "Engulfed in darkness!", 2,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Ink Cloud", PHYSICAL_ATTACK, 2, 0, create_effect("Paralysis", "Engulfed in darkness!", 2,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Ink Cloud", PHYSICAL_ATTACK, 2, 0, create_effect("Paralysis", "Engulfed in darkness!", 2,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -47,24 +37,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
         KING_CRAB, CREATURE_MEDIUM, "King Crab", 80, 120, 12, 20, 10, 2,
         {
-            {"Claw Pinch", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Pinned by mighty claws!", 1,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                0, 0, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
-                NULL)},
-            {"Shell Defense", SPECIAL_SKILL, 2, create_effect("Defense boost", "Shell hardens!", 2,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                0, 10, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
-                NULL)},
+            {"Claw Pinch", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Pinned by mighty claws!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Shell Defense", SPECIAL_SKILL, 2, 0, create_effect("Defense boost", "Shell hardens!", 2,
+                0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Shell Defense", SPECIAL_SKILL, 2, 0, create_effect("Defense boost", "Shell hardens!", 2,
+                0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Shell Defense", SPECIAL_SKILL, 2, 0, create_effect("Defense boost", "Shell hardens!", 2,
+                0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -72,24 +52,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
         JELLYFISH, CREATURE_EASY, "Jellyfish", 20, 40, 8, 15, 5, 3,
         {
-            {"Tentacle Sting", PHYSICAL_ATTACK, 0, create_effect("Poison", "Venomous sting!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Electric Shock", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Electric jolt!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Tentacle Sting", PHYSICAL_ATTACK, 0, 0, create_effect("Poison", "Venomous sting!", 1,
+                5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Electric Shock", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Electric jolt!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Electric Shock", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Electric jolt!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Electric Shock", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Electric jolt!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -97,24 +67,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[3] = (CreatureTemplate){
         SHARK, CREATURE_MEDIUM, "Shark", 60, 100, 15, 25, 20, 1,
         {
-            {"Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Razor teeth bite deep!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Blood Frenzy", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            15, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Bite", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Razor teeth bite deep!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Blood Frenzy", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
+                15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Blood Frenzy", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
+                15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Blood Frenzy", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
+                15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -122,24 +82,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
         LEVIATHAN, CREATURE_BOSS, "Leviathan", 210, 230, 30, 45, 15, 1,
         {
-            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Primordial jaws rend!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Abyssal Roar", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Terror from the deep!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Ancient Bite", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Primordial jaws rend!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Abyssal Roar", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Terror from the deep!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Abyssal Roar", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Terror from the deep!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Abyssal Roar", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Terror from the deep!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -147,24 +97,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[5] = (CreatureTemplate){
         ANGLERFISH, CREATURE_HARD, "Anglerfish", 180, 180, 12, 20, 15, 3,
         {
-            {"Lure Attack", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Ambushed from shadows!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Darkness Veil", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Lost in darkness!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Lure Attack", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Ambushed from shadows!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Darkness Veil", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Lost in darkness!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Darkness Veil", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Lost in darkness!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Darkness Veil", PHYSICAL_ATTACK, 0, 0, create_effect("Paralysis", "Lost in darkness!", 1,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -172,24 +112,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
         SWORDFISH, CREATURE_MEDIUM, "Swordfish", 70, 90, 18, 28, 10, 1,
         {
-            {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Pierced by blade!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Attack Boost", SPECIAL_SKILL, 2, create_effect("Attack boost", "Speed surge!", 2,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            10, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Sword Thrust", PHYSICAL_ATTACK, 0, 0, create_effect("Bleed", "Pierced by blade!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Attack Boost", SPECIAL_SKILL, 2, 0, create_effect("Attack boost", "Speed surge!", 2,
+                0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Attack Boost", SPECIAL_SKILL, 2, 0, create_effect("Attack boost", "Speed surge!", 2,
+                0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Attack Boost", SPECIAL_SKILL, 2, 0, create_effect("Attack boost", "Speed surge!", 2,
+                0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 
@@ -197,24 +127,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
         MEGALODON, CREATURE_BOSS, "Megalodon", 210, 230, 25, 45, 15, 1,
         {
-            {"Prehistoric Bite", PHYSICAL_ATTACK, 2, create_effect("Bleed", "Ancient fury unleashed!", 2,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
-            {"Apex Predator", PHYSICAL_ATTACK, 0, create_effect("Poison", "Apex venom!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            {"Prehistoric Bite", PHYSICAL_ATTACK, 2, 0, create_effect("Bleed", "Ancient fury unleashed!", 2,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Apex Predator", PHYSICAL_ATTACK, 0, 0, create_effect("Poison", "Apex venom!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Apex Predator", PHYSICAL_ATTACK, 0, 0, create_effect("Poison", "Apex venom!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+            {"Apex Predator", PHYSICAL_ATTACK, 0, 0, create_effect("Poison", "Apex venom!", 1,
+                10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
         }
     };
 

@@ -14,8 +14,9 @@ typedef enum {
 typedef struct {
     char name[30];
     ActionType type;
-    int cooldown; // should we do base vs current cooldown ?
-    Effect effect; // The effect the action applies on the receiver
+    int cooldown_turns;      // Base cooldown duration
+    int cooldown_remaining;  // Current cooldown remaining (0 = ready to use)
+    Effect effect;           // The effect the action applies on the receiver
 } Action;
 
 /**

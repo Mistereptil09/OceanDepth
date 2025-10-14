@@ -3,6 +3,8 @@
 //
 
 #include "../../includes/core/action.h"
+
+#include <stdio.h>
 #include <string.h>
 #include "core/entity.h"
 #include "core/error_codes.h"
@@ -14,7 +16,11 @@ int apply_effect_to_target(EntityBase *target, Action action) {
     if (target == NULL) return POINTER_NULL;
     Effect effect = action.effect;
 
-        for (int i = 0; i < target->effects_number; i++) {
+    // DEBUG: Print who is getting the effect
+    printf("[DEBUG] Applying effect '%s' (hp_cost=%d) to %s\n",
+           effect.name, effect.hp_cost, target->name);
+
+    for (int i = 0; i < target->effects_number; i++) {
             if (strcmp(target->effects[i].name, effect.name) == 0) {
                 if (target->effects[i].is_active) {
                     return ALREADY_ACTIVE;

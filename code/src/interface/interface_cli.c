@@ -24,7 +24,7 @@ void cli_display_combat_state(void)
     // Query combat state from API
     const CombatState* state = get_combat_state();
     if (!state || !state->player) return;
-
+    
     // Display player status
     printf("\n========================================\n");
     printf("|     YOUR STATUS                      |\n");
@@ -36,7 +36,7 @@ void cli_display_combat_state(void)
     printf("Defense: %d\n", get_player_defense(state->player));
     printf("Pearls: %d\n", get_player_pearls(state->player));
     printf("==================\n\n");
-
+    
     // Display alive enemies
     printf("Enemies remaining:\n");
     int alive_count = get_alive_creature_count();
@@ -58,14 +58,14 @@ void cli_display_combat_intro(Creature** creatures, int count)
     printf("========================================\n");
     printf("|     ENEMIES APPROACHING!             |\n");
     printf("========================================\n");
-
+    
     for (int i = 0; i < count; i++) {
         if (creatures[i] && is_creature_alive(creatures[i])) {
-            printf("\n=== %s (ID: %d) ===\n",
-                   get_creature_name(creatures[i]),
+            printf("\n=== %s (ID: %d) ===\n", 
+                   get_creature_name(creatures[i]), 
                    get_creature_id(creatures[i]));
-            printf("HP: %d/%d\n",
-                   get_creature_hp(creatures[i]),
+            printf("HP: %d/%d\n", 
+                   get_creature_hp(creatures[i]), 
                    get_creature_max_hp(creatures[i]));
             printf("Attack: %d\n", get_creature_attack(creatures[i]));
             printf("Defense: %d\n", get_creature_defense(creatures[i]));
@@ -126,7 +126,7 @@ void cli_wait_for_enter(const char* prompt)
         printf("%s", prompt);
     }
     fflush(stdout);
-
+    
     // Clear input buffer properly
     int c;
     while ((c = getchar()) != '\n' && c != EOF);

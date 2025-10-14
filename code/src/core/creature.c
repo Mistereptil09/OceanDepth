@@ -18,11 +18,11 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
     creature->base = base;
     if (actions != NULL) {
         for (int i = 0; i < MAX_ACTIONS; i++) {
-            creature->creature_actions[i] = actions[i];
+            creature->base.actions[i] = actions[i];
         }
     } else {
         for (int i = 0; i < MAX_ACTIONS; i++) {
-            memset(&creature->creature_actions[i], 0, sizeof(Action));
+            memset(&creature->base.actions[i], 0, sizeof(Action));
         }
     }
 
@@ -39,7 +39,7 @@ void free_creature(Creature *c) {
 
     // free actions effects' display messages
     for (int i = 0; i < MAX_ACTIONS; i++) {
-        free_effect_content(&c->creature_actions[i].effect);
+        free_effect_content(&c->base.actions[i].effect);
     }
 
     free(c);
@@ -145,7 +145,7 @@ Action* select_action(Creature *c) {
     int available_count = 0;
 
     for (int i = 0; i < 2; i++) {
-        Action* action = &c->creature_actions[i];
+        Action* action = &c->base.actions[i];
 
         if (action->type == PHYSICAL_ATTACK) {
             available_actions[available_count++] = action;
