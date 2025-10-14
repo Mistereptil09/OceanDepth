@@ -10,9 +10,8 @@
 
 static int last_replaced = -1;
 
-int apply_effect_to_target(EntityBase *target, Action action) {
+int apply_effect_to_target(EntityBase *target, Effect effect) {
     if (target == NULL) return POINTER_NULL;
-    Effect effect = action.effect;
 
         for (int i = 0; i < target->effects_number; i++) {
             if (strcmp(target->effects[i].name, effect.name) == 0) {
@@ -61,7 +60,7 @@ int insert_effect_in_effects(EntityBase* target, Effect effect) {
     // replace oldest
     last_replaced = (last_replaced + 1) % MAX_EFFECTS;
 
-    effect_remove(target, &target->effects[last_replaced]);
+    effect_remove(target, &target->effects[last_replaced]); // REMOVE EFFECT
     free_effect_content(&target->effects[last_replaced]);
 
     target->effects[last_replaced] = effect_copy(&effect);

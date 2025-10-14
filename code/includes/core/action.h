@@ -6,8 +6,8 @@
 #include "effect.h"
 
 typedef enum {
-    PHYSICAL_ATTACK, // TARGET ENNEMY
-    SPECIAL_SKILL, // TARGET SELF
+    PHYSICAL_ATTACK,
+    SPECIAL_SKILL,
     // ITEM_ATTACK (unnecessary)
 } ActionType;
 
@@ -19,15 +19,21 @@ typedef struct {
 } Action;
 
 /**
-* @brief Applies the effect by :
-    Either calling on_tick once if it's a one time action (initial turns_left = 1, after = 0)
-     Or essentially creating a copy of it in the receivers active effects
+* @brief Add an Action's effect to the target's Effect effects array
+*   Checks if it's already active, non-active in the array, or simply not there.
 * @param target Entity base pointer
- * @param action Action
- * @return 0 if applied,
+ * @param effect
+ * @return ERROR CODES
  */
-int apply_effect_to_target(EntityBase *target, Action action);
+int apply_effect_to_target(EntityBase *target, Effect effect);
 
+/**
+* @brief If array is full, tries to replace an inactive effect with the new one
+*   Otherwise gets rid of the oldest effect (needs to remove effect before doing so)
+* @param target Entity base pointer
+* @param effect
+ * @return ERROR CODES
+ */
 int insert_effect_in_effects(EntityBase* target, Effect effect);
 
 #endif //OCEANDEPTH_ACTION_H

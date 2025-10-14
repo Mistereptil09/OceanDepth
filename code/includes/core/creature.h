@@ -39,8 +39,8 @@ typedef enum {
 typedef struct {
     CreatureType type;
     CreatureTier tier;
-    int min_hp, max_hp;
-    int min_atk, max_atk;
+    int min_hp, max_hp; // for random generation
+    int min_atk, max_atk; // for random generation
     int defense;
     int speed;
     Action actions[MAX_ACTIONS]; /** Predefined actions, see creature_data */

@@ -42,6 +42,10 @@ void free_creature(Creature *c) {
         free_effect_content(&c->creature_actions[i].effect);
     }
 
+    free_stat(&c->base.attack);
+    free_stat(&c->base.defense);
+    free_stat(&c->base.speed);
+
     free(c);
 }
 

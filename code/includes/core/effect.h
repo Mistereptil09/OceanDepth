@@ -18,7 +18,6 @@ typedef struct Effect {
 
     // Per-turn costs
     int hp_cost;
-    int oxygen_cost;
 
     FonctionEffect on_tick;             // NULL if it isn't a special effect
 
@@ -91,7 +90,7 @@ void effect_remove(EntityBase* target, Effect* effect);
  */
 Effect create_effect(const char* name, const char *display_message, int turns,
                      // ressources
-                     int hp_cost,  int oxygen_cost,
+                     int hp_cost,
                      // flat modifiers
                      int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
                      int oxygen_max_boost_flat, int hp_max_boost_flat,

@@ -35,11 +35,10 @@ void cleanup_creature_templates(void);
 int etreinte_tentaculaire_tick(EntityBase* self, EntityBase* ennemy);
 
 /** Requin : "Frénésie sanguinaire" → +30% dégâts si PV < 50% */
-int frénésie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy);
+int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy);
 
-/** Crabe Géant : "Carapace durcie" → Réduit tous les dégâts subis de 20%**/
-int carapace_durcie_tick(EntityBase* self, EntityBase* ennemy);
-
+/**"Piqûre paralysante" → Réduit les attaques du joueur de 1 au prochain tour**/
+int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy);
 
 int random_range(int min, int max);
 

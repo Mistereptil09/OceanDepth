@@ -13,7 +13,7 @@
 // ========== EFFECT HANDLING ==========
 Effect create_effect(const char* name, const char *display_message, int turns,
                      // ressources
-                     int hp_cost,  int oxygen_cost,
+                     int hp_cost,
                      // flat modifiers
                      int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
                      int oxygen_max_boost_flat, int hp_max_boost_flat,
@@ -41,7 +41,6 @@ Effect create_effect(const char* name, const char *display_message, int turns,
 
     // ressources
     effect.hp_cost = hp_cost;
-    effect.oxygen_cost = oxygen_cost;
 
     // flat modifiers
     effect.attack_boost_flat = attack_boost_flat;
@@ -119,11 +118,12 @@ void effect_apply(EntityBase* base, Effect* effect)
         stat_modifier_add(&base->speed, MOD_FLAT, effect, (float)effect->speed_boost_flat);
     }
     if (effect->hp_max_boost_flat != 0) {
-        stat_modifier_add(&base->max_health_points, MOD_FLAT, effect, (float)effect->hp_max_boost_flat);
+        base->max_health_points += effect->hp_max_boost_flat;
     }
     if (effect->oxygen_max_boost_flat != 0) {
-        stat_modifier_add(&base->max_oxygen_level, MOD_FLAT, effect, (float)effect->oxygen_max_boost_flat);
+        base->max_oxygen_level += effect->oxygen_max_boost_flat;
     }
+
 
     // Apply PERCENTAGE modifiers
     if (effect->attack_boost_percent != 0.0) {
@@ -135,12 +135,13 @@ void effect_apply(EntityBase* base, Effect* effect)
     if (effect->speed_boost_percent != 0.0) {
         stat_modifier_add(&base->speed, MOD_PERCENTAGE, effect, effect->speed_boost_percent);
     }
-    if (effect->hp_max_boost_percent != 0.0) {
-        stat_modifier_add(&base->max_health_points, MOD_PERCENTAGE, effect, effect->hp_max_boost_percent);
+    if (effect->hp_max_boost_percent != 0) {
+        base->max_health_points += (int)effect->hp_max_boost_percent * base->max_health_points;
     }
-    if (effect->oxygen_max_boost_percent != 0.0) {
-        stat_modifier_add(&base->max_oxygen_level, MOD_PERCENTAGE, effect, effect->oxygen_max_boost_percent);
+    if (effect->oxygen_max_boost_flat != 0) {
+        base->max_oxygen_level += (int)effect->oxygen_max_boost_percent * base->max_oxygen_level;
     }
+
 
     effect->is_active = 1;
 }
@@ -185,16 +186,16 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         }
 
         // Apply per-turn costs
-        /*target->current_health_points -= effect->hp_cost;
-        target->oxygen_level -= effect->oxygen_cost;*/
+        ennemy->current_health_points -= effect->hp_cost;
+        /*target->oxygen_level -= effect->oxygen_cost;*/
 
         // Clamp resources
-        int max_hp = stat_get_value(&self->max_health_points);
+        int max_hp = self->max_health_points;
         if (self->current_health_points > max_hp) {
             self->current_health_points = max_hp;
         }
 
-        int max_oxygen = stat_get_value(&self->max_oxygen_level);
+        int max_oxygen = self->max_oxygen_level;
         if (self->oxygen_level > max_oxygen) {
             self->oxygen_level = max_oxygen;
         }
@@ -216,8 +217,6 @@ void effect_remove(EntityBase* base, Effect* effect)
         stat_modifier_remove_by_source(&base->attack, effect);
         stat_modifier_remove_by_source(&base->defense, effect);
         stat_modifier_remove_by_source(&base->speed, effect);
-        stat_modifier_remove_by_source(&base->max_health_points, effect);
-        stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
     }
 
     effect->is_active = 0;

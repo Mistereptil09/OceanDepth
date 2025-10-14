@@ -2,6 +2,7 @@
 // Created by Yasmine Slamani on 07/10/2025.
 //
 #include "../../includes/core/creature_data.h"
+#include "../../includes/core/error_codes.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,209 +19,143 @@ int random_range(int min, int max) {
 void init_creature_templates(void) {
     if (templates_initialized) return;
 
-    // KRAKEN - Physical attacker with bleeding
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
         KRAKEN, CREATURE_HARD, 120, 180, 25, 40, 10, 2,
         {
-            {"Tentacle Strike", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Tentacles tear flesh!", 1,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Étreinte tentaculaire", PHYSICAL_ATTACK, 0, create_effect("Étreinte tentaculaire", "Les tentacules vous enserrent pour un double assaut !", 1,
+                0,
                 0, 0, 0, 0, 0,
-                // percentage modifiers
                 0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
-                NULL)},
-            {"Ink Cloud", PHYSICAL_ATTACK, 2, create_effect("Paralysis", "Engulfed in darkness!", 2,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+                etreinte_tentaculaire_tick)},
+            {"Nuage d'encre", PHYSICAL_ATTACK, 2, create_effect("Paralysie", "Englouti dans les ténèbres !", 2,
+                0,
+                5, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
+
                 NULL)},
         }
     };
 
-    // KING_CRAB - Tank with defense
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
         KING_CRAB, CREATURE_MEDIUM, 80, 120, 12, 20, 10, 2,
         {
-            {"Claw Pinch", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Pinned by mighty claws!", 1,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Pince écrasante", PHYSICAL_ATTACK, 0, create_effect("Paralysie", "Broyé par des pinces puissantes !", 1,
+                0,
+                0, 0, -2, 0, 0,
                 0, 0, 0, 0, 0,
-                // percentage modifiers
-                0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
                 NULL)},
-            {"Shell Defense", SPECIAL_SKILL, 2, create_effect("Defense boost", "Shell hardens!", 2,
-                // ressources (hp_cost, oxygen_cost)
-                0, 0,
-                // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-                0, 10, 0, 0, 0,
-                // percentage modifiers
+            {"Carapace durcie", SPECIAL_SKILL, 2, create_effect("Carapace durcie", "La carapace se durcit, réduisant les dégâts !", 3,
+                0,
                 0, 0, 0, 0, 0,
-                // special effect for now NULL pointer
+                0, 20, 0, 0, 0,
                 NULL)},
         }
     };
 
-    // JELLYFISH - Poison specialist
+    // JELLYFISH - Spécialiste du poison
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
         JELLYFISH, CREATURE_EASY, 20, 40, 8, 15, 5, 3,
         {
-            {"Tentacle Sting", PHYSICAL_ATTACK, 0, create_effect("Poison", "Venomous sting!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Piqûre tentaculaire", PHYSICAL_ATTACK, 0, create_effect("Poison", "Piqûre venimeuse !", 2,
+            10,
             0, 10, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Electric Shock", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Electric jolt!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Piqûre paralysante", PHYSICAL_ATTACK, 0, create_effect("Paralysie", "Décharge électrique !", 1,
+            0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            create_piqure_paralysante_tick)},
         }
     };
 
-    // SHARK - Berserker with bleeding and frenzy
+    // SHARK - Berserker avec frénésie sanguinaire
     CREATURE_TEMPLATES[3] = (CreatureTemplate){
         SHARK, CREATURE_MEDIUM, 60, 100, 15, 25, 20, 1,
         {
-            {"Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Razor teeth bite deep!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Morsure", PHYSICAL_ATTACK, 0, create_effect("Saignement", "Déchiré par des dents acérées !", 2,
+            5,
+            0, 2, 0, 0, 0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Blood Frenzy", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Frenzied bloodlust!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            15, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Frénésie sanguinaire", PHYSICAL_ATTACK, 0, create_effect("Frénésie", "Le requin entre en frénésie !", 1,
+            15,
             0, 0, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
-            NULL)},
+            frenesie_sanguinaire_tick)},
         }
     };
 
-    // LEVIATHAN - Boss with massive damage
+    // LEVIATHAN - Boss avec dégâts massifs
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
         LEVIATHAN, CREATURE_BOSS, 210, 230, 30, 45, 15, 1,
         {
-            {"Ancient Bite", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Primordial jaws rend!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Morsure antique", PHYSICAL_ATTACK, 0, create_effect("Saignement", "Les mâchoires primordiales déchirent !", 1,
+            8,
             0, 0, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Abyssal Roar", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Terror from the deep!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Rugissement abyssal", PHYSICAL_ATTACK, 0, create_effect("Terreur", "Terreur des profondeurs !", 2,
+            0,
+            10, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
         }
     };
 
-    // ANGLERFISH - Ambush predator
+    // ANGLERFISH - Prédateur d'embuscade
     CREATURE_TEMPLATES[5] = (CreatureTemplate){
         ANGLERFISH, CREATURE_HARD, 180, 180, 12, 20, 15, 3,
         {
-            {"Lure Attack", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Ambushed from shadows!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Attaque leurre", PHYSICAL_ATTACK, 0, create_effect("Saignement", "Embuscade depuis les ombres !", 2,
+            6,
             0, 0, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Darkness Veil", PHYSICAL_ATTACK, 0, create_effect("Paralysis", "Lost in darkness!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Voile d'obscurité", PHYSICAL_ATTACK, 0, create_effect("Cécité", "Perdu dans l'obscurité !", 2,
+            0,
+            0, 5, 0, 0, 0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
         }
     };
 
-    // SWORDFISH - Fast striker
+    // SWORDFISH - Attaquant rapide avec charge perforante
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
         SWORDFISH, CREATURE_MEDIUM, 70, 90, 18, 28, 10, 1,
         {
-            {"Sword Thrust", PHYSICAL_ATTACK, 0, create_effect("Bleed", "Pierced by blade!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Charge perforante", PHYSICAL_ATTACK, 0, create_effect("Perforation", "L'épée transperce vos défenses !", 1,
+            0,
+            2, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Attack Boost", SPECIAL_SKILL, 2, create_effect("Attack boost", "Speed surge!", 2,
-            // ressources (hp_cost, oxygen_cost)
-            0, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            10, 0, 0, 0, 0,
-            // percentage modifiers
+            {"Élan de vitesse", SPECIAL_SKILL, 2, create_effect("Élan", "Montée d'adrénaline !", 2,
+            0,
+            2, 0, 2, 0, 0,
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
         }
     };
 
-    // MEGALODON - Ultimate boss
+    // MEGALODON - Boss ultime
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
         MEGALODON, CREATURE_BOSS, 210, 230, 25, 45, 15, 1,
         {
-            {"Prehistoric Bite", PHYSICAL_ATTACK, 2, create_effect("Bleed", "Ancient fury unleashed!", 2,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Morsure préhistorique", PHYSICAL_ATTACK, 2, create_effect("Saignement sévère", "Fureur antique libérée !", 4,
+            10,
             0, 0, 0, 0, 0,
-            // percentage modifiers
             0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
-            {"Apex Predator", PHYSICAL_ATTACK, 0, create_effect("Poison", "Apex venom!", 1,
-            // ressources (hp_cost, oxygen_cost)
-            10, 0,
-            // flat modifiers (attack, defense, speed, max_oxygen, max_health)
+            {"Prédateur suprême", PHYSICAL_ATTACK, 0, create_effect("Venin suprême", "Toxines mortelles !", 3,
+            8,
+            0, -2, 0, 0, 0,
             0, 0, 0, 0, 0,
-            // percentage modifiers
-            0, 0, 0, 0, 0,
-            // special effect for now NULL pointer
             NULL)},
         }
     };
 
     templates_initialized = 1;
 }
-
 const CreatureTemplate* get_creature_templates(void) {
     if (!templates_initialized) {
         init_creature_templates();
@@ -244,3 +179,40 @@ void cleanup_creature_templates(void) {
 
     templates_initialized = 0;
 }
+
+int etreinte_tentaculaire_tick(EntityBase* self, EntityBase* ennemy) {
+    if (self == NULL || ennemy == NULL) {
+        return POINTER_NULL;
+    }
+    int damage = self->attack.current_value - ennemy->defense.current_value;
+    if (damage < 1) damage = 1;
+    if (damage >= ennemy->current_health_points) {
+        ennemy->current_health_points = 0;
+        ennemy->is_alive = 0;
+    } else {
+        ennemy->current_health_points -= damage;
+    }
+    // probably call display
+    return SUCCESS;
+}
+
+int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy) {
+    if (self == NULL) {
+        return POINTER_NULL;
+    }
+    if (self->current_health_points < self->max_health_points * 0.5) {
+        self->attack.current_value += (int)(self->attack.current_value * 0.3);
+    }
+    // probably call display
+    return SUCCESS;
+}
+
+int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) {
+    if (ennemy == NULL) {
+        return POINTER_NULL;
+    }
+    Effect malusAttack = create_effect("Piqûre paralysante en action","La piqûre paralysante vous affaibli !", 2, -1, 0, 0,0,0,0,0,0,0,0,0,NULL);
+    return apply_effect_to_target(ennemy, malusAttack);
+}
+
+
