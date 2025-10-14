@@ -76,7 +76,7 @@ void init_creature_templates(void) {
             // ressources (hp_cost, oxygen_cost)
             10, 0,
             // flat modifiers (attack, defense, speed, max_oxygen, max_health)
-            0, 10, 0, 0, 0,
+            0, 0, 0, 0, 0,
             // percentage modifiers
             0, 0, 0, 0, 0,
             // special effect for now NULL pointer
