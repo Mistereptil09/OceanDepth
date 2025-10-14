@@ -17,6 +17,7 @@ InterfaceVTable* select_interface() {
     printf("1 - Terminal\n");
     printf("2 - SDL\n");
     printf("> ");
+    fflush(stdout);
 
     const int size = 10;  // ← Make buffer bigger
     char choice_char[size];
