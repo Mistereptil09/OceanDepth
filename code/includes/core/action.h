@@ -28,6 +28,8 @@ typedef struct {
  */
 int apply_effect_to_target(EntityBase *target, Effect effect);
 
+int apply_action_to_target(EntityBase *target, Action action);
+
 /**
 * @brief If array is full, tries to replace an inactive effect with the new one
 *   Otherwise gets rid of the oldest effect (needs to remove effect before doing so)

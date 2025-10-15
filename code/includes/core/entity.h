@@ -91,6 +91,11 @@ void free_stat(Stat* stat);
  */
 int stat_get_value(Stat* stat);
 
+/** Update stat->current_value to the cached value
+ * This is the value to modify through all effect tick and use as the damage at the end.
+ */
+void stat_prepare_for_turn(Stat* stat);
+
 /**
  * @brief Adds a stat modifier from a source (effect)
  * @param stat Stat to modify

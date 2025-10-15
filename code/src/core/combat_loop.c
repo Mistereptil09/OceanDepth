@@ -14,7 +14,7 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     // Ensure we recalc if base values changed directly in tests
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
-    int atk = stat_get_value(&attacker->attack);
+    int atk = stat_get_value(&attacker->attack); /**YAS : this doesn't account for modifications that aren't tracked by on tick functions/non-stat modifiers effects, should use current_value ?**/
     int def = stat_get_value(&defender->defense);
     int raw = atk - def;
     if (raw < 0) raw = 0;
@@ -64,6 +64,13 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
         // ====== PHASE 1: PLAYER TURN ======
 
+        /** YAS : TO DO -> CALCULATE HOW MANY ATTACKS CAN BE MADE DURING PLAYER'S TURN BASED ON FATIGUE LEVELS **/
+
+        /** YAS : special tick functions use the current_value, must call this function with stats that are likely to be updated by the all effects tick **/
+        stat_prepare_for_turn(&player->base.attack);
+        stat_prepare_for_turn(&player->base.defense);
+        // for each creature, call these as well ?
+
         // Tick player's effects at start of their turn
         all_effects_tick(&player->base, NULL);
 
@@ -75,6 +82,11 @@ int battle_loop(Player* player, Difficulty difficulty) {
         }
 
         // Display available actions
+        /** YAS : Might want to call this and add it to the effects before ticking ? **/
+        /** YAS : might also want to turn this into a switch while loop until the choice isn't valid ? **/
+        /** VALID CHOICE CRITERIA :
+         * - NO COOLDOWN LEFT,
+         * - APPLY ACTION TO TARGET, RETURNS ALREADY_ACTIVE IF IT'S ALREADY IN THE TARGET'S EFFECT ARRAY, SO WE CAN LET THE USER KNOW THAT*/
         printf("\n=== Your Actions ===\n");
         for (int i = 0; i < player->base.action_count; i++) {
             Action* action = &player->base.actions[i];
@@ -91,6 +103,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
         }
 
         // Player chooses action
+        /** YAS : is this safe ? Are verifications made ? **/
         int action_choice = current_interface->get_choice("Choose your action", 1, player->base.action_count);
         Action* chosen_action = &player->base.actions[action_choice - 1];
 
@@ -120,7 +133,8 @@ int battle_loop(Player* player, Difficulty difficulty) {
             printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
 
             // Apply effect first (e.g., Bleed)
-            apply_effect_to_target(&target->base, *chosen_action);
+            /** YAS : I had updated apply_effect_to_target to accept an effect instead of an action, so here is a more appropriate function that does the same thing as the old version **/
+            apply_action_to_target(&target->base, *chosen_action);
 
             // Then calculate and deal damage
             int dmg = compute_physical_damage(&player->base, &target->base);
@@ -141,10 +155,11 @@ int battle_loop(Player* player, Difficulty difficulty) {
         } else if (chosen_action->type == SPECIAL_SKILL) {
             // Self-buff skill
             printf("\nYou use %s!\n", chosen_action->name);
-            apply_effect_to_target(&player->base, *chosen_action);
+            apply_action_to_target(&player->base, *chosen_action);
             printf("You feel empowered!\n");
 
             // Set cooldown
+            /**YAS : Make sure that hardcoded Action cooldowns and associated Effect's turns are cohesive */
             chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
         }
 
@@ -156,6 +171,8 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             Creature* attacker = creatures[i];
 
+            /** YAS : same thing as for player, stat_prepare_for_turn should be called on creature stats and player stats that might get modified by effect functions without being cached */
+
             // Tick creature's effects at start of its turn
             all_effects_tick(&attacker->base, &player->base);
 
@@ -164,6 +181,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 continue;
             }
 
+            /** YAS : Good, but note to self -> check that the random selection also handles the validity conditions if it still doesn't */
             Action* action = select_action(attacker);
             if (!action) {
                 printf("%s has no available actions!\n", attacker->base.name);
@@ -175,7 +193,8 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             if (action->type == PHYSICAL_ATTACK) {
                 // Apply effect first (e.g., Poison/Bleed debuff on player)
-                apply_effect_to_target(&player->base, *action);
+                /** YAS : again, shouldn't be added to list before ticking ? */
+                apply_action_to_target(&player->base, *action);
 
                 // Then deal damage
                 int player_hp_before = player->base.current_health_points;
@@ -203,7 +222,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 }
             } else if (action->type == SPECIAL_SKILL) {
                 // Self-buff: apply effect to self
-                apply_effect_to_target(&attacker->base, *action);
+                apply_action_to_target(&attacker->base, *action);
                 printf("%s buffed itself!\n", attacker->base.name);
             }
         }

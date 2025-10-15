@@ -15,9 +15,7 @@ typedef enum {
 
 /**
  * Compute the raw damage of a basic physical attack using attacker and defender stats.
- * damage = max(0, attacker.attack - defender.defense) ??
- *
- *
+ * damage = max(0, attacker.attack - defender.defense)
  */
 int compute_physical_damage(EntityBase* attacker, EntityBase* defender);
 

@@ -12,6 +12,12 @@
 
 static int last_replaced = -1;
 
+int apply_action_to_target(EntityBase *target, Action action) {
+    if (target == NULL) return POINTER_NULL;
+    Effect effect = action.effect;
+    return apply_effect_to_target(target, effect);
+}
+
 int apply_effect_to_target(EntityBase *target, Effect effect) {
     if (target == NULL) return POINTER_NULL;
 
