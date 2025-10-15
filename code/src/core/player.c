@@ -17,16 +17,60 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0);
 
-    // entity base values
-    EntityBase base = p->base;
-    base.oxygen_level = max_oxygen;
-    base.max_oxygen_level.base_value = max_oxygen;
-    base.fatigue_level = 0;
+    // entity base values (operate directly on p->base)
+    p->base.oxygen_level = max_oxygen;
+    p->base.max_oxygen_level = max_oxygen;
+    p->base.fatigue_level = 0;
+
+    // Initialize player actions
+    p->base.actions[0] = (Action){
+        "Sword Thrust", PHYSICAL_ATTACK, 0, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Bleed", "Pierced by blade!", 1,
+            10, 0,  // hp_cost, oxygen_cost
+            0, 0, 0, 0, 0,  // flat modifiers
+            0, 0, 0, 0, 0,  // percentage modifiers
+            NULL)
+    };
+
+    p->base.actions[1] = (Action){
+        "Attack Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Attack boost", "Speed surge!", 2,
+            0, 0,  // hp_cost, oxygen_cost
+            10, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
+            0, 0, 0, 0, 0,  // percentage modifiers
+            NULL)
+    };
+
+    p->base.actions[2] = (Action){
+        "Defense Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Defense boost", "Hardened shell!", 2,
+            0, 0,  // hp_cost, oxygen_cost
+            0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
+            0, 0, 0, 0, 0,  // percentage modifiers
+            NULL)
+    };
+
+    p->base.actions[3] = (Action){
+        "Speed Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Speed boost", "Lightning fast!", 2,
+            0, 0,  // hp_cost, oxygen_cost
+            0, 0, 10, 0, 0,  // flat modifiers (10 speed boost)
+            0, 0, 0, 0, 0,  // percentage modifiers
+            NULL)
+    };
+
+    p->base.action_count = 4;
 
     // player unique values
     p->pearls = 10;
-    // Inventory mockup function
-    p->inventory = *create_inventory();
+    // Inventory initialization - properly handle memory
+    Inventory* inv = create_inventory();
+    if (inv == NULL) {
+        free(p);
+        return NULL;
+    }
+    p->inventory = *inv;
+    free(inv);  // Free the temporary inventory pointer after copying
     return p;
 }
 
@@ -66,7 +110,7 @@ int increase_fatigue(Player *p, int amount) {
 int recover_oxygen(Player *p, int oxygen) {
     if (p == NULL) return POINTER_NULL;
     int new_value = p->base.oxygen_level + oxygen;
-    int max_oxygen = stat_get_value(&p->base.max_oxygen_level);
+    int max_oxygen = p->base.max_oxygen_level;
     if (new_value > max_oxygen) {
         p->base.oxygen_level = max_oxygen;
         return SUCCESS_SATURATED;

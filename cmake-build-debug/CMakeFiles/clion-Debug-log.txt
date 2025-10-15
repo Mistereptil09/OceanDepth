@@ -1,0 +1,7 @@
+"C:\Program Files\JetBrains\CLion 2024.3.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S "C:\Users\Yasmine SLAMANI\CLionProjects\OceanDepth" -B "C:\Users\Yasmine SLAMANI\CLionProjects\OceanDepth\cmake-build-debug"
+-- Core sources found: C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/action.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/combat_loop.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/creature.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/creature_data.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/effect.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/entity.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/inventory.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/item.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/player.c
+-- Interface sources found: C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_api.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_cli.c;C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_table.c
+-- Helper sources found: C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/helper/input_validator.c
+-- Configuring done (0.5s)
+-- Generating done (1.1s)
+-- Build files have been written to: C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/cmake-build-debug

@@ -142,15 +142,16 @@ EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_
         base.name[sizeof(base.name) - 1] = '\0';
     }
 
-    int attack = 0;
+    int attack = 10;
     int oxygen_level = 100;
 
     // Initialize stats
     stat_init(&base.attack, attack);
     stat_init(&base.defense, base_defense);
-    stat_init(&base.max_health_points, max_hp);
     stat_init(&base.speed, speed);
-    stat_init(&base.max_oxygen_level, oxygen_level);
+
+    base.max_health_points = max_hp;
+    base.max_oxygen_level = oxygen_level;
 
     // Initialize resources
     base.current_health_points = max_hp;
@@ -177,8 +178,6 @@ void free_entity_base(EntityBase* base)
             stat_modifier_remove_by_source(&base->attack, effect);
             stat_modifier_remove_by_source(&base->defense, effect);
             stat_modifier_remove_by_source(&base->speed, effect);
-            stat_modifier_remove_by_source(&base->max_health_points, effect);
-            stat_modifier_remove_by_source(&base->max_oxygen_level, effect);
         }
 
         // Free display message
@@ -189,9 +188,7 @@ void free_entity_base(EntityBase* base)
     // Clean up stats
     free_stat(&base->attack);
     free_stat(&base->defense);
-    free_stat(&base->max_health_points);
     free_stat(&base->speed);
-    free_stat(&base->max_oxygen_level);
 }
 
 int entity_take_damage(EntityBase *base, int hp) {
@@ -209,7 +206,7 @@ int entity_recover_hp(EntityBase *base, int hp) {
     if (base->is_alive == 0) return UNPROCESSABLE_REQUEST_ERROR;
 
     int new_value = base->current_health_points + hp;
-    int max_hp = stat_get_value(&base->max_health_points);
+    int max_hp = base->max_health_points;
     if (new_value > max_hp) {
         base->current_health_points = max_hp;
         return SUCCESS_SATURATED; // saturated

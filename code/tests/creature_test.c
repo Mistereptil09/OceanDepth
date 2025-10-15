@@ -15,11 +15,11 @@
 void display_creature(const Creature* c) {
     printf("  ID: %d, Type: %d\n", c->id, c->type);
     printf("  HP: %d/%d, DEF: %d, SPD: %d, Alive: %s\n", 
-           c->base.current_health_points, c->base.max_health_points, 
-           c->base.base_defense, c->base.speed, 
+           c->base.current_health_points, c->base.max_health_points,
+           stat_get_value(&c->base.defense), stat_get_value(&c->base.speed),
            c->base.is_alive ? "YES" : "NO");
     printf("  Actions: '%s', '%s'\n", 
-           c->creature_actions[0].name, c->creature_actions[1].name);
+           c->base.actions[0].name, c->base.actions[1].name);
 }
 
 int main(void) {
@@ -88,12 +88,12 @@ int main(void) {
 
 
        printf("Test creature 1 actions: %s, %s\n",
-              test1->creature_actions[0].name, test1->creature_actions[1].name);
+              test1->base.actions[0].name, test1->base.actions[1].name);
 
        int ac1_count = 0, ac2_count = 0;
        for (int i = 0; i < 100; i++) {
               Action* action = select_action(test1);
-              if (strcmp(action->name, test1->creature_actions[0].name) == 0) ac1_count++;
+              if (strcmp(action->name, test1->base.actions[0].name) == 0) ac1_count++;
               else ac2_count++;
        }
        printf("100 tests - action 1: %d, action 2: %d\n", ac1_count, ac2_count);

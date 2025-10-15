@@ -5,9 +5,11 @@
 #ifndef OCEANDEPTH_ENTITY_H
 #define OCEANDEPTH_ENTITY_H
 #define MAX_EFFECTS 10
+#define MAX_ACTIONS 4
 
 #include <stdbool.h>
 
+#include "action.h"
 #include "effect.h"
 
 typedef enum {
@@ -61,6 +63,10 @@ typedef struct EntityBase{
     // Effects
     int effects_number;
     Effect effects[MAX_EFFECTS];
+
+    // Actions
+    Action actions[MAX_ACTIONS]; /** Predefined actions, see creature_data */
+    int action_count;
 
     int is_alive;
 } EntityBase;

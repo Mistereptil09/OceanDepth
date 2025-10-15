@@ -148,6 +148,11 @@ void effect_apply(EntityBase* base, Effect* effect)
 
 void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 {
+    // DEBUG: Show which entity's effects are ticking
+    if (self->effects_number > 0) {
+        printf("[DEBUG] Ticking %d effects on %s\n", self->effects_number, self->name);
+    }
+
     // Apply and tick active effects
     for (int i = 0; i < self->effects_number; i++) {
         Effect* effect = &self->effects[i];
@@ -159,7 +164,7 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
         }
     }
 
-    // Compact array: remove expired effects
+    // Compact array: remove expired effects and free their memory
     int write_index = 0;
     for (int read_index = 0; read_index < self->effects_number; read_index++) {
         if (self->effects[read_index].is_active ||
@@ -168,7 +173,10 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
                 self->effects[write_index] = self->effects[read_index];
             }
             write_index++;
-            }
+        } else {
+            // Effect is expired - free its display_message before discarding
+            free_effect_content(&self->effects[read_index]);
+        }
     }
     self->effects_number = write_index;
 }
@@ -176,6 +184,7 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 {
     if (!effect->is_active) return;
+
 
     if (effect->on_tick != NULL) {
           effect->on_tick(self, ennemy);
@@ -194,13 +203,20 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         if (self->current_health_points > max_hp) {
             self->current_health_points = max_hp;
         }
+        if (self->current_health_points <= 0) {
+            self->current_health_points = 0;
+            self->is_alive = 0;
+        }
 
         int max_oxygen = self->max_oxygen_level;
         if (self->oxygen_level > max_oxygen) {
             self->oxygen_level = max_oxygen;
         }
+        if (self->oxygen_level < 0) {
+            self->oxygen_level = 0;
+        }
     }
-        effect->turns_left--;
+    effect->turns_left--;
 
     // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
@@ -220,5 +236,4 @@ void effect_remove(EntityBase* base, Effect* effect)
     }
 
     effect->is_active = 0;
-    free_effect_content(effect);
 }

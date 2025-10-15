@@ -18,11 +18,11 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
     creature->base = base;
     if (actions != NULL) {
         for (int i = 0; i < MAX_ACTIONS; i++) {
-            creature->creature_actions[i] = actions[i];
+            creature->base.actions[i] = actions[i];
         }
     } else {
         for (int i = 0; i < MAX_ACTIONS; i++) {
-            memset(&creature->creature_actions[i], 0, sizeof(Action));
+            memset(&creature->base.actions[i], 0, sizeof(Action));
         }
     }
 
@@ -39,7 +39,7 @@ void free_creature(Creature *c) {
 
     // free actions effects' display messages
     for (int i = 0; i < MAX_ACTIONS; i++) {
-        free_effect_content(&c->creature_actions[i].effect);
+        free_effect_content(&c->base.actions[i].effect);
     }
 
     free_stat(&c->base.attack);
@@ -48,16 +48,6 @@ void free_creature(Creature *c) {
 
     free(c);
 }
-
-
-// made dirty for now
-/*Creature* create_from_template(CreatureTier tier, int id)
-{
-    CreatureType type = rand() % 8;
-    EntityBase base;
-    base.type = ENTITY_CREATURE;
-    return create_creature(id, type, base, NULL);
-}*/
 
 Creature **generate_creatures(Difficulty d, int *count) {
     if (!count) return NULL;
@@ -137,7 +127,8 @@ Creature *create_from_template(CreatureTier tier, int id) {
     int defense = t->defense;
     int speed = t->speed;
 
-    EntityBase base = create_entity_base(ENTITY_CREATURE, "Creature", hp, defense, speed);
+    // Use the template's name instead of generic "Creature"
+    EntityBase base = create_entity_base(ENTITY_CREATURE, t->name, hp, defense, speed);
 
     Action template_actions[MAX_ACTIONS];
     for (int i = 0; i < MAX_ACTIONS; i++) {
@@ -158,7 +149,7 @@ Action* select_action(Creature *c) {
     int available_count = 0;
 
     for (int i = 0; i < 2; i++) {
-        Action* action = &c->creature_actions[i];
+        Action* action = &c->base.actions[i];
 
         if (action->type == PHYSICAL_ATTACK) {
             available_actions[available_count++] = action;
