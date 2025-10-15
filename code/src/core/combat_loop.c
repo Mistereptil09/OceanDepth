@@ -14,8 +14,8 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     // Ensure we recalc if base values changed directly in tests
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
-    int atk = stat_get_value(&attacker->attack); /**YAS : this doesn't account for modifications that aren't tracked by on tick functions/non-stat modifiers effects, should use current_value ?**/
-    int def = stat_get_value(&defender->defense);
+    int atk = attacker->attack.current_value;
+    int def = defender->defense.current_value;
     int raw = atk - def;
     if (raw < 0) raw = 0;
     return raw;
