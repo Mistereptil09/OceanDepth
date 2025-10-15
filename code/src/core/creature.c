@@ -134,9 +134,9 @@ Creature *create_from_template(CreatureTier tier, int id) {
     for (int i = 0; i < MAX_ACTIONS; i++) {
         template_actions[i] = t->actions[i];
         template_actions[i].effect = effect_copy(&t->actions[i].effect);
-        if (template_actions[i].type == PHYSICAL_ATTACK) {
+        /**if (template_actions[i].type == PHYSICAL_ATTACK) {
             template_actions[i].effect.hp_cost = random_range(t->min_atk, t->max_atk);
-        }
+        } not all attacks have hp cost, some just use modifiers, hp costs are an "extra" and should be predetermined in the template */
     }
 
     return create_creature(id, t->type, base, template_actions);

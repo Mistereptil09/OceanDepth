@@ -12,7 +12,7 @@
 
 // ========== EFFECT HANDLING ==========
 Effect create_effect(const char* name, const char *display_message, int turns,
-                     // ressources
+                     // resources
                      int hp_cost,
                      // flat modifiers
                      int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
@@ -39,7 +39,7 @@ Effect create_effect(const char* name, const char *display_message, int turns,
 
     effect.turns_left = turns;
 
-    // ressources
+    // resources
     effect.hp_cost = hp_cost;
 
     // flat modifiers

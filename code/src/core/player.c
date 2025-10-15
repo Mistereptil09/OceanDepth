@@ -24,36 +24,40 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     // Initialize player actions
     p->base.actions[0] = (Action){
-        "Sword Thrust", PHYSICAL_ATTACK, 0, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Bleed", "Pierced by blade!", 1,
-            10, 0,  // hp_cost, oxygen_cost
+        "Coup d'épée", PHYSICAL_ATTACK, 0, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Saignement", "Transpercé par la lame !",
+            1,
+            10,  // hp_cost
             0, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
     };
 
     p->base.actions[1] = (Action){
-        "Attack Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Attack boost", "Speed surge!", 2,
-            0, 0,  // hp_cost, oxygen_cost
+        "Boost d'attaque", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Boost d'attaque", "Montée de puissance !",
+            2,
+            0, // hp_cost
             10, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
     };
 
     p->base.actions[2] = (Action){
-        "Defense Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Defense boost", "Hardened shell!", 2,
-            0, 0,  // hp_cost, oxygen_cost
+        "Boost de défense", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Boost de défense", "Carapace renforcée !",
+            2,
+            0, // hp_cost
             0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
     };
 
     p->base.actions[3] = (Action){
-        "Speed Boost", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Speed boost", "Lightning fast!", 2,
-            0, 0,  // hp_cost, oxygen_cost
+        "Boost de vitesse", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Boost de vitesse", "Rapide comme l'éclair !",
+            2,
+            0, // hp_cost
             0, 0, 10, 0, 0,  // flat modifiers (10 speed boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
