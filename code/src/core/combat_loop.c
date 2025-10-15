@@ -64,12 +64,13 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
         // ====== PHASE 1: PLAYER TURN ======
 
-        /** YAS : TO DO -> CALCULATE HOW MANY ATTACKS CAN BE MADE DURING PLAYER'S TURN BASED ON FATIGUE LEVELS **/
+        /** TO DO -> CALCULATE HOW MANY ATTACKS CAN BE DONE DURING PLAYER'S TURN BASED ON FATIGUE LEVELS **/
 
-        /** YAS : special tick functions use the current_value, must call this function with stats that are likely to be updated by the all effects tick **/
+        /** Making sure that current_values of player attack and creature's defenses are fresh cached_values **/
         stat_prepare_for_turn(&player->base.attack);
-        stat_prepare_for_turn(&player->base.defense);
-        // for each creature, call these as well ?
+        for (int i = 0; i < creature_count; i++) {
+            stat_prepare_for_turn(&creatures[i]->base.defense);
+        }
 
         // Tick player's effects at start of their turn
         all_effects_tick(&player->base, NULL);
@@ -81,12 +82,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
             return 0;
         }
 
-        // Display available actions
-        /** YAS : Might want to call this and add it to the effects before ticking ? **/
-        /** YAS : might also want to turn this into a switch while loop until the choice isn't valid ? **/
-        /** VALID CHOICE CRITERIA :
-         * - NO COOLDOWN LEFT,
-         * - APPLY ACTION TO TARGET, RETURNS ALREADY_ACTIVE IF IT'S ALREADY IN THE TARGET'S EFFECT ARRAY, SO WE CAN LET THE USER KNOW THAT*/
         printf("\n=== Your Actions ===\n");
         for (int i = 0; i < player->base.action_count; i++) {
             Action* action = &player->base.actions[i];
@@ -103,7 +98,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
         }
 
         // Player chooses action
-        /** YAS : is this safe ? Are verifications made ? **/
         int action_choice = current_interface->get_choice("Choose your action", 1, player->base.action_count);
         Action* chosen_action = &player->base.actions[action_choice - 1];
 
@@ -133,8 +127,13 @@ int battle_loop(Player* player, Difficulty difficulty) {
             printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
 
             // Apply effect first (e.g., Bleed)
-            /** YAS : I had updated apply_effect_to_target to accept an effect instead of an action, so here is a more appropriate function that does the same thing as the old version **/
             apply_action_to_target(&target->base, *chosen_action);
+
+            /** if effect has an on_tick, separately apply it now */
+            if (chosen_action->effect.on_tick != NULL) {
+                effect_tick(&player->base, &target->base, &chosen_action->effect);
+            }
+
 
             // Then calculate and deal damage
             int dmg = compute_physical_damage(&player->base, &target->base);
@@ -159,7 +158,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
             printf("You feel empowered!\n");
 
             // Set cooldown
-            /**YAS : Make sure that hardcoded Action cooldowns and associated Effect's turns are cohesive */
+            /** Make sure that hardcoded Action cooldowns and associated Effect's turns are cohesive */
             chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
         }
 

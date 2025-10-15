@@ -27,7 +27,6 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         "Coup d'épée", PHYSICAL_ATTACK, 0, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Saignement", "Transpercé par la lame !",
             1,
-            10,  // hp_cost
             0, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
@@ -37,7 +36,6 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         "Boost d'attaque", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost d'attaque", "Montée de puissance !",
             2,
-            0, // hp_cost
             10, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
@@ -47,7 +45,6 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         "Boost de défense", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost de défense", "Carapace renforcée !",
             2,
-            0, // hp_cost
             0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
@@ -57,7 +54,6 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         "Boost de vitesse", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost de vitesse", "Rapide comme l'éclair !",
             2,
-            0, // hp_cost
             0, 0, 10, 0, 0,  // flat modifiers (10 speed boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)

@@ -12,8 +12,6 @@
 
 // ========== EFFECT HANDLING ==========
 Effect create_effect(const char* name, const char *display_message, int turns,
-                     // resources
-                     int hp_cost,
                      // flat modifiers
                      int attack_boost_flat, int defense_boost_flat, int speed_boost_flat,
                      int oxygen_max_boost_flat, int hp_max_boost_flat,
@@ -39,8 +37,6 @@ Effect create_effect(const char* name, const char *display_message, int turns,
 
     effect.turns_left = turns;
 
-    // resources
-    effect.hp_cost = hp_cost;
 
     // flat modifiers
     effect.attack_boost_flat = attack_boost_flat;
@@ -193,10 +189,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         if (effect->display_message) {
             printf("%s\n", effect->display_message);
         }
-
-        // Apply per-turn costs
-        ennemy->current_health_points -= effect->hp_cost;
-        /*target->oxygen_level -= effect->oxygen_cost;*/
 
         // Clamp resources
         int max_hp = self->max_health_points;

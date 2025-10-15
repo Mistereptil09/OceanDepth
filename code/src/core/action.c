@@ -22,19 +22,18 @@ int apply_effect_to_target(EntityBase *target, Effect effect) {
     if (target == NULL) return POINTER_NULL;
 
     // DEBUG: Print who is getting the effect
-    printf("[DEBUG] Applying effect '%s' (hp_cost=%d) to %s\n",
-           effect.name, effect.hp_cost, target->name);
+    printf("[DEBUG] Applying effect '%s' to %s\n",
+           effect.name, target->name);
 
     for (int i = 0; i < target->effects_number; i++) {
             if (strcmp(target->effects[i].name, effect.name) == 0) {
-                if (target->effects[i].is_active) {
-                    return ALREADY_ACTIVE;
+                if (!target->effects[i].is_active) {
+                    // reactivate old effect
+                    target->effects[i].is_active = 1;
+                    target->effects[i].turns_left = effect.turns_left;
                 }
-                // reactivate old effect
-                target->effects[i].is_active = 1;
-                target->effects[i].turns_left = effect.turns_left;
 
-                // apply effect if simple effect
+                // apply effect
                 effect_apply(target, &target->effects[i]);
                 return SUCCESS;
             }
