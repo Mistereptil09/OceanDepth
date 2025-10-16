@@ -247,7 +247,7 @@ int etreinte_tentaculaire_tick(EntityBase* self, EntityBase* ennemy) {
     if (self == NULL || ennemy == NULL) {
         return POINTER_NULL;
     }
-    int damage = self->attack.current_value - ennemy->defense.current_value;
+    int damage = self->attack.cached_value - ennemy->defense.cached_value; // used cached instead
     if (damage < 1) damage = 1;
     if (damage >= ennemy->current_health_points) {
         ennemy->current_health_points = 0;
@@ -264,7 +264,8 @@ int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy) {
         return POINTER_NULL;
     }
     if (self->current_health_points < self->max_health_points * 0.5) {
-        self->attack.current_value += (int)(self->attack.current_value * 0.3);
+        Effect boostAttack = create_effect("Frenesie sanguinaire en action", "Maximisez les dégâts ! ", 1,0,0,0,0,0,0.3,0,0,0,0, NULL);
+        apply_effect_to_target(self, boostAttack);
     }
 
     printf("%s", "Le requin entre en frénésie !");
@@ -272,7 +273,7 @@ int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy) {
     return SUCCESS;
 }
 
-int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) {
+int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) { // this one works fine
     if (ennemy == NULL) {
         return POINTER_NULL;
     }

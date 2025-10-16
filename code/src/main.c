@@ -20,7 +20,7 @@ int main(void)
     // Create player
     char player_name[30];
     current_interface->get_input("Please give me your name !", player_name, sizeof(player_name));
-    Player* player = create_player(player_name, 100, 50
+    Player* player = create_player(player_name, 100, 8
         , 100);
 
     if (!player) {

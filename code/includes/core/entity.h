@@ -34,7 +34,6 @@ typedef struct {
 typedef struct {
     int base_value; // entity initial value for that stat
     int cached_value; // value after all modifiers were applied
-    int current_value; // a copy of cached_value that can be modified by functions that aren't tracked by StatModifier
     bool to_calculate;
     StatModifier* modifiers;
     int modifier_count;
@@ -91,10 +90,6 @@ void free_stat(Stat* stat);
  */
 int stat_get_value(Stat* stat);
 
-/** Update stat->current_value to the cached value
- * This is the value to modify through all effect tick and use as the damage at the end.
- */
-void stat_prepare_for_turn(Stat* stat);
 
 /**
  * @brief Adds a stat modifier from a source (effect)

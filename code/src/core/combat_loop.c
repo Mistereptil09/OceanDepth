@@ -14,10 +14,12 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     // Ensure we recalc if base values changed directly in tests
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
-    int atk = attacker->attack.current_value;
-    int def = defender->defense.current_value;
+    int atk = stat_get_value(&attacker->attack);
+    int def = stat_get_value(&defender->defense);
     int raw = atk - def;
     if (raw < 0) raw = 0;
+    printf("COMPUTE_PHYSICAL_DAMAGE : ATK %d - DEF %d = RAW %d\n", atk, def, raw);
+
     return raw;
 }
 
@@ -65,12 +67,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
         // ====== PHASE 1: PLAYER TURN ======
 
         /** TO DO -> CALCULATE HOW MANY ATTACKS CAN BE DONE DURING PLAYER'S TURN BASED ON FATIGUE LEVELS **/
-
-        /** Making sure that current_values of player attack and creature's defenses are fresh cached_values **/
-        stat_prepare_for_turn(&player->base.attack);
-        for (int i = 0; i < creature_count; i++) {
-            stat_prepare_for_turn(&creatures[i]->base.defense);
-        }
 
         // Tick player's effects at start of their turn
         all_effects_tick(&player->base, NULL);
@@ -127,12 +123,11 @@ int battle_loop(Player* player, Difficulty difficulty) {
             printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
 
             // Apply effect first (e.g., Bleed)
-            apply_action_to_target(&target->base, *chosen_action);
+            apply_action_to_target(&player->base, *chosen_action);
 
-            /** if effect has an on_tick, separately apply it now */
-            if (chosen_action->effect.on_tick != NULL) {
+            /** if effect has an on_tick, separately apply it now, otherwise this helps update turns left */
                 effect_tick(&player->base, &target->base, &chosen_action->effect);
-            }
+
 
 
             // Then calculate and deal damage
