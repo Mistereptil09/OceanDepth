@@ -282,6 +282,10 @@ int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) { // th
     return apply_effect_to_target(ennemy, malusAttack);
 }
 
+int create_carapace_durcie_tick(EntityBase* self, EntityBase* ennemy) {
+    if (ennemy == NULL) {
+        return POINTER_NULL;
+    }
 
-
-
+    // create on player an effect that will reduce attaqk by 20% if opponent is the crab
+}

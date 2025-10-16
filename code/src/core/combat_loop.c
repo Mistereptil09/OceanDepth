@@ -122,7 +122,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
 
-            // Apply effect first (e.g., Bleed)
+            // Apply effect first (e.g., Bleed) EFFECT SHOULD BE APPLIED TO THE CALLER
             apply_action_to_target(&player->base, *chosen_action);
 
             /** if effect has an on_tick, separately apply it now, otherwise this helps update turns left */
@@ -194,7 +194,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 int player_hp_before = player->base.current_health_points;
                 int dmg = compute_physical_damage(&attacker->base, &player->base);
                 if (dmg > 0) {
-                    entity_take_damage(&player->base, dmg);
+                    entity_take_damage(&attacker->base, dmg);
                 }
 
                 // Show damage
