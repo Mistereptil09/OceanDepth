@@ -76,6 +76,11 @@ int stat_get_value(Stat* stat)
 
 void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
 {
+
+    printf("[DEBUG] Adding modifier %.1f (type=%s) to stat (base=%d, cached=%d, count=%d)\n",
+           value, type == MOD_FLAT ? "FLAT" : "PERCENT",
+           stat->base_value, stat->cached_value, stat->modifier_count);
+
     // Check if array is full and needs expansion
     if (stat->modifier_count >= stat->modifier_capacity) {
         int new_capacity = stat->modifier_capacity == 0 ? 4 : stat->modifier_capacity * 2;

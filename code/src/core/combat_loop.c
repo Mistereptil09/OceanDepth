@@ -12,18 +12,25 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
 {
     if (!attacker || !defender) return 0;
     // Ensure we recalc if base values changed directly in tests
-    attacker->attack.to_calculate = true;
-    defender->defense.to_calculate = true;
+    printf("[DEBUG] === COMPUTING DAMAGE ===\n");
+    printf("[DEBUG] Attacker: %s, Defender: %s\n", attacker->name, defender->name);
     printf("[DEBUG] ATTACKER'S ATTACK BASE VALUE : %d\n", attacker->attack.base_value);
     printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->attack.cached_value);
     printf("[DEBUG] DEFENDER'S DEFENSE BASE VALUE : %d\n", defender->defense.base_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
+    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->defense.cached_value);
+
+    attacker->attack.to_calculate = true;
+    defender->defense.to_calculate = true;
+
     int atk = stat_get_value(&attacker->attack);
     int def = stat_get_value(&defender->defense);
+
     printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->attack.cached_value);
     printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
+
     int raw = atk - def;
     if (raw < 0) raw = 0;
+
     printf("COMPUTE_PHYSICAL_DAMAGE : ATK %d - DEF %d = RAW %d\n", atk, def, raw);
 
     return raw;
@@ -187,6 +194,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             // Show what the creature is doing
             current_interface->show_action(attacker->base.name, action->name);
+
             Effect *creature_added_effect = NULL;
             if (action->type == PHYSICAL_ATTACK) {
                 creature_added_effect = apply_action_to_target(&player->base, action);
@@ -196,10 +204,13 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 printf("%s buffed itself!\n", attacker->base.name);
             }
 
+            // WHY
             if (creature_added_effect == NULL) {
                 printf("Error while applying the effect");
             } else {
-                effect_tick(&attacker->base, &player->base, creature_added_effect);
+                if (creature_added_effect->on_tick != NULL) {
+                    effect_tick(&attacker->base, &player->base, creature_added_effect);
+                }
             }
 
             // Then deal damage
@@ -225,6 +236,11 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 current_interface->display_defeat();
                 free_generated_creatures(creatures, creature_count);
                 return 0;
+            }
+
+            if (creature_added_effect->on_tick == NULL) {
+                effect_tick(&attacker->base, &player->base, creature_added_effect);
+
             }
             action->cooldown_remaining = action->cooldown_turns;
         }

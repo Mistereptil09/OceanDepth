@@ -50,8 +50,8 @@ void init_creature_templates(void) {
         KING_CRAB, CREATURE_MEDIUM, "Crabe Geant", 80, 120, 12, 20, 10, 2,
         {
             {"Pince écrasante", PHYSICAL_ATTACK, 0, 0,
-                create_effect("Malus attaque joueur sur 2 tours", "Le joueur subit -3 d'attaque aux 2 prochains tours!",
-                     2, -3, 0, 0, 0, 0,
+                create_effect("Malus attaque joueur", "Le joueur subit -3 d'attaque aux 2 prochains tours!",
+                     3, -3, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
             {"Carapace durcie", SPECIAL_SKILL, 2, 0,
@@ -76,22 +76,24 @@ void init_creature_templates(void) {
         JELLYFISH, CREATURE_EASY, "Meduse", 20, 40, 8, 15, 5, 3,
         {
             {"Piqûre tentaculaire", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost attaque", "La Méduse a 4 points d'attaques de plus !",
-                     1, 4, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
-
+                create_effect("Boost suprême pour le joueur ", "+40 points d'attaque pour toi !",
+            1,
+            4, 0, 0, 0, 0,  // flat modifiers
+            0, 0, 0, 0, 0,  // percentage modifiers
+            NULL)
+    },
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
-                create_effect("Malus attaque joueur sur 1 tour", "L'attaque du joueur réduite de 1 au prochain tour!",
+                create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!",
                      1, -1, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, NULL)},
 
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
-                create_effect("Malus attaque joueur sur 1 tour", "L'attaque du joueur réduite de 1 !",
+                create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!!",
                      1, -1, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
-                create_effect("Malus attaque joueur sur 1 tour", "L'attaque du joueur réduite de 1 !",
+                create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!!",
                      1, -1, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
         }
@@ -102,7 +104,7 @@ void init_creature_templates(void) {
         SHARK, CREATURE_MEDIUM, "Requin", 60, 100, 15, 25, 20, 1,
         {
             {"Morsure", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost défense sur 2 tours", " +2 de défense pour le Requin sur 2 tours !",
+                create_effect("Boost défense", " +2 de défense pour le Requin sur 2 tours !",
                      2, 0, 2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
@@ -128,22 +130,22 @@ void init_creature_templates(void) {
         LEVIATHAN, CREATURE_BOSS, "Leviathan", 210, 230, 30, 45, 15, 1,
         {
             {"Morsure antique", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost attaque pour le Leviathan", "+ 8 d'attaque pour le Leviathan durant ce tour !",
+                create_effect("Boost attaque", "+ 8 d'attaque pour le Leviathan durant ce tour !",
                      1, 8, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost attaque++ pour le Leviathan", "+ 10 d'attaque pour le Leviathan durant ce tour !",
+                create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost attaque++ pour le Leviathan", "+ 10 d'attaque pour le Leviathan durant ce tour !",
+                create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost attaque++ pour le Leviathan", "+ 10 d'attaque pour le Leviathan durant ce tour !",
+                create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL)},
         }
@@ -154,7 +156,7 @@ void init_creature_templates(void) {
         ANGLERFISH, CREATURE_HARD, "Anglerfish", 180, 180, 12, 20, 15, 3,
         {
             {"Attaque leurre", SPECIAL_SKILL, 0, 0,
-                create_effect("+0.1 attaque pour l'Anglerfish", "+0.1 atk durant un tour pour Anglerfish !",
+                create_effect("+0.1 attaque", "+0.1 atk durant un tour pour Anglerfish !",
                      1, 0, 0, 0, 0, 0,
                     0.1, 0, 0, 0, 0, NULL)},
 
