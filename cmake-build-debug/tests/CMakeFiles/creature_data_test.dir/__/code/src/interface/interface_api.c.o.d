@@ -1,0 +1,19 @@
+tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_api.c.o: \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/interface/interface_api.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/player.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/inventory.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/item.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/action.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/effect.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/entity.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdbool.h \
+  /Users/yasmineslamani/CLionProjects/OceanDepth/code/includes/core/creature.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stddef.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stddef.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_header_macro.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_ptrdiff_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_size_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_wchar_t.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_null.h \
+  /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stddef_offsetof.h

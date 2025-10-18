@@ -122,7 +122,7 @@ int entity_take_damage(EntityBase *base, int hp);
  */
 int entity_recover_hp(EntityBase *base, int hp);
 
-EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed);
+EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed, int attack);
 
 void free_entity_base(EntityBase* base);
 

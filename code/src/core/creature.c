@@ -128,7 +128,7 @@ Creature *create_from_template(CreatureTier tier, int id) {
     int speed = t->speed;
 
     // Use the template's name instead of generic "Creature"
-    EntityBase base = create_entity_base(ENTITY_CREATURE, t->name, hp, defense, speed);
+    EntityBase base = create_entity_base(ENTITY_CREATURE, t->name, hp, defense, speed, 10);
 
     Action template_actions[MAX_ACTIONS];
     for (int i = 0; i < MAX_ACTIONS; i++) {

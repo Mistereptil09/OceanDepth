@@ -15,7 +15,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     Player *p = malloc(sizeof(Player));
     if (p == NULL) return NULL;
 
-    p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0);
+    p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0, 15);
 
     // entity base values (operate directly on p->base)
     p->base.oxygen_level = max_oxygen;
@@ -24,8 +24,8 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     // Initialize player actions
     p->base.actions[0] = (Action){
-        "Coup d'épée", PHYSICAL_ATTACK, 0, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Saignement", "Transpercé par la lame !",
+        "Coup d'épée", SPECIAL_SKILL, 0, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Boost suprême pour le joueur ", "+40 points d'attaque pour toi !",
             1,
             40, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
@@ -34,8 +34,8 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     p->base.actions[1] = (Action){
         "Boost d'attaque", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Boost d'attaque", "Montée de puissance !",
-            2,
+        create_effect("Boost d'attaque", "Montée de puissance de 0.1 pour toi!",
+            1,
             0, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
             0.1, 0, 0, 0, 0,  // percentage modifiers
             NULL)
@@ -43,7 +43,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     p->base.actions[2] = (Action){
         "Boost de défense", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Boost de défense", "Carapace renforcée !",
+        create_effect("Boost de défense", "+ 10 de défense pour toi !",
             2,
             0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
             0, 0, 0, 0, 0,  // percentage modifiers
@@ -51,10 +51,10 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     };
 
     p->base.actions[3] = (Action){
-        "Boost de vitesse", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Boost de vitesse", "Rapide comme l'éclair !",
-            2,
-            12, 0, 0, 0, 0,  // flat modifiers (10 speed boost)
+        "Harpon", PHYSICAL_ATTACK, 2, 0,  // cooldown_turns, cooldown_remaining
+        create_effect("Malus adversaire", "Ton adversaire est affaibli, sa défense est de -3 pour les 3 prochains tours!",
+            3,
+            0, -3, 0, 0, 0,  // flat modifiers (10 speed boost)
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
     };

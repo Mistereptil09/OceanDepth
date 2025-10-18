@@ -127,7 +127,7 @@ void stat_modifier_remove_by_source(Stat* stat, Effect* source)
 
 // ========== ENTITY FUNCTIONS ==========
 
-EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed)
+EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed, int attack)
 {
     EntityBase base = {0};  // Zero-initialize
 
@@ -137,7 +137,6 @@ EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_
         base.name[sizeof(base.name) - 1] = '\0';
     }
 
-    int attack = 10;
     int oxygen_level = 100;
 
     // Initialize stats

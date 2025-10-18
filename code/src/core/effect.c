@@ -96,7 +96,7 @@ void free_effect_content(Effect *effect) {
 
 void effect_apply(EntityBase* base, Effect* effect)
 {
-    if (effect->is_active) return;  // simple effect already applied
+    if (effect->is_active) return;  // effect already applied
 
     if (effect->on_tick != NULL) {
         effect->is_active = 1;
@@ -105,41 +105,53 @@ void effect_apply(EntityBase* base, Effect* effect)
 
     // Apply FLAT modifiers
     if (effect->attack_boost_flat != 0) {
+        printf("[DEBUG] FLAT ATK BOOST ADDED %d\n", effect->attack_boost_flat);
         stat_modifier_add(&base->attack, MOD_FLAT, effect, (float)effect->attack_boost_flat);
     }
     if (effect->defense_boost_flat != 0) {
+        printf("[DEBUG] FLAT DEFENSE BOOST ADDED %d\n", effect->defense_boost_flat);
         stat_modifier_add(&base->defense, MOD_FLAT, effect, (float)effect->defense_boost_flat);
     }
     if (effect->speed_boost_flat != 0) {
+        printf("[DEBUG] FLAT SPEED BOOST ADDED %d\n", effect->speed_boost_flat);
         stat_modifier_add(&base->speed, MOD_FLAT, effect, (float)effect->speed_boost_flat);
     }
     if (effect->hp_max_boost_flat != 0) {
+        printf("[DEBUG] FLAT HP MAX BOOST ADDED %d\n", effect->hp_max_boost_flat);
         base->max_health_points += effect->hp_max_boost_flat;
     }
     if (effect->oxygen_max_boost_flat != 0) {
+        printf("[DEBUG] FLAT OXYGEN BOOST ADDED %d\n", effect->oxygen_max_boost_flat);
         base->max_oxygen_level += effect->oxygen_max_boost_flat;
     }
 
 
     // Apply PERCENTAGE modifiers
     if (effect->attack_boost_percent != 0.0) {
+        printf("[DEBUG] PERCENT ATTACK BOOST ADDED %lf\n", effect->attack_boost_percent);
         stat_modifier_add(&base->attack, MOD_PERCENTAGE, effect, effect->attack_boost_percent);
     }
     if (effect->defense_boost_percent != 0.0) {
+        printf("[DEBUG] PERCENT DEFENSE BOOST ADDED %lf\n", effect->defense_boost_percent);
         stat_modifier_add(&base->defense, MOD_PERCENTAGE, effect, effect->defense_boost_percent);
     }
     if (effect->speed_boost_percent != 0.0) {
+        printf("[DEBUG] PERCENT SPEED BOOST ADDED %lf\n", effect->speed_boost_percent);
         stat_modifier_add(&base->speed, MOD_PERCENTAGE, effect, effect->speed_boost_percent);
     }
     if (effect->hp_max_boost_percent != 0) {
+        printf("[DEBUG] PERCENT HP BOOST ADDED %lf\n", effect->hp_max_boost_percent);
         base->max_health_points += (int)effect->hp_max_boost_percent * base->max_health_points;
     }
     if (effect->oxygen_max_boost_flat != 0) {
+        printf("[DEBUG] PERCENT OXYGEN BOOST ADDED %lf\n", effect->oxygen_max_boost_percent);
         base->max_oxygen_level += (int)effect->oxygen_max_boost_percent * base->max_oxygen_level;
     }
 
 
     effect->is_active = 1;
+    printf("[DEBUG] Modifier was successfully added \n");
+
 }
 
 void all_effects_tick(EntityBase* self, EntityBase* ennemy)
@@ -157,6 +169,7 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
         }
         if (effect->is_active) {
             effect_tick(self, ennemy, effect);
+            printf("[DEBUG] Special on tick function was triggered by effect : %s\n", effect->name);
         }
     }
 

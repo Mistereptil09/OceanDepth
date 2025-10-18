@@ -29,9 +29,6 @@ int main(void)
         return 1;
     }
 
-    // Set player attack (since default is 10, let's give them a fighting chance)
-    player->base.attack.base_value = 15;
-
     printf("\n\nWelcome, %s, to the Ocean Depths!\n", player_name);
     printf("You are about to face the creatures of the deep...\n");
 

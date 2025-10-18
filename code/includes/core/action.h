@@ -26,9 +26,9 @@ typedef struct {
  * @param effect
  * @return ERROR CODES
  */
-int apply_effect_to_target(EntityBase *target, Effect effect);
+Effect *apply_effect_to_target(EntityBase *target, Effect effect);
 
-int apply_action_to_target(EntityBase *target, Action action);
+Effect *apply_action_to_target(EntityBase *target, Action *action);
 
 /**
 * @brief If array is full, tries to replace an inactive effect with the new one
@@ -37,6 +37,6 @@ int apply_action_to_target(EntityBase *target, Action action);
 * @param effect
  * @return ERROR CODES
  */
-int insert_effect_in_effects(EntityBase* target, Effect effect);
+Effect *insert_effect_in_effects(EntityBase* target, Effect effect);
 
 #endif //OCEANDEPTH_ACTION_H

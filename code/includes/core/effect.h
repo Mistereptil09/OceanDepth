@@ -9,9 +9,7 @@ typedef struct EntityBase EntityBase;
 
 typedef int (*FonctionEffect)(EntityBase *self, EntityBase *ennemy); // for special effects
 
-typedef struct Effect Effect;
-
-typedef struct Effect {
+typedef struct{
     char name[30];
     char *display_message;
     int turns_left;

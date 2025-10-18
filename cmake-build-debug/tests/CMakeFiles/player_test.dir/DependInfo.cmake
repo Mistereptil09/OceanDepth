@@ -8,20 +8,20 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/action.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/combat_loop.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/creature.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/creature_data.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/effect.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/entity.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/inventory.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/item.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/core/player.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/helper/input_validator.c" "tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_api.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_cli.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/src/interface/interface_table.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.obj.d"
-  "C:/Users/Yasmine SLAMANI/CLionProjects/OceanDepth/code/tests/player_test.c" "tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.obj" "gcc" "tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.obj.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c" "tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c" "tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.o.d"
+  "/Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/player_test.c" "tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.o" "gcc" "tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

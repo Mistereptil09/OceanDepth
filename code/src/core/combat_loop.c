@@ -14,8 +14,14 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     // Ensure we recalc if base values changed directly in tests
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
+    printf("[DEBUG] ATTACKER'S ATTACK BASE VALUE : %d\n", attacker->attack.base_value);
+    printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->attack.cached_value);
+    printf("[DEBUG] DEFENDER'S DEFENSE BASE VALUE : %d\n", defender->defense.base_value);
+    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
     int atk = stat_get_value(&attacker->attack);
     int def = stat_get_value(&defender->defense);
+    printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->attack.cached_value);
+    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
     int raw = atk - def;
     if (raw < 0) raw = 0;
     printf("COMPUTE_PHYSICAL_DAMAGE : ATK %d - DEF %d = RAW %d\n", atk, def, raw);
@@ -71,6 +77,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
         // Tick player's effects at start of their turn
         all_effects_tick(&player->base, NULL);
 
+        // Checks if the player is still alive
         if (!player->base.is_alive) {
             printf("\nYou died from your afflictions!\n");
             current_interface->display_defeat();
@@ -78,6 +85,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
             return 0;
         }
 
+        // Displays possible actions to player
         printf("\n=== Your Actions ===\n");
         for (int i = 0; i < player->base.action_count; i++) {
             Action* action = &player->base.actions[i];
@@ -85,9 +93,9 @@ int battle_loop(Player* player, Difficulty difficulty) {
             if (action->cooldown_remaining > 0) {
                 printf(" [Cooldown: %d turns]", action->cooldown_remaining);
             }
-            if (action->type == PHYSICAL_ATTACK) {
+            if (action->type == PHYSICAL_ATTACK) { // applies to others
                 printf(" (Attack)");
-            } else if (action->type == SPECIAL_SKILL) {
+            } else if (action->type == SPECIAL_SKILL) { // applies to player
                 printf(" (Buff)");
             }
             printf("\n");
@@ -110,52 +118,49 @@ int battle_loop(Player* player, Difficulty difficulty) {
             }
         }
 
+        // Player chooses target to attack (attack happens regardless of the action chosen
+        int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
+        Creature* target = get_alive_creature_at(target_choice);
+
+        if (!target) {
+            printf("Invalid target!\n");
+            continue;
+        }
+
+        printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
+        Effect *player_added_effect = NULL;
+
         if (chosen_action->type == PHYSICAL_ATTACK) {
-            // Player chooses target for attack
-            int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
-            Creature* target = get_alive_creature_at(target_choice);
-
-            if (!target) {
-                printf("Invalid target!\n");
-                continue;
-            }
-
-            printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
-
-            // Apply effect first (e.g., Bleed) EFFECT SHOULD BE APPLIED TO THE CALLER
-            apply_action_to_target(&player->base, *chosen_action);
-
-            /** if effect has an on_tick, separately apply it now, otherwise this helps update turns left */
-                effect_tick(&player->base, &target->base, &chosen_action->effect);
-
-
-
-            // Then calculate and deal damage
-            int dmg = compute_physical_damage(&player->base, &target->base);
-            if (dmg > 0) {
-                entity_take_damage(&target->base, dmg);
-                printf("You deal %d damage to the %s!\n", dmg, target->base.name);
-            } else {
-                printf("Your attack was blocked!\n");
-            }
-
-            if (!target->base.is_alive) {
-                printf("\n>> You defeated the %s! <<\n", target->base.name);
-            }
-
-            // Set cooldown
-            chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
+            player_added_effect = apply_action_to_target(&target->base, chosen_action);
 
         } else if (chosen_action->type == SPECIAL_SKILL) {
             // Self-buff skill
-            printf("\nYou use %s!\n", chosen_action->name);
-            apply_action_to_target(&player->base, *chosen_action);
-            printf("You feel empowered!\n");
-
-            // Set cooldown
-            /** Make sure that hardcoded Action cooldowns and associated Effect's turns are cohesive */
-            chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
+            player_added_effect = apply_action_to_target(&player->base, chosen_action);
+            printf("\nYou feel empowered by %s!\n", chosen_action->name);
         }
+
+        if (player_added_effect == NULL) {
+            printf("Error while applying effect");
+        } else {
+            /** if effect has an on_tick, separately apply it now, otherwise this helps update turns left */
+            effect_tick(&player->base, &target->base, &chosen_action->effect);
+        }
+
+        // Proceed to apply calculated damage after all effects application
+        int dmg = compute_physical_damage(&player->base, &target->base);
+        if (dmg > 0) {
+            entity_take_damage(&target->base, dmg);
+            printf("You deal %d damage to the %s!\n", dmg, target->base.name);
+        } else {
+            printf("Your attack was blocked!\n");
+        }
+
+        if (!target->base.is_alive) {
+            printf("\n>> You defeated the %s! <<\n", target->base.name);
+        }
+
+        // Set cooldown
+        chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
 
         // ====== PHASE 2: ENEMY TURN ======
         printf("\n--- Enemy Turn ---\n");
@@ -165,8 +170,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             Creature* attacker = creatures[i];
 
-            /** YAS : same thing as for player, stat_prepare_for_turn should be called on creature stats and player stats that might get modified by effect functions without being cached */
-
             // Tick creature's effects at start of its turn
             all_effects_tick(&attacker->base, &player->base);
 
@@ -175,7 +178,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 continue;
             }
 
-            /** YAS : Good, but note to self -> check that the random selection also handles the validity conditions if it still doesn't */
+            /** NOTE :check that the random selection also handles the validity conditions if it still doesn't */
             Action* action = select_action(attacker);
             if (!action) {
                 printf("%s has no available actions!\n", attacker->base.name);
@@ -184,41 +187,46 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
             // Show what the creature is doing
             current_interface->show_action(attacker->base.name, action->name);
-
+            Effect *creature_added_effect = NULL;
             if (action->type == PHYSICAL_ATTACK) {
-                // Apply effect first (e.g., Poison/Bleed debuff on player)
-                /** YAS : again, shouldn't be added to list before ticking ? */
-                apply_action_to_target(&player->base, *action);
-
-                // Then deal damage
-                int player_hp_before = player->base.current_health_points;
-                int dmg = compute_physical_damage(&attacker->base, &player->base);
-                if (dmg > 0) {
-                    entity_take_damage(&attacker->base, dmg);
-                }
-
-                // Show damage
-                int damage_dealt = player_hp_before - player->base.current_health_points;
-                if (damage_dealt > 0) {
-                    printf("%s deals %d damage to you!\n", attacker->base.name, damage_dealt);
-                    printf("You have %d/%d HP remaining.\n",
-                           player->base.current_health_points,
-                           player->base.max_health_points);
-                } else {
-                    printf("You blocked the attack!\n");
-                }
-
-                if (!player->base.is_alive) {
-                    current_interface->show_defeat_by(attacker->base.name);
-                    current_interface->display_defeat();
-                    free_generated_creatures(creatures, creature_count);
-                    return 0;
-                }
+                creature_added_effect = apply_action_to_target(&player->base, action);
             } else if (action->type == SPECIAL_SKILL) {
                 // Self-buff: apply effect to self
-                apply_action_to_target(&attacker->base, *action);
+                creature_added_effect = apply_action_to_target(&attacker->base, action);
                 printf("%s buffed itself!\n", attacker->base.name);
             }
+
+            if (creature_added_effect == NULL) {
+                printf("Error while applying the effect");
+            } else {
+                effect_tick(&attacker->base, &player->base, creature_added_effect);
+            }
+
+            // Then deal damage
+            int player_hp_before = player->base.current_health_points;
+            int dmg = compute_physical_damage(&attacker->base, &player->base);
+            if (dmg > 0) {
+                entity_take_damage(&player->base, dmg);
+            }
+
+            // Show damage
+            int damage_dealt = player_hp_before - player->base.current_health_points;
+            if (damage_dealt > 0) {
+                printf("%s deals %d damage to you!\n", attacker->base.name, damage_dealt);
+                printf("You have %d/%d HP remaining.\n",
+                       player->base.current_health_points,
+                       player->base.max_health_points);
+            } else {
+                printf("You blocked the attack!\n");
+            }
+
+            if (!player->base.is_alive) {
+                current_interface->show_defeat_by(attacker->base.name);
+                current_interface->display_defeat();
+                free_generated_creatures(creatures, creature_count);
+                return 0;
+            }
+            action->cooldown_remaining = action->cooldown_turns;
         }
 
         round++;

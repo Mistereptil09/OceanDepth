@@ -12,36 +12,22 @@
 
 static int last_replaced = -1;
 
-int apply_action_to_target(EntityBase *target, Action action) {
-    if (target == NULL) return POINTER_NULL;
-    Effect effect = action.effect;
+Effect *apply_action_to_target(EntityBase *target, Action *action) {
+    if (target == NULL) return NULL;
+    Effect effect = action->effect;
     return apply_effect_to_target(target, effect);
 }
 
-int apply_effect_to_target(EntityBase *target, Effect effect) {
-    if (target == NULL) return POINTER_NULL;
+Effect *apply_effect_to_target(EntityBase *target, Effect effect) {
+    Effect *p = NULL;
+    if (target == NULL) return p;
 
     // DEBUG: Print who is getting the effect
-    printf("[DEBUG] Applying effect '%s' to %s\n",
-           effect.name, target->name);
+    printf("[DEBUG] Applying effect '%s' to %s\n",effect.name, target->name);
 
-    for (int i = 0; i < target->effects_number; i++) {
-            if (strcmp(target->effects[i].name, effect.name) == 0) {
-                if (!target->effects[i].is_active) {
-                    // reactivate old effect
-                    target->effects[i].is_active = 1;
-                    target->effects[i].turns_left = effect.turns_left;
-                }
-
-                // apply effect
-                effect_apply(target, &target->effects[i]);
-                return SUCCESS;
-            }
-        }
-
-        // else, add new effect to list
+        // add new effect to list
         if (target->effects_number >= MAX_EFFECTS) {
-            return insert_effect_in_effects(target, effect);
+            p = insert_effect_in_effects(target, effect);
         }
 
         target->effects[target->effects_number] = effect_copy(&effect);
@@ -49,11 +35,14 @@ int apply_effect_to_target(EntityBase *target, Effect effect) {
 
         effect_apply(target, &target->effects[target->effects_number - 1]);
 
-        return SUCCESS;
+        p = &target->effects[target->effects_number - 1];
+
+        return p;
 }
 
-int insert_effect_in_effects(EntityBase* target, Effect effect) {
-    if (target == NULL) return POINTER_NULL;
+Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
+    Effect *p = NULL;
+    if (target == NULL) return p;
 
     // look for an inactive slot
     for (int i = 0; i < target->effects_number; i++) {
@@ -64,7 +53,8 @@ int insert_effect_in_effects(EntityBase* target, Effect effect) {
             // insert new effect
             target->effects[i] = effect_copy(&effect);
             effect_apply(target, &target->effects[i]);
-            return SUCCESS;
+            p = &target->effects[i];
+            return p;
         }
     }
 
@@ -77,5 +67,6 @@ int insert_effect_in_effects(EntityBase* target, Effect effect) {
     target->effects[last_replaced] = effect_copy(&effect);
     effect_apply(target, &target->effects[last_replaced]);
 
-    return SUCCESS;
+    p = &target->effects[last_replaced];
+    return p;
 }
