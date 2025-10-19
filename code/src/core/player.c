@@ -29,7 +29,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
             1,
             10, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
-            NULL)
+            NULL, 0) // apply on current turn
     };
 
     p->base.actions[1] = (Action){
@@ -38,7 +38,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
             1,
             0, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
             0.1, 0, 0, 0, 0,  // percentage modifiers
-            NULL)
+            NULL, 0) // apply on current turn
     };
 
     p->base.actions[2] = (Action){
@@ -47,7 +47,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
             2,
             0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
             0, 0, 0, 0, 0,  // percentage modifiers
-            NULL)
+            NULL,1) // apply next turn
     };
 
     p->base.actions[3] = (Action){
@@ -56,7 +56,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
             3,
             0, -3, 0, 0, 0,  // flat modifiers (10 speed boost)
             0, 0, 0, 0, 0,  // percentage modifiers
-            NULL)
+            NULL,0) // apply on this turn
     };
 
     p->base.action_count = 4;

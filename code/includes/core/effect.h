@@ -14,6 +14,7 @@ typedef struct{
     char *display_message;
     int turns_left;
 
+    int applies_next_turn; // FOR STAT MODIFICATIONS THAT ARE APPLIED NEXT ROUND
 
     FonctionEffect on_tick;             // NULL if it isn't a special effect
 
@@ -92,7 +93,7 @@ Effect create_effect(const char* name, const char *display_message, int turns,
                      float attack_boost_percent, float defense_boost_percent,float speed_boost_percent,
                      float oxygen_max_boost_percent, float hp_max_boost_percent,
                      // special effect of the function (is a pointer to the function)
-                     FonctionEffect on_tick);
+                     FonctionEffect on_tick, int applies_next_turn);
 
 /**
  * @brief Copies an effect and duplicates its display_message (used to handle effect application)

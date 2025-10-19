@@ -16,7 +16,7 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     printf("[DEBUG] %s'S ATTACK BASE VALUE : %d\n", attacker->name, attacker->attack.base_value);
     printf("[DEBUG] %s'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->name, attacker->attack.cached_value);
     printf("[DEBUG] %s'S DEFENSE BASE VALUE : %d\n", defender->name, defender->defense.base_value);
-    printf("[DEBUG] %s'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
+    printf("[DEBUG] %s'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
@@ -25,7 +25,7 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     int def = stat_get_value(&defender->defense);
 
     printf("[DEBUG] %s'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->name, attacker->attack.cached_value);
-    printf("[DEBUG] %s'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->name, defender->defense.cached_value);
+    printf("[DEBUG] %s'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     int raw = atk - def;
     if (raw < 0) raw = 0;
@@ -77,17 +77,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
         // ====== PHASE 1: PLAYER TURN ======
 
         /** TO DO -> CALCULATE HOW MANY ATTACKS CAN BE DONE DURING PLAYER'S TURN BASED ON FATIGUE LEVELS **/
-
-        // Tick player's effects at start of their turn
-        all_effects_tick(&player->base, NULL);
-
-        // Checks if the player is still alive
-        if (!player->base.is_alive) {
-            printf("\nYou died from your afflictions!\n");
-            current_interface->display_defeat();
-            free_generated_creatures(creatures, creature_count);
-            return 0;
-        }
 
         // Displays possible actions to player
         printf("\n=== Your Actions ===\n");
@@ -146,8 +135,10 @@ int battle_loop(Player* player, Difficulty difficulty) {
         if (player_added_effect == NULL) {
             printf("Error while applying effect");
         } else {
-            /** if effect has an on_tick, separately apply it now, otherwise this helps update turns left */
-            effect_tick(&player->base, &target->base, &chosen_action->effect);
+            // Tick action-based effects (with on_tick) immediately
+            if (player_added_effect->on_tick != NULL) {
+                effect_tick(&player->base, &target->base, player_added_effect);
+            }
         }
 
         // Proceed to apply calculated damage after all effects application
@@ -159,12 +150,23 @@ int battle_loop(Player* player, Difficulty difficulty) {
             printf("Your attack was blocked!\n");
         }
 
+
         if (!target->base.is_alive) {
             printf("\n>> You defeated the %s! <<\n", target->base.name);
         }
 
         // Set cooldown
         chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
+        // Tick player's effects at THE END of their turn
+        all_effects_tick(&player->base, NULL);
+
+        // Checks if the player is still alive
+        if (!player->base.is_alive) {
+            printf("\nYou died from your afflictions!\n");
+            current_interface->display_defeat();
+            free_generated_creatures(creatures, creature_count);
+            return 0;
+        }
 
         // ====== PHASE 2: ENEMY TURN ======
         printf("\n--- Enemy Turn ---\n");
@@ -173,14 +175,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
             if (!player->base.is_alive) break;
 
             Creature* attacker = creatures[i];
-
-            // Tick creature's effects at start of its turn
-            all_effects_tick(&attacker->base, &player->base);
-
-            if (!attacker->base.is_alive) {
-                printf("%s died from its own effects!\n", attacker->base.name);
-                continue;
-            }
 
             /** NOTE :check that the random selection also handles the validity conditions if it still doesn't */
             Action* action = select_action(attacker);
@@ -201,7 +195,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 printf("%s buffed itself!\n", attacker->base.name);
             }
 
-            // WHY
             if (creature_added_effect == NULL) {
                 printf("Error while applying the effect");
             } else {
@@ -235,11 +228,15 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 return 0;
             }
 
-            if (creature_added_effect->on_tick == NULL) {
-                effect_tick(&attacker->base, &player->base, creature_added_effect);
-
-            }
             action->cooldown_remaining = action->cooldown_turns;
+            // Tick creature's effects at the END of its turn
+            all_effects_tick(&attacker->base, &player->base);
+
+            if (!attacker->base.is_alive) {
+                printf("%s died from its own effects!\n", attacker->base.name);
+                continue;
+            }
+
         }
 
         round++;

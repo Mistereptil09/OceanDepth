@@ -26,22 +26,22 @@ void init_creature_templates(void) {
             {"Étreinte tentaculaire", SPECIAL_SKILL, 0, 0,
                 create_effect("Double attaque", "L'attaque du Kraken a été doublée !",
                      1, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, etreinte_tentaculaire_tick)},
+                    0, 0, 0, 0, 0, etreinte_tentaculaire_tick,0)},
 
             {"Nuage d'encre", SPECIAL_SKILL, 2, 0,
                 create_effect("Boost d'attaque", "L'attaque du Kraken est augmenté de 5 !",
                      1, 5, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Nuage d'encre", SPECIAL_SKILL, 2, 0,
                 create_effect("Boost d'attaque", "L'attaque du Kraken est augmenté de 5 !",
                      1, 5, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Nuage d'encre", SPECIAL_SKILL, 2, 0,
                 create_effect("Boost d'attaque", "L'attaque du Kraken est augmenté de 5 !",
                      1, 5, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
         }
     };
 
@@ -51,23 +51,23 @@ void init_creature_templates(void) {
         {
             {"Pince écrasante", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus attaque joueur", "Le joueur subit -3 d'attaque aux 2 prochains tours!",
-                     3, -3, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                     2, -3, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Carapace durcie", SPECIAL_SKILL, 2, 0,
                 create_effect("Defense boost", "Le Crabe a 20 points de défense de plus !",
                      1, 0, 20, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Carapace durcie", SPECIAL_SKILL, 2, 0,
                 create_effect("Defense boost", "Le Crabe a 20 points de défense de plus !",
                      1, 0, 20, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Carapace durcie", SPECIAL_SKILL, 2, 0,
                 create_effect("Defense boost", "Le Crabe a 20 points de défense de plus !",
                      1, 0, 20, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
         }
     };
 
@@ -80,22 +80,22 @@ void init_creature_templates(void) {
             1,
             4, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
-            NULL)
+            NULL,0)
     },
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!",
                      1, -1, 0, 0, 0, 0,
-                        0, 0, 0, 0, 0, NULL)},
+                        0, 0, 0, 0, 0, NULL,0)},
 
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!!",
                      1, -1, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Piqûre paralysante", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus attaque joueur", "L'attaque du joueur réduite de 1 au prochain tour!!",
                      1, -1, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
         }
     };
 
@@ -106,22 +106,22 @@ void init_creature_templates(void) {
             {"Morsure", SPECIAL_SKILL, 0, 0,
                 create_effect("Boost défense", " +2 de défense pour le Requin sur 2 tours !",
                      2, 0, 2, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Frénésie sanguinaire", SPECIAL_SKILL, 0, 0,
                 create_effect("Frénésie", "+30% de dégât si -50% en HP pour le Requin !",
                      1, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick)},
+                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick,0)},
 
             {"Frénésie sanguinaire", SPECIAL_SKILL, 0, 0,
                 create_effect("Frénésie", "+30% de dégât si -50% en HP pour le Requin !",
                      1, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick)},
+                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick,0)},
 
             {"Frénésie sanguinaire", SPECIAL_SKILL, 0, 0,
                 create_effect("Frénésie", "+30% de dégât si -50% en HP pour le Requin !",
                      1, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick)},
+                    0, 0, 0, 0, 0, frenesie_sanguinaire_tick,0)},
         }
     };
 
@@ -132,22 +132,22 @@ void init_creature_templates(void) {
             {"Morsure antique", SPECIAL_SKILL, 0, 0,
                 create_effect("Boost attaque", "+ 8 d'attaque pour le Leviathan durant ce tour !",
                      1, 8, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
                 create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
                 create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Rugissement abyssal", SPECIAL_SKILL, 0, 0,
                 create_effect("Boost attaque++", "+ 10 d'attaque pour le Leviathan durant ce tour !",
                      1, 10, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
         }
     };
 
@@ -158,22 +158,22 @@ void init_creature_templates(void) {
             {"Attaque leurre", SPECIAL_SKILL, 0, 0,
                 create_effect("+0.1 attaque", "+0.1 atk durant un tour pour Anglerfish !",
                      1, 0, 0, 0, 0, 0,
-                    0.1, 0, 0, 0, 0, NULL)},
+                    0.1, 0, 0, 0, 0, NULL,0)},
 
             {"Voile d'obscurité", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus défense joueur", "Perdu dans l'obscurité, défense réduite de 5 !",
                      1, 0, -5, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Voile d'obscurité", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus défense joueur", "Perdu dans l'obscurité, défense réduite de 5 !",
                      1, 0, -5, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Voile d'obscurité", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus défense joueur", "Perdu dans l'obscurité, défense réduite de 5 !",
                      1, 0, -5, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
         }
     };
 
@@ -184,22 +184,22 @@ void init_creature_templates(void) {
             {"Charge perforante", PHYSICAL_ATTACK, 0, 0,
                 create_effect("Malus défense joueur", "L'épée transperce vos défenses, -2 !",
                      1, 0, -2, 0, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,0)},
 
             {"Élan de vitesse", SPECIAL_SKILL, 2, 0,
                 create_effect("Élan", "Montée d'adrénaline !",
                      0, 0, 0, 2, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Élan de vitesse", SPECIAL_SKILL, 2, 0,
                 create_effect("Élan", "Montée d'adrénaline !",
                      0, 0, 0, 2, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
 
             {"Élan de vitesse", SPECIAL_SKILL, 2, 0,
                 create_effect("Élan", "Montée d'adrénaline !",
                      0, 0, 0, 2, 0, 0,
-                    0, 0, 0, 0, 0, NULL)},
+                    0, 0, 0, 0, 0, NULL,1)},
         }
     };
 
@@ -209,15 +209,15 @@ void init_creature_templates(void) {
         {
             {"Prehistoric Bite", PHYSICAL_ATTACK, 2, 0, create_effect("Malus defense joueur sur 2 tours", "-7 de défense sur 2 tours pour le joueur!", 2,
                  0, -7, 0, 0, 0,
-                 0, 0, 0, 0, 0, NULL)},
+                 0, 0, 0, 0, 0, NULL,0)},
             {"Apex Predator", SPECIAL_SKILL, 0, 0, create_effect("Boost attaque Mégalodon", "+10 d'atk pour le Mégalodon !", 1,
                  10, 0, 0, 0, 0,
-                 0, 0, 0, 0, 0, NULL)},
+                 0, 0, 0, 0, 0, NULL,0)},
             {"Apex Predator", SPECIAL_SKILL, 0, 0, create_effect("Poison", "+10 d'atk pour le Mégalodon !", 1,
                  10, 0, 0, 0, 0,
-                 0, 0, 0, 0, 0, NULL)},
+                 0, 0, 0, 0, 0, NULL,0)},
             {"Apex Predator", SPECIAL_SKILL, 0, 0, create_effect("Poison", "+10 d'atk pour le Mégalodon !", 1,
-                 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL)},
+                 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL,0)},
         }
     };
 
@@ -269,11 +269,11 @@ int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy) {
         return POINTER_NULL;
     }
     if (self->current_health_points < self->max_health_points * 0.5) {
-        Effect boostAttack = create_effect("Frenesie en action", "Maximisez les dégâts ! ", 1,0,0,0,0,0,0.3,0,0,0,0, NULL);
+        Effect boostAttack = create_effect("Frenesie en action", "Maximisez les dégâts ! ", 1,0,0,0,0,0,0.3,0,0,0,0, NULL,0);
         apply_effect_to_target(self, boostAttack);
     }
 
-    printf("%s", "Le requin entre en frénésie !");
+    printf("%s", "Le requin entre en frénésie!");
 
     return SUCCESS;
 }
@@ -282,7 +282,7 @@ int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) { // th
     if (ennemy == NULL) {
         return POINTER_NULL;
     }
-    Effect malusAttack = create_effect("Piqûre paralysante en action","La piqûre paralysante vous affaibli !", 1, -1, 0,0,0,0,0,0,0,0,0,NULL);
+    Effect malusAttack = create_effect("Piqûre paralysante en action","La piqûre paralysante vous affaibli !", 1, -1, 0,0,0,0,0,0,0,0,0,NULL,0);
     printf("%s", "Décharge électrique !");
     Effect *effect = apply_effect_to_target(ennemy, malusAttack);
     if (effect == NULL) {

@@ -17,7 +17,7 @@ Effect create_effect(const char* name, const char *display_message, int turns,
                      int oxygen_max_boost_flat, int hp_max_boost_flat,
                      // percent modifiers
                      float attack_boost_percent, float defense_boost_percent,float speed_boost_percent,
-                     float oxygen_max_boost_percent, float hp_max_boost_percent,FonctionEffect on_tick)
+                     float oxygen_max_boost_percent, float hp_max_boost_percent,FonctionEffect on_tick, int applies_next_turn)
 {
     Effect effect = {0};
 
@@ -58,6 +58,12 @@ Effect create_effect(const char* name, const char *display_message, int turns,
 
     if (on_tick != NULL) {
         effect.on_tick = on_tick;
+    }
+
+    if (applies_next_turn != 0 && applies_next_turn != 1) {
+        effect.applies_next_turn = 0;
+    } else {
+        effect.applies_next_turn = applies_next_turn;
     }
 
     return effect;
@@ -193,6 +199,10 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 {
     if (!effect->is_active) return;
 
+    if (effect->applies_next_turn == 1) {
+        effect->applies_next_turn = 0;
+        return;
+    }
 
     if (effect->on_tick != NULL) {
           effect->on_tick(self, ennemy);
