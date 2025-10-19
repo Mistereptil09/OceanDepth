@@ -27,7 +27,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         "Coup d'épée", SPECIAL_SKILL, 0, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost suprême pour le joueur ", "+40 points d'attaque pour toi !",
             1,
-            40, 0, 0, 0, 0,  // flat modifiers
+            10, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL)
     };

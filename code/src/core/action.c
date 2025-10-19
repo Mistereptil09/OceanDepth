@@ -23,21 +23,22 @@ Effect *apply_effect_to_target(EntityBase *target, Effect effect) {
     if (target == NULL) return p;
 
     // DEBUG: Print who is getting the effect
-    printf("[DEBUG] Applying effect '%s' to %s\n",effect.name, target->name);
+    printf("[DEBUG] Applying effect '%s' which has %d turns to %s\n",effect.name, effect.turns_left, target->name);
 
         // add new effect to list
-        if (target->effects_number >= MAX_EFFECTS) {
-            p = insert_effect_in_effects(target, effect);
-        }
+    if (target->effects_number >= MAX_EFFECTS) {
+        p = insert_effect_in_effects(target, effect);
+    }
 
-        target->effects[target->effects_number] = effect_copy(&effect);
-        target->effects_number++;
+    target->effects[target->effects_number] = effect_copy(&effect);
+    target->effects_number++;
 
-        effect_apply(target, &target->effects[target->effects_number - 1]);
+    effect_apply(target, &target->effects[target->effects_number - 1]);
 
-        p = &target->effects[target->effects_number - 1];
+    p = &target->effects[target->effects_number - 1];
 
-        return p;
+    print_current_effect_list(target);
+    return p;
 }
 
 Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
@@ -54,6 +55,7 @@ Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
             target->effects[i] = effect_copy(&effect);
             effect_apply(target, &target->effects[i]);
             p = &target->effects[i];
+            print_current_effect_list(target);
             return p;
         }
     }
@@ -68,5 +70,6 @@ Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
     effect_apply(target, &target->effects[last_replaced]);
 
     p = &target->effects[last_replaced];
+    print_current_effect_list(target);
     return p;
 }

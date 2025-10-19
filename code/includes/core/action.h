@@ -8,7 +8,6 @@
 typedef enum {
     PHYSICAL_ATTACK,
     SPECIAL_SKILL,
-    // ITEM_ATTACK (unnecessary)
 } ActionType;
 
 typedef struct {

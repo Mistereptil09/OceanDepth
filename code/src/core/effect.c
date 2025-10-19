@@ -202,7 +202,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         if (effect->display_message) {
             printf("%s\n", effect->display_message);
         }
-
         // Clamp resources
         int max_hp = self->max_health_points;
         if (self->current_health_points > max_hp) {
@@ -222,6 +221,8 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         }
     }
     effect->turns_left--;
+    printf("[DEBUG] Effect now has %d turns left\n", effect->turns_left);
+
 
     // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
@@ -232,6 +233,7 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 void effect_remove(EntityBase* base, Effect* effect)
 {
     if (!effect->is_active) return;
+    printf("[DEBUG] Removing %s from %s's effects\n", effect->name, base->name);
 
     if (effect->on_tick == NULL) {
         // Remove modifiers from this effect (using pointer)
@@ -239,6 +241,8 @@ void effect_remove(EntityBase* base, Effect* effect)
         stat_modifier_remove_by_source(&base->defense, effect);
         stat_modifier_remove_by_source(&base->speed, effect);
     }
+
+    print_current_stat_modifier_list(base);
 
     effect->is_active = 0;
 }

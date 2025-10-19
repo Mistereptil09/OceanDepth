@@ -11,8 +11,7 @@
 
 // ========== STAT FUNCTIONS ==========
 
-void stat_init(Stat* stat, int default_value)
-{
+void stat_init(Stat *stat, int default_value) {
     stat->base_value = default_value;
     stat->cached_value = default_value;
     stat->to_calculate = false;
@@ -26,8 +25,7 @@ void stat_init(Stat* stat, int default_value)
     }
 }
 
-void free_stat(Stat* stat)
-{
+void free_stat(Stat *stat) {
     if (stat == NULL) return;
 
     if (stat->modifiers != NULL) {
@@ -39,8 +37,7 @@ void free_stat(Stat* stat)
     stat->modifier_capacity = 0;
 }
 
-int stat_get_value(Stat* stat)
-{
+int stat_get_value(Stat *stat) {
     if (stat == NULL) return 0;
 
     // Use cached value if it's still fresh
@@ -49,7 +46,7 @@ int stat_get_value(Stat* stat)
     }
 
     // Cache is stale we recalculate
-    float result = (float)stat->base_value;
+    float result = (float) stat->base_value;
 
     // Apply all FLAT based modifiers
     for (int i = 0; i < stat->modifier_count; i++) {
@@ -65,18 +62,16 @@ int stat_get_value(Stat* stat)
             percentage_sum += stat->modifiers[i].value;
         }
     }
-    result += (float)stat->base_value * percentage_sum;
+    result += (float) stat->base_value * percentage_sum;
 
     // Step 3: Update cache and mark clean
-    stat->cached_value = (int)result;
+    stat->cached_value = (int) result;
     stat->to_calculate = false;
 
     return stat->cached_value;
 }
 
-void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
-{
-
+void stat_modifier_add(Stat *stat, ModifierType type, void *source, float value) {
     printf("[DEBUG] Adding modifier %.1f (type=%s) to stat (base=%d, cached=%d, count=%d)\n",
            value, type == MOD_FLAT ? "FLAT" : "PERCENT",
            stat->base_value, stat->cached_value, stat->modifier_count);
@@ -84,7 +79,7 @@ void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
     // Check if array is full and needs expansion
     if (stat->modifier_count >= stat->modifier_capacity) {
         int new_capacity = stat->modifier_capacity == 0 ? 4 : stat->modifier_capacity * 2;
-        StatModifier* new_modifiers = realloc(stat->modifiers,
+        StatModifier *new_modifiers = realloc(stat->modifiers,
                                               new_capacity * sizeof(StatModifier));
 
         if (new_modifiers == NULL) {
@@ -106,8 +101,7 @@ void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
 }
 
 
-void stat_modifier_remove_by_source(Stat* stat, Effect* source)
-{
+void stat_modifier_remove_by_source(Stat *stat, Effect *source) {
     if (stat == NULL || stat->modifiers == NULL) return;
 
     int write_index = 0;
@@ -132,9 +126,8 @@ void stat_modifier_remove_by_source(Stat* stat, Effect* source)
 
 // ========== ENTITY FUNCTIONS ==========
 
-EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_defense, int speed, int attack)
-{
-    EntityBase base = {0};  // Zero-initialize
+EntityBase create_entity_base(EntityType type, char *name, int max_hp, int base_defense, int speed, int attack) {
+    EntityBase base = {0}; // Zero-initialize
 
     base.type = type;
     if (name != NULL) {
@@ -163,14 +156,12 @@ EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_
     return base;
 }
 
-void free_entity_base(EntityBase* base)
-{
+void free_entity_base(EntityBase *base) {
     if (base == NULL) return;
 
     // Clean up all effects
-    for (int i = 0; i < base->effects_number; i++)
-    {
-        Effect* effect = &base->effects[i];
+    for (int i = 0; i < base->effects_number; i++) {
+        Effect *effect = &base->effects[i];
 
         // Remove modifiers if still active
         if (effect->is_active) {
@@ -201,7 +192,7 @@ int entity_take_damage(EntityBase *base, int hp) {
 }
 
 int entity_recover_hp(EntityBase *base, int hp) {
-    if (base == NULL) return POINTER_NULL ;
+    if (base == NULL) return POINTER_NULL;
     if (base->is_alive == 0) return UNPROCESSABLE_REQUEST_ERROR;
 
     int new_value = base->current_health_points + hp;
@@ -212,4 +203,23 @@ int entity_recover_hp(EntityBase *base, int hp) {
     }
     base->current_health_points = new_value;
     return SUCCESS;
+}
+
+void print_current_effect_list(EntityBase *target) {
+    printf("%s's effect list is now composed of :\n", target->name);
+    for (int i = 0; i < target->effects_number; i++) {
+        printf(" %s with %d turns left\n", target->effects[i].name, target->effects[i].turns_left);
+    }
+}
+
+void print_current_stat_modifier_list(EntityBase* base) {
+    printf("%s's attack is now composed of these modifiers:\n", base->name);
+    for (int i = 0; i < base->attack.modifier_count; i++) {
+        printf("value : %lf, type : %s\n", base->attack.modifiers[i].value, base->attack.modifiers[i].type == MOD_FLAT ? "FLAT" : "PERCENT");
+    }
+
+    printf("\n%s's defense is now composed of these modifiers:\n", base->name);
+    for (int i = 0; i < base->defense.modifier_count; i++) {
+        printf("value : %lf, type : %s\n", base->defense.modifiers[i].value, base->defense.modifiers[i].type == MOD_FLAT ? "FLAT" : "PERCENT");
+    }
 }

@@ -76,7 +76,7 @@ void init_creature_templates(void) {
         JELLYFISH, CREATURE_EASY, "Meduse", 20, 40, 8, 15, 5, 3,
         {
             {"Piqûre tentaculaire", SPECIAL_SKILL, 0, 0,
-                create_effect("Boost suprême pour le joueur ", "+40 points d'attaque pour toi !",
+                create_effect("Boost attaque de 4 ", "+4 points d'attaque pour la méduse !",
             1,
             4, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers

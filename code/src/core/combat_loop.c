@@ -13,11 +13,10 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     if (!attacker || !defender) return 0;
     // Ensure we recalc if base values changed directly in tests
     printf("[DEBUG] === COMPUTING DAMAGE ===\n");
-    printf("[DEBUG] Attacker: %s, Defender: %s\n", attacker->name, defender->name);
-    printf("[DEBUG] ATTACKER'S ATTACK BASE VALUE : %d\n", attacker->attack.base_value);
-    printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->attack.cached_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE BASE VALUE : %d\n", defender->defense.base_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->defense.cached_value);
+    printf("[DEBUG] %s'S ATTACK BASE VALUE : %d\n", attacker->name, attacker->attack.base_value);
+    printf("[DEBUG] %s'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->name, attacker->attack.cached_value);
+    printf("[DEBUG] %s'S DEFENSE BASE VALUE : %d\n", defender->name, defender->defense.base_value);
+    printf("[DEBUG] %s'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
@@ -25,13 +24,11 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     int atk = stat_get_value(&attacker->attack);
     int def = stat_get_value(&defender->defense);
 
-    printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->attack.cached_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
+    printf("[DEBUG] %s'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->name, attacker->attack.cached_value);
+    printf("[DEBUG] %s'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     int raw = atk - def;
     if (raw < 0) raw = 0;
-
-    printf("COMPUTE_PHYSICAL_DAMAGE : ATK %d - DEF %d = RAW %d\n", atk, def, raw);
 
     return raw;
 }
@@ -101,9 +98,9 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 printf(" [Cooldown: %d turns]", action->cooldown_remaining);
             }
             if (action->type == PHYSICAL_ATTACK) { // applies to others
-                printf(" (Attack)");
+                printf(" (Applies damage to the ennemy's stats)");
             } else if (action->type == SPECIAL_SKILL) { // applies to player
-                printf(" (Buff)");
+                printf(" (Boost your own stats!)");
             }
             printf("\n");
         }
@@ -271,3 +268,4 @@ int attack(EntityBase* attacker, EntityBase* defender) {
     }
     return 0;
 }
+

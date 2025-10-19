@@ -126,6 +126,8 @@ EntityBase create_entity_base(EntityType type, char* name, int max_hp, int base_
 
 void free_entity_base(EntityBase* base);
 
+void print_current_effect_list(EntityBase *target);
 
+void print_current_stat_modifier_list(EntityBase* base);
 
 #endif //OCEANDEPTH_ENTITY_H
