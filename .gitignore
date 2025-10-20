@@ -1,0 +1,82 @@
+# CMake build directories
+cmake-build-*/
+build/
+out/
+
+# CMake files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Executables
+*.exe
+*.out
+*.app
+*.so
+*.dylib
+*.dll
+*.a
+
+# Object files
+*.o
+*.obj
+
+# Debug symbols
+*.dSYM/
+*.pdb
+
+# IDE specific files
+# CLion
+.idea/
+cmake-build-debug/
+cmake-build-release/
+
+# Visual Studio / Visual Studio Code
+.vs/
+.vscode/
+*.vcxproj*
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Credentials and sensitive data
+identifiants.txt
+
+# Logs
+*.log
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Test results
+Testing/Temporary/
+
+# Backup files
+*.bak
+*.backup
+
