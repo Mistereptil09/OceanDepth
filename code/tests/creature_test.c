@@ -16,7 +16,7 @@ void display_creature(const Creature* c) {
     printf("  ID: %d, Type: %d\n", c->id, c->type);
     printf("  HP: %d/%d, DEF: %d, SPD: %d, Alive: %s\n", 
            c->base.current_health_points, c->base.max_health_points,
-           stat_get_value(&c->base.defense), stat_get_value(&c->base.speed),
+           stat_get_value((Stat*)&c->base.defense), stat_get_value((Stat*)&c->base.speed),
            c->base.is_alive ? "YES" : "NO");
     printf("  Actions: '%s', '%s'\n", 
            c->base.actions[0].name, c->base.actions[1].name);
@@ -30,7 +30,7 @@ int main(void) {
     
     // Test 1: Solo creature creation (low-level)
     printf("\n1. Solo creature creation:\n");
-    EntityBase base = create_entity_base(ENTITY_CREATURE, "Test Shark", 50, 10, 2);
+    EntityBase base = create_entity_base(ENTITY_CREATURE, "Test Shark", 50, 10, 2, 15);
     Creature* shark = create_creature(1, SHARK, base, NULL);
     display_creature(shark);
     

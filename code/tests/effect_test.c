@@ -15,14 +15,12 @@ int main(void) {
     
     // Test 1: Create effect
     Effect poison = create_effect("Poison", "Apex venom!", 3,
-        // ressources (hp_cost, oxygen_cost)
-        10, 0,
         // flat modifiers (attack, defense, speed, max_oxygen, max_health)
         0, 0, 0, 0, 0,
-        // percentage modifiers
-        0, 0, 0, 0, 0,
-        // special effect for now NULL pointer
-        NULL
+        // percentage modifiers (must be floats)
+        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        // special effect for now NULL pointer, applies_next_turn
+        NULL, 0
     );
     printf("Created: %s - %s\n", poison.name, poison.display_message);
     
@@ -35,18 +33,15 @@ int main(void) {
            (poison.display_message != poison_copy.display_message) ? "YES" : "NO");
     
     // Test 3: Create with NULL message
-    Effect bleed  = create_effect("Poison", "Apex venom!", 2,
-        // ressources (hp_cost, oxygen_cost)
-        15, 0,
+    Effect bleed  = create_effect("Bleed", "Deep cut!", 2,
         // flat modifiers (attack, defense, speed, max_oxygen, max_health)
         0, 0, 0, 0, 0,
-        // percentage modifiers
-        0, 0, 0, 0, 0,
-        // special effect for now NULL pointer
-        NULL
+        // percentage modifiers (must be floats)
+        0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+        // special effect for now NULL pointer, applies_next_turn
+        NULL, 0
     );
-    printf("NULL message: %s - %s\n", bleed.name, bleed.display_message ? "HAS MSG" : "NULL");
-    
+
     // Test 4: Free effects
     printf("Freeing effects...\n");
     free_effect_content(&poison);
