@@ -7,12 +7,15 @@
 
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/code/tests)
 
+file(GLOB_RECURSE TEST_INTERFACE_SOURCES "${CMAKE_SOURCE_DIR}/code/src/interface/*.c")
+
 function(od_add_test target_name source_file)
     add_executable(${target_name}
         ${TEST_DIR}/${source_file}
         ${CORE_SOURCES}
         ${HELPER_SOURCES}
         ${INTERFACE_SOURCES}
+        ${TEST_INTERFACE_SOURCES}
     )
     # Ensure C standard matches the project
     set_property(TARGET ${target_name} PROPERTY C_STANDARD 99)
