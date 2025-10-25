@@ -7,12 +7,15 @@
 
 set(TEST_DIR ${CMAKE_SOURCE_DIR}/code/tests)
 
+file(GLOB TEST_INTERFACE_SOURCES "${TEST_DIR}/interface/*_test.c")
+
 function(od_add_test target_name source_file)
     add_executable(${target_name}
-        ${TEST_DIR}/${source_file}
-        ${CORE_SOURCES}
-        ${HELPER_SOURCES}
-        ${INTERFACE_SOURCES}
+            ${TEST_DIR}/${source_file}
+            ${CORE_SOURCES}
+            ${HELPER_SOURCES}
+            ${INTERFACE_SOURCES}
+            ${TEST_INTERFACE_SOURCES}
     )
     # Ensure C standard matches the project
     set_property(TARGET ${target_name} PROPERTY C_STANDARD 99)
@@ -24,10 +27,11 @@ file(GLOB TEST_SOURCES "${TEST_DIR}/*_test.c")
 foreach(TEST_SRC ${TEST_SOURCES})
     get_filename_component(TEST_NAME ${TEST_SRC} NAME_WE)
     add_executable(${TEST_NAME}
-        ${TEST_SRC}
-        ${CORE_SOURCES}
-        ${HELPER_SOURCES}
-        ${INTERFACE_SOURCES}
+            ${TEST_SRC}
+            ${CORE_SOURCES}
+            ${HELPER_SOURCES}
+            ${INTERFACE_SOURCES}
+            ${TEST_INTERFACE_SOURCES}
     )
     set_property(TARGET ${TEST_NAME} PROPERTY C_STANDARD 99)
     add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
