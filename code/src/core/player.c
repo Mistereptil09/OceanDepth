@@ -78,10 +78,13 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 void free_player(Player *p) {
     if (p == NULL) return;
 
-    // Free all effect display_messages
-    for (int i = 0; i < p->base.effects_number; i++) {
-        free_effect_content(&p->base.effects[i]);
+    // Free all effect display_messages in actions
+    for (int i = 0; i < p->base.action_count; i++) {
+        free_effect_content(&p->base.actions[i].effect);
     }
+
+    // Free the entity base (this also frees active effects and stats)
+    free_entity_base(&p->base);
 
     free(p);
 }

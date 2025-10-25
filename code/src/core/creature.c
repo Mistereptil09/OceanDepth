@@ -32,19 +32,13 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
 void free_creature(Creature *c) {
     if (c == NULL) return;
 
-    // Free all effect display_messages
-    for (int i = 0; i < c->base.effects_number; i++) {
-        free_effect_content(&c->base.effects[i]);
-    }
-
-    // free actions effects' display messages
+    // Free all effect display_messages in actions
     for (int i = 0; i < MAX_ACTIONS; i++) {
         free_effect_content(&c->base.actions[i].effect);
     }
 
-    free_stat(&c->base.attack);
-    free_stat(&c->base.defense);
-    free_stat(&c->base.speed);
+    // Free the entity base (this also frees active effects and stats)
+    free_entity_base(&c->base);
 
     free(c);
 }
