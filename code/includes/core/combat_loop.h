@@ -20,6 +20,15 @@ typedef enum {
 int compute_physical_damage(EntityBase* attacker, EntityBase* defender);
 
 /**
+ * @brief Executes an attack or skill action
+ * @param attacker The entity performing the action
+ * @param action The action being performed
+ * @param defender The target of the action
+ * @return 1 if defender was defeated, 0 otherwise
+ */
+int Attack(EntityBase* attacker, Action* action, EntityBase* defender);
+
+/**
  * @brief Main battle loop - handles combat between player and multiple creatures
  * @param player Pointer to the player
  * @param difficulty Difficulty level to generate creatures
