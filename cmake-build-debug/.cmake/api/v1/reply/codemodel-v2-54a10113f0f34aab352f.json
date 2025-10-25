@@ -10,7 +10,7 @@
 					[
 						1
 					],
-					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.20"
@@ -24,7 +24,7 @@
 				},
 				{
 					"build" : "tests",
-					"jsonFile" : "directory-tests-b01f6abb0ab61427ef3b.json",
+					"jsonFile" : "directory-tests-Debug-b01f6abb0ab61427ef3b.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.20"
@@ -41,7 +41,7 @@
 					]
 				}
 			],
-			"name" : "",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -66,35 +66,35 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "creature_data_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_data_test-fdfdb0d8f93a34abaf57.json",
+					"jsonFile" : "target-creature_data_test-Debug-63f842842124097bb1d1.json",
 					"name" : "creature_data_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "creature_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_test-23d43d1272b463f03c76.json",
+					"jsonFile" : "target-creature_test-Debug-744ecde3ed38637788fd.json",
 					"name" : "creature_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "effect_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-effect_test-617314a5582bdc675cbe.json",
+					"jsonFile" : "target-effect_test-Debug-dfe96590ab956d1ee3b6.json",
 					"name" : "effect_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "oceandepths::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-oceandepths-8623d9959d0b8bc15285.json",
+					"jsonFile" : "target-oceandepths-Debug-6185e8994d5a24d90921.json",
 					"name" : "oceandepths",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "player_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-player_test-56bbcb46aeba79b1d948.json",
+					"jsonFile" : "target-player_test-Debug-c15d477d458f3b9ae725.json",
 					"name" : "player_test",
 					"projectIndex" : 0
 				}

@@ -53,7 +53,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-std=gnu99 -arch arm64"
+					"fragment" : "-g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics"
 				}
 			],
 			"includes" : 
@@ -97,7 +97,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-Wl,-search_paths_first -Wl,-headerpad_max_install_names",
+				"fragment" : "-g -Wall -Wextra -Wshadow -Wstrict-prototypes",
 				"role" : "flags"
 			}
 		],

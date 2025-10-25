@@ -124,6 +124,17 @@ void stat_modifier_remove_by_source(Stat *stat, Effect *source) {
     }
 }
 
+void stat_modifier_update_source(Stat *stat, Effect *old_source, Effect *new_source) {
+    if (stat == NULL || stat->modifiers == NULL) return;
+
+    // Iterate through all modifiers and update pointers
+    for (int i = 0; i < stat->modifier_count; i++) {
+        if (stat->modifiers[i].source == old_source) {
+            stat->modifiers[i].source = new_source;
+        }
+    }
+}
+
 // ========== ENTITY FUNCTIONS ==========
 
 EntityBase create_entity_base(EntityType type, char *name, int max_hp, int base_defense, int speed, int attack) {

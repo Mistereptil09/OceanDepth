@@ -108,6 +108,15 @@ void stat_modifier_add(Stat* stat, ModifierType type, void* source, float value)
 void stat_modifier_remove_by_source(Stat* stat, Effect* source);
 
 /**
+ * @brief Updates all modifiers that point to old_source to point to new_source
+ * @param stat Stat to update
+ * @param old_source Old pointer to the effect
+ * @param new_source New pointer to the effect
+ * @note This is needed when effects are moved in the array during compaction
+ */
+void stat_modifier_update_source(Stat* stat, Effect* old_source, Effect* new_source);
+
+/**
  * @brief Applies damage to the Entity's HP.
  * @param base Pointer to the Entity base.
  * @param hp Amount of damage to apply (must be >= 0).

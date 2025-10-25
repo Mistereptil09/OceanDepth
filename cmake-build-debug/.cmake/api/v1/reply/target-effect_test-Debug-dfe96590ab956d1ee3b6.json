@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "tests/player_test"
+			"path" : "tests/effect_test"
 		}
 	],
 	"backtrace" : 1,
@@ -53,7 +53,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-std=gnu99 -arch arm64"
+					"fragment" : "-g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics"
 				}
 			],
 			"includes" : 
@@ -91,20 +91,20 @@
 			]
 		}
 	],
-	"id" : "player_test::@a44f0ac069e85531cdee",
+	"id" : "effect_test::@a44f0ac069e85531cdee",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-Wl,-search_paths_first -Wl,-headerpad_max_install_names",
+				"fragment" : "-g -Wall -Wextra -Wshadow -Wstrict-prototypes",
 				"role" : "flags"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "player_test",
-	"nameOnDisk" : "player_test",
+	"name" : "effect_test",
+	"nameOnDisk" : "effect_test",
 	"paths" : 
 	{
 		"build" : "tests",
@@ -138,7 +138,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "code/tests/player_test.c",
+			"path" : "code/tests/effect_test.c",
 			"sourceGroupIndex" : 0
 		},
 		{

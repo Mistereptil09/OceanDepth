@@ -179,16 +179,30 @@ void all_effects_tick(EntityBase* self, EntityBase* ennemy)
     }
 
     // Compact array: remove expired effects and free their memory
+    // CRITICAL: When we move effects in the array, we must update the source pointers
+    // in all stat modifiers, otherwise they'll point to stale/wrong effect addresses
     int write_index = 0;
     for (int read_index = 0; read_index < self->effects_number; read_index++) {
         if (self->effects[read_index].is_active ||
             self->effects[read_index].turns_left > 0) {
             if (write_index != read_index) {
+                // We're about to move an effect from read_index to write_index
+                // Save the old address before moving
+                Effect* old_address = &self->effects[read_index];
+
+                // Move the effect
                 self->effects[write_index] = self->effects[read_index];
+
+                // Update all modifier source pointers from old address to new address
+                Effect* new_address = &self->effects[write_index];
+                stat_modifier_update_source(&self->attack, old_address, new_address);
+                stat_modifier_update_source(&self->defense, old_address, new_address);
+                stat_modifier_update_source(&self->speed, old_address, new_address);
             }
             write_index++;
         } else {
             // Effect is expired - free its display_message before discarding
+            // Note: modifiers should already be removed by effect_remove() in effect_tick()
             free_effect_content(&self->effects[read_index]);
         }
     }
@@ -208,10 +222,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
           effect->on_tick(self, ennemy);
           printf("[DEBUG] Special on tick function was triggered by effect : %s\n", effect->name);
     } else {
-        // Display message
-        if (effect->display_message) {
-            printf("%s\n", effect->display_message);
-        }
         // Clamp resources
         int max_hp = self->max_health_points;
         if (self->current_health_points > max_hp) {

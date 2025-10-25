@@ -25,7 +25,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     // Initialize player actions
     p->base.actions[0] = (Action){
         "Coup d'épée", SPECIAL_SKILL, 0, 0,  // cooldown_turns, cooldown_remaining
-        create_effect("Boost suprême pour le joueur ", "+40 points d'attaque pour toi !",
+        create_effect("Boost de l'épée", "+10 points d'attaque pour toi",
             1,
             10, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
@@ -37,7 +37,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
         create_effect("Boost d'attaque", "Montée de puissance de 0.1 pour toi!",
             1,
             0, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
-            0.1, 0, 0, 0, 0,  // percentage modifiers
+            0.4, 0, 0, 0, 0,  // percentage modifiers
             NULL, 0) // apply on current turn
     };
 

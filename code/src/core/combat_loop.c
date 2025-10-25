@@ -8,15 +8,12 @@
 #include "interface/interface_api.h"
 #include <stdio.h>
 
-int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
-{
+int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
     // Ensure we recalc if base values changed directly in tests
     printf("[DEBUG] === COMPUTING DAMAGE ===\n");
     printf("[DEBUG] %s'S ATTACK BASE VALUE : %d\n", attacker->name, attacker->attack.base_value);
-    printf("[DEBUG] %s'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->name, attacker->attack.cached_value);
     printf("[DEBUG] %s'S DEFENSE BASE VALUE : %d\n", defender->name, defender->defense.base_value);
-    printf("[DEBUG] %s'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     attacker->attack.to_calculate = true;
     defender->defense.to_calculate = true;
@@ -24,8 +21,9 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     int atk = stat_get_value(&attacker->attack);
     int def = stat_get_value(&defender->defense);
 
-    printf("[DEBUG] %s'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->name, attacker->attack.cached_value);
-    printf("[DEBUG] %s'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
+    printf("[DEBUG] %s'S ATTACK AFTER RECALC : %d\n", attacker->name, attacker->attack.cached_value);
+    printf("[DEBUG] %s'S DEFENSE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
+    printf("[DEBUG] === END OF DAMAGE COMPUTE ===\n\n");
 
     int raw = atk - def;
     if (raw < 0) raw = 0;
@@ -33,7 +31,7 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender)
     return raw;
 }
 
-int battle_loop(Player* player, Difficulty difficulty) {
+int battle_loop(Player *player, Difficulty difficulty) {
     if (!player) return 0;
 
     // Display battle start
@@ -41,7 +39,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
     // Generate creatures based on difficulty
     int creature_count = 0;
-    Creature** creatures = generate_creatures(difficulty, &creature_count);
+    Creature **creatures = generate_creatures(difficulty, &creature_count);
 
     if (!creatures) {
         printf("Error: Failed to generate creatures!\n");
@@ -81,14 +79,16 @@ int battle_loop(Player* player, Difficulty difficulty) {
         // Displays possible actions to player
         printf("\n=== Your Actions ===\n");
         for (int i = 0; i < player->base.action_count; i++) {
-            Action* action = &player->base.actions[i];
+            Action *action = &player->base.actions[i];
             printf("%d. %s", i + 1, action->name);
             if (action->cooldown_remaining > 0) {
                 printf(" [Cooldown: %d turns]", action->cooldown_remaining);
             }
-            if (action->type == PHYSICAL_ATTACK) { // applies to others
+            if (action->type == PHYSICAL_ATTACK) {
+                // applies to others
                 printf(" (Applies damage to the ennemy's stats)");
-            } else if (action->type == SPECIAL_SKILL) { // applies to player
+            } else if (action->type == SPECIAL_SKILL) {
+                // applies to player
                 printf(" (Boost your own stats!)");
             }
             printf("\n");
@@ -96,7 +96,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
         // Player chooses action
         int action_choice = current_interface->get_choice("Choose your action", 1, player->base.action_count);
-        Action* chosen_action = &player->base.actions[action_choice - 1];
+        Action *chosen_action = &player->base.actions[action_choice - 1];
 
         // Check cooldown
         if (chosen_action->cooldown_remaining > 0) {
@@ -113,23 +113,25 @@ int battle_loop(Player* player, Difficulty difficulty) {
 
         // Player chooses target to attack (attack happens regardless of the action chosen
         int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
-        Creature* target = get_alive_creature_at(target_choice);
+        Creature *target = get_alive_creature_at(target_choice);
 
         if (!target) {
             printf("Invalid target!\n");
             continue;
         }
 
-        printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
+        if (chosen_action->effect.display_message) {
+            printf("\n%s!\n", chosen_action->effect.display_message);
+        } else {
+            printf("\nYou use %s on the %s!\n", chosen_action->name, target->base.name);
+        }
         Effect *player_added_effect = NULL;
 
         if (chosen_action->type == PHYSICAL_ATTACK) {
             player_added_effect = apply_action_to_target(&target->base, chosen_action);
-
         } else if (chosen_action->type == SPECIAL_SKILL) {
             // Self-buff skill
             player_added_effect = apply_action_to_target(&player->base, chosen_action);
-            printf("\nYou feel empowered by %s!\n", chosen_action->name);
         }
 
         if (player_added_effect == NULL) {
@@ -141,7 +143,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
             }
         }
 
-        // Proceed to apply calculated damage after all effects application
+        // Apply calculated damage after all effects application
         int dmg = compute_physical_damage(&player->base, &target->base);
         if (dmg > 0) {
             entity_take_damage(&target->base, dmg);
@@ -174,10 +176,10 @@ int battle_loop(Player* player, Difficulty difficulty) {
             if (!creatures[i]->base.is_alive) continue;
             if (!player->base.is_alive) break;
 
-            Creature* attacker = creatures[i];
+            Creature *attacker = creatures[i];
 
             /** NOTE :check that the random selection also handles the validity conditions if it still doesn't */
-            Action* action = select_action(attacker);
+            Action *action = select_action(attacker);
             if (!action) {
                 printf("%s has no available actions!\n", attacker->base.name);
                 continue;
@@ -186,13 +188,18 @@ int battle_loop(Player* player, Difficulty difficulty) {
             // Show what the creature is doing
             current_interface->show_action(attacker->base.name, action->name);
 
+            if (action->effect.display_message) {
+                printf("\n%s!\n", action->effect.display_message);
+            } else {
+                printf("\n%s use %s on the %s!\n", attacker->base.name, action->name, target->base.name);
+            }
+
             Effect *creature_added_effect = NULL;
             if (action->type == PHYSICAL_ATTACK) {
                 creature_added_effect = apply_action_to_target(&player->base, action);
             } else if (action->type == SPECIAL_SKILL) {
                 // Self-buff: apply effect to self
                 creature_added_effect = apply_action_to_target(&attacker->base, action);
-                printf("%s buffed itself!\n", attacker->base.name);
             }
 
             if (creature_added_effect == NULL) {
@@ -236,7 +243,6 @@ int battle_loop(Player* player, Difficulty difficulty) {
                 printf("%s died from its own effects!\n", attacker->base.name);
                 continue;
             }
-
         }
 
         round++;
@@ -248,7 +254,7 @@ int battle_loop(Player* player, Difficulty difficulty) {
 }
 
 
-int attack(EntityBase* attacker, EntityBase* defender) {
+int attack(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
 
     int dmg = compute_physical_damage(attacker, defender);
@@ -265,4 +271,3 @@ int attack(EntityBase* attacker, EntityBase* defender) {
     }
     return 0;
 }
-
