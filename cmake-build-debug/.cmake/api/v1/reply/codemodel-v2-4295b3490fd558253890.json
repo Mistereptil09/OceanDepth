@@ -19,7 +19,7 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						3
+						4
 					]
 				},
 				{
@@ -37,7 +37,8 @@
 						0,
 						1,
 						2,
-						4
+						3,
+						5
 					]
 				}
 			],
@@ -57,7 +58,8 @@
 						1,
 						2,
 						3,
-						4
+						4,
+						5
 					]
 				}
 			],
@@ -65,36 +67,43 @@
 			[
 				{
 					"directoryIndex" : 1,
+					"id" : "combat_loop_test::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-combat_loop_test-Debug-257a0f521dd29d3310a1.json",
+					"name" : "combat_loop_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
 					"id" : "creature_data_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_data_test-Debug-63f842842124097bb1d1.json",
+					"jsonFile" : "target-creature_data_test-Debug-dae7b50f505ef23fbc6a.json",
 					"name" : "creature_data_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "creature_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_test-Debug-744ecde3ed38637788fd.json",
+					"jsonFile" : "target-creature_test-Debug-a7b68782d5d154d02d94.json",
 					"name" : "creature_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "effect_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-effect_test-Debug-dfe96590ab956d1ee3b6.json",
+					"jsonFile" : "target-effect_test-Debug-df7e85ed3e9681d76e1e.json",
 					"name" : "effect_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "oceandepths::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-oceandepths-Debug-6185e8994d5a24d90921.json",
+					"jsonFile" : "target-oceandepths-Debug-664f0839cffeb2af8ae6.json",
 					"name" : "oceandepths",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "player_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-player_test-Debug-c15d477d458f3b9ae725.json",
+					"jsonFile" : "target-player_test-Debug-082cc9feb67ed3051def.json",
 					"name" : "player_test",
 					"projectIndex" : 0
 				}

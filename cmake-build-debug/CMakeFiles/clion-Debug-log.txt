@@ -1,13 +1,7 @@
 /Users/yasmineslamani/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Users/yasmineslamani/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/yasmineslamani/CLionProjects/OceanDepth -B /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug
--- The C compiler identification is AppleClang 17.0.0.17000013
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/cc - skipped
--- Detecting C compile features
--- Detecting C compile features - done
 -- Core sources found: /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c
 -- Interface sources found: /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c;/Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c
 -- Helper sources found: /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c
--- Configuring done (1.8s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug
