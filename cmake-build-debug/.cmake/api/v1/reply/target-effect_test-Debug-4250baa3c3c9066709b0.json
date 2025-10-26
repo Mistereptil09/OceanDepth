@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "tests/combat_loop_test"
+			"path" : "tests/effect_test"
 		}
 	],
 	"backtrace" : 1,
@@ -88,11 +88,12 @@
 				11,
 				12,
 				13,
-				14
+				14,
+				15
 			]
 		}
 	],
-	"id" : "combat_loop_test::@a44f0ac069e85531cdee",
+	"id" : "effect_test::@a44f0ac069e85531cdee",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -100,16 +101,12 @@
 			{
 				"fragment" : "-g -Wall -Wextra -Wshadow -Wstrict-prototypes",
 				"role" : "flags"
-			},
-			{
-				"fragment" : "-Wl,-search_paths_first -Wl,-headerpad_max_install_names",
-				"role" : "flags"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "combat_loop_test",
-	"nameOnDisk" : "combat_loop_test",
+	"name" : "effect_test",
+	"nameOnDisk" : "effect_test",
 	"paths" : 
 	{
 		"build" : "tests",
@@ -135,7 +132,8 @@
 				11,
 				12,
 				13,
-				14
+				14,
+				15
 			]
 		}
 	],
@@ -144,7 +142,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "code/tests/combat_loop_test.c",
+			"path" : "code/tests/effect_test.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -187,6 +185,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "code/src/core/inventory.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "code/src/core/inventory_data.c",
 			"sourceGroupIndex" : 0
 		},
 		{

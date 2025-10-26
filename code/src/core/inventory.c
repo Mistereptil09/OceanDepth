@@ -5,14 +5,26 @@
 #include "core/inventory.h"
 #include <stdlib.h>
 
-Inventory *create_inventory(void) {
-    Inventory *inv = malloc(sizeof(Inventory));
-    if (!inv) return NULL;
-    inv->count = 0;
+#include "core/inventory_data.h"
 
-    return inv;
+Inventory *create_inventory(void) {
+    Inventory *inventory = calloc(1, sizeof(Inventory));
+    if (!inventory) return NULL;
+    inventory->items[0] = create_epee();
+    inventory->items[1] = create_harpon();
+    inventory->items[2] = create_combinaison();
+    inventory->items[3] = create_fatigue_stimulant(1);
+    inventory->items[4] = create_oxygen_capsule(2);
+    inventory->items[5] = create_health_kit(1);
+
+    inventory->count = 6;
+    return inventory;
 }
 
 void free_inventory(Inventory *inventory) {
+    if (inventory == NULL) return;
+    for (int i = 0; i < inventory->count; i++) {
+        free_item(&inventory->items[0]);
+    }
     free(inventory);
 }

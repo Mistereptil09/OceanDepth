@@ -68,42 +68,42 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "combat_loop_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-combat_loop_test-Debug-518955ba7100a55d470c.json",
+					"jsonFile" : "target-combat_loop_test-Debug-1689fea188f84bd1326d.json",
 					"name" : "combat_loop_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "creature_data_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_data_test-Debug-66dc1bb4a46eceae92eb.json",
+					"jsonFile" : "target-creature_data_test-Debug-d9a4901fbe6ae2e52b40.json",
 					"name" : "creature_data_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "creature_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-creature_test-Debug-b9610e25c9eb55a36d54.json",
+					"jsonFile" : "target-creature_test-Debug-7ce8c273316c669a8245.json",
 					"name" : "creature_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "effect_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-effect_test-Debug-b8b0eff2faff712ad171.json",
+					"jsonFile" : "target-effect_test-Debug-4250baa3c3c9066709b0.json",
 					"name" : "effect_test",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "oceandepths::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-oceandepths-Debug-0ce7adfc29ff22e44dd7.json",
+					"jsonFile" : "target-oceandepths-Debug-344863b164afe157044e.json",
 					"name" : "oceandepths",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "player_test::@a44f0ac069e85531cdee",
-					"jsonFile" : "target-player_test-Debug-5e1ae06ded60439a6680.json",
+					"jsonFile" : "target-player_test-Debug-7ebcfb8c8d5a50ebc8a8.json",
 					"name" : "player_test",
 					"projectIndex" : 0
 				}

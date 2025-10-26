@@ -29,6 +29,8 @@ set(SOURCES
         ${CORE_SOURCES}
         ${INTERFACE_SOURCES}
         ${HELPER_SOURCES}
+        code/src/core/inventory_data.c
+        code/includes/core/inventory_data.h
 )
 
 # Main executable

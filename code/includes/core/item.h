@@ -7,19 +7,25 @@
 
 typedef enum {
     ITEM_WEAPON,
-    ITEM_CONSUMABLE,
-    ITEM_OTHER,
+    ITEM_CONSUMABLE
 } ItemType;
 
 typedef struct {
     char name[30];
-    Action action;
-    int max_uses;
-    int current_uses;
+    ItemType type;
+
+    Action* actions;
+    int action_count;
+
+    int quantity;
+    int oxygen_boost;
+    int fatigue_relief;
+    int hp_boost;
+
+    int price;
 } Item;
 
-int use_item(Item *item, EntityBase *target);
-// create
-// free
-// use
+int create_item(char* name, ItemType type, Action* actions, int action_count, int quantity, int oxygen_boost, int fatigue_relief, int price);
+int free_item(Item* item);
+
 #endif //OCEANDEPTH_ITEM_H
