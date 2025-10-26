@@ -52,142 +52,114 @@ build cmake_object_order_depends_target_oceandepths: phony || .
 build CMakeFiles/oceandepths.dir/code/src/main.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/main.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/main.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/action.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/combat_loop.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/creature.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/creature_data.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/effect.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/entity.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/inventory.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/item.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/core/player.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/core
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/interface/interface_api.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/interface
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/interface/interface_cli.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/interface
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/interface/interface_table.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/interface
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 build CMakeFiles/oceandepths.dir/code/src/helper/input_validator.c.o: C_COMPILER__oceandepths_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_oceandepths
   CONFIG = Debug
   DEP_FILE = CMakeFiles/oceandepths.dir/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   OBJECT_FILE_DIR = CMakeFiles/oceandepths.dir/code/src/helper
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
-  TARGET_PDB = oceandepths.pdb
 
 
 # =============================================================================
@@ -199,14 +171,13 @@ build CMakeFiles/oceandepths.dir/code/src/helper/input_validator.c.o: C_COMPILER
 
 build oceandepths: C_EXECUTABLE_LINKER__oceandepths_Debug CMakeFiles/oceandepths.dir/code/src/main.c.o CMakeFiles/oceandepths.dir/code/src/core/action.c.o CMakeFiles/oceandepths.dir/code/src/core/combat_loop.c.o CMakeFiles/oceandepths.dir/code/src/core/creature.c.o CMakeFiles/oceandepths.dir/code/src/core/creature_data.c.o CMakeFiles/oceandepths.dir/code/src/core/effect.c.o CMakeFiles/oceandepths.dir/code/src/core/entity.c.o CMakeFiles/oceandepths.dir/code/src/core/inventory.c.o CMakeFiles/oceandepths.dir/code/src/core/item.c.o CMakeFiles/oceandepths.dir/code/src/core/player.c.o CMakeFiles/oceandepths.dir/code/src/interface/interface_api.c.o CMakeFiles/oceandepths.dir/code/src/interface/interface_cli.c.o CMakeFiles/oceandepths.dir/code/src/interface/interface_table.c.o CMakeFiles/oceandepths.dir/code/src/helper/input_validator.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = CMakeFiles/oceandepths.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/oceandepths.dir/
   TARGET_FILE = oceandepths
-  TARGET_PDB = oceandepths.pdb
+  TARGET_PDB = oceandepths.dbg
 
 
 #############################################
@@ -261,152 +232,122 @@ build cmake_object_order_depends_target_combat_loop_test: phony || .
 build tests/CMakeFiles/combat_loop_test.dir/__/code/tests/combat_loop_test.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/combat_loop_test.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/tests/combat_loop_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/tests
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/action.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/combat_loop.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature_data.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/effect.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/entity.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/inventory.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/item.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/player.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/helper/input_validator.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/helper
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_api.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_cli.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_table.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 build tests/CMakeFiles/combat_loop_test.dir/__/code/tests/interface/interface_test.c.o: C_COMPILER__combat_loop_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/interface/interface_test.c || cmake_object_order_depends_target_combat_loop_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/combat_loop_test.dir/__/code/tests/interface/interface_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/combat_loop_test.dir/__/code/tests/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
-  TARGET_PDB = tests/combat_loop_test.pdb
 
 
 # =============================================================================
@@ -418,14 +359,13 @@ build tests/CMakeFiles/combat_loop_test.dir/__/code/tests/interface/interface_te
 
 build tests/combat_loop_test: C_EXECUTABLE_LINKER__combat_loop_test_Debug tests/CMakeFiles/combat_loop_test.dir/__/code/tests/combat_loop_test.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/action.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/combat_loop.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/creature_data.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/effect.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/entity.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/inventory.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/item.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/core/player.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/helper/input_validator.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_api.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_cli.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/src/interface/interface_table.c.o tests/CMakeFiles/combat_loop_test.dir/__/code/tests/interface/interface_test.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = tests/CMakeFiles/combat_loop_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = tests/CMakeFiles/combat_loop_test.dir/
   TARGET_FILE = tests/combat_loop_test
-  TARGET_PDB = tests/combat_loop_test.pdb
+  TARGET_PDB = combat_loop_test.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target creature_data_test
@@ -439,152 +379,122 @@ build cmake_object_order_depends_target_creature_data_test: phony || .
 build tests/CMakeFiles/creature_data_test.dir/__/code/tests/creature_data_test.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/creature_data_test.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/tests/creature_data_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/tests
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/action.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/combat_loop.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature_data.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/effect.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/entity.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/inventory.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/item.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/core/player.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/helper/input_validator.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/helper
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_api.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_cli.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_table.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 build tests/CMakeFiles/creature_data_test.dir/__/code/tests/interface/interface_test.c.o: C_COMPILER__creature_data_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/interface/interface_test.c || cmake_object_order_depends_target_creature_data_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_data_test.dir/__/code/tests/interface/interface_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_data_test.dir/__/code/tests/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
-  TARGET_PDB = tests/creature_data_test.pdb
 
 
 # =============================================================================
@@ -596,14 +506,13 @@ build tests/CMakeFiles/creature_data_test.dir/__/code/tests/interface/interface_
 
 build tests/creature_data_test: C_EXECUTABLE_LINKER__creature_data_test_Debug tests/CMakeFiles/creature_data_test.dir/__/code/tests/creature_data_test.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/action.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/combat_loop.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/creature_data.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/effect.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/entity.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/inventory.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/item.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/core/player.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/helper/input_validator.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_api.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_cli.c.o tests/CMakeFiles/creature_data_test.dir/__/code/src/interface/interface_table.c.o tests/CMakeFiles/creature_data_test.dir/__/code/tests/interface/interface_test.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = tests/CMakeFiles/creature_data_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_data_test.dir/
   TARGET_FILE = tests/creature_data_test
-  TARGET_PDB = tests/creature_data_test.pdb
+  TARGET_PDB = creature_data_test.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target creature_test
@@ -617,152 +526,122 @@ build cmake_object_order_depends_target_creature_test: phony || .
 build tests/CMakeFiles/creature_test.dir/__/code/tests/creature_test.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/creature_test.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/tests/creature_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/tests
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/action.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/combat_loop.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/creature.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/creature_data.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/effect.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/entity.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/inventory.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/item.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/core/player.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/helper/input_validator.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/helper
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_api.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_cli.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_table.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 build tests/CMakeFiles/creature_test.dir/__/code/tests/interface/interface_test.c.o: C_COMPILER__creature_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/interface/interface_test.c || cmake_object_order_depends_target_creature_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/creature_test.dir/__/code/tests/interface/interface_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/creature_test.dir/__/code/tests/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
-  TARGET_PDB = tests/creature_test.pdb
 
 
 # =============================================================================
@@ -774,14 +653,13 @@ build tests/CMakeFiles/creature_test.dir/__/code/tests/interface/interface_test.
 
 build tests/creature_test: C_EXECUTABLE_LINKER__creature_test_Debug tests/CMakeFiles/creature_test.dir/__/code/tests/creature_test.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/action.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/combat_loop.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/creature.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/creature_data.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/effect.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/entity.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/inventory.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/item.c.o tests/CMakeFiles/creature_test.dir/__/code/src/core/player.c.o tests/CMakeFiles/creature_test.dir/__/code/src/helper/input_validator.c.o tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_api.c.o tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_cli.c.o tests/CMakeFiles/creature_test.dir/__/code/src/interface/interface_table.c.o tests/CMakeFiles/creature_test.dir/__/code/tests/interface/interface_test.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = tests/CMakeFiles/creature_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = tests/CMakeFiles/creature_test.dir/
   TARGET_FILE = tests/creature_test
-  TARGET_PDB = tests/creature_test.pdb
+  TARGET_PDB = creature_test.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target effect_test
@@ -795,152 +673,122 @@ build cmake_object_order_depends_target_effect_test: phony || .
 build tests/CMakeFiles/effect_test.dir/__/code/tests/effect_test.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/effect_test.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/tests/effect_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/tests
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/action.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/combat_loop.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/creature.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/creature_data.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/effect.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/entity.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/inventory.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/item.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/core/player.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/helper/input_validator.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/helper
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_api.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_cli.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_table.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 build tests/CMakeFiles/effect_test.dir/__/code/tests/interface/interface_test.c.o: C_COMPILER__effect_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/interface/interface_test.c || cmake_object_order_depends_target_effect_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/effect_test.dir/__/code/tests/interface/interface_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/effect_test.dir/__/code/tests/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
-  TARGET_PDB = tests/effect_test.pdb
 
 
 # =============================================================================
@@ -952,14 +800,13 @@ build tests/CMakeFiles/effect_test.dir/__/code/tests/interface/interface_test.c.
 
 build tests/effect_test: C_EXECUTABLE_LINKER__effect_test_Debug tests/CMakeFiles/effect_test.dir/__/code/tests/effect_test.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/action.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/combat_loop.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/creature.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/creature_data.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/effect.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/entity.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/inventory.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/item.c.o tests/CMakeFiles/effect_test.dir/__/code/src/core/player.c.o tests/CMakeFiles/effect_test.dir/__/code/src/helper/input_validator.c.o tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_api.c.o tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_cli.c.o tests/CMakeFiles/effect_test.dir/__/code/src/interface/interface_table.c.o tests/CMakeFiles/effect_test.dir/__/code/tests/interface/interface_test.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = tests/CMakeFiles/effect_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = tests/CMakeFiles/effect_test.dir/
   TARGET_FILE = tests/effect_test
-  TARGET_PDB = tests/effect_test.pdb
+  TARGET_PDB = effect_test.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target player_test
@@ -973,152 +820,122 @@ build cmake_object_order_depends_target_player_test: phony || .
 build tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/player_test.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/tests
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/action.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/combat_loop.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/creature_data.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/effect.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/entity.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/inventory.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/item.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/core/player.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/core
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/helper/input_validator.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/helper
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_api.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_cli.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/src/interface/interface_table.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/src/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 build tests/CMakeFiles/player_test.dir/__/code/tests/interface/interface_test.c.o: C_COMPILER__player_test_unscanned_Debug /Users/yasmineslamani/CLionProjects/OceanDepth/code/tests/interface/interface_test.c || cmake_object_order_depends_target_player_test
   CONFIG = Debug
   DEP_FILE = tests/CMakeFiles/player_test.dir/__/code/tests/interface/interface_test.c.o.d
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -std=gnu99 -arch arm64 -fcolor-diagnostics
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -std=gnu99 -arch arm64 -fcolor-diagnostics
   INCLUDES = -I/Users/yasmineslamani/CLionProjects/OceanDepth/code/includes
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   OBJECT_FILE_DIR = tests/CMakeFiles/player_test.dir/__/code/tests/interface
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
-  TARGET_PDB = tests/player_test.pdb
 
 
 # =============================================================================
@@ -1130,14 +947,13 @@ build tests/CMakeFiles/player_test.dir/__/code/tests/interface/interface_test.c.
 
 build tests/player_test: C_EXECUTABLE_LINKER__player_test_Debug tests/CMakeFiles/player_test.dir/__/code/tests/player_test.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/action.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/combat_loop.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/creature.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/creature_data.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/effect.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/entity.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/inventory.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/item.c.o tests/CMakeFiles/player_test.dir/__/code/src/core/player.c.o tests/CMakeFiles/player_test.dir/__/code/src/helper/input_validator.c.o tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_api.c.o tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_cli.c.o tests/CMakeFiles/player_test.dir/__/code/src/interface/interface_table.c.o tests/CMakeFiles/player_test.dir/__/code/tests/interface/interface_test.c.o
   CONFIG = Debug
-  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address -O1 -arch arm64
-  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address
+  FLAGS = -g -Wall -Wextra -Wshadow -Wstrict-prototypes -arch arm64
+  LINK_FLAGS = -Wl,-search_paths_first -Wl,-headerpad_max_install_names
   OBJECT_DIR = tests/CMakeFiles/player_test.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = tests/CMakeFiles/player_test.dir/
   TARGET_FILE = tests/player_test
-  TARGET_PDB = tests/player_test.pdb
+  TARGET_PDB = player_test.dbg
 
 
 #############################################
@@ -1212,14 +1028,14 @@ build tests/all: phony tests/combat_loop_test tests/creature_data_test tests/cre
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/cmake_install.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/tests/cmake_install.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/CTestTestfile.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/tests/CTestTestfile.cmake: RERUN_CMAKE | /Users/yasmineslamani/CLionProjects/OceanDepth/CMakeLists.txt /Users/yasmineslamani/CLionProjects/OceanDepth/tests/CMakeLists.txt /opt/homebrew/share/cmake/Modules/CMakeCCompiler.cmake.in /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c /opt/homebrew/share/cmake/Modules/CMakeCInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /opt/homebrew/share/cmake/Modules/CMakeCompilerIdDetection.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake /opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake /opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake /opt/homebrew/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake /opt/homebrew/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake /opt/homebrew/share/cmake/Modules/CMakeSystem.cmake.in /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeTestCompilerCommon.cmake /opt/homebrew/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang.cmake /opt/homebrew/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake /opt/homebrew/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /opt/homebrew/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake /opt/homebrew/share/cmake/Modules/Internal/FeatureTesting.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin-Initialize.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
+build build.ninja /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/cmake_install.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/tests/cmake_install.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/CTestTestfile.cmake /Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/tests/CTestTestfile.cmake: RERUN_CMAKE | /Users/yasmineslamani/CLionProjects/OceanDepth/CMakeLists.txt /Users/yasmineslamani/CLionProjects/OceanDepth/tests/CMakeLists.txt /opt/homebrew/share/cmake/Modules/CMakeCInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake /opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin-Initialize.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Users/yasmineslamani/CLionProjects/OceanDepth/CMakeLists.txt /Users/yasmineslamani/CLionProjects/OceanDepth/tests/CMakeLists.txt /opt/homebrew/share/cmake/Modules/CMakeCCompiler.cmake.in /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c /opt/homebrew/share/cmake/Modules/CMakeCInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /opt/homebrew/share/cmake/Modules/CMakeCompilerIdDetection.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerABI.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerId.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineCompilerSupport.cmake /opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeFindBinUtils.cmake /opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake /opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeParseImplicitIncludeInfo.cmake /opt/homebrew/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake /opt/homebrew/share/cmake/Modules/CMakeParseLibraryArchitecture.cmake /opt/homebrew/share/cmake/Modules/CMakeSystem.cmake.in /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /opt/homebrew/share/cmake/Modules/CMakeTestCCompiler.cmake /opt/homebrew/share/cmake/Modules/CMakeTestCompilerCommon.cmake /opt/homebrew/share/cmake/Modules/Compiler/ADSP-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/ARMCC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/ARMClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Borland-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang.cmake /opt/homebrew/share/cmake/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Cray-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/CrayClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Diab-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GHS-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake /opt/homebrew/share/cmake/Modules/Compiler/HP-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IAR-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /opt/homebrew/share/cmake/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Intel-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/LCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/MSVC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/NVHPC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/OrangeC-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/PGI-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/PathScale-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Renesas-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SCO-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TI-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TIClang-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Tasking-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/Watcom-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/XL-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeInspectCLinker.cmake /opt/homebrew/share/cmake/Modules/Internal/FeatureTesting.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin-Initialize.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
+build /Users/yasmineslamani/CLionProjects/OceanDepth/CMakeLists.txt /Users/yasmineslamani/CLionProjects/OceanDepth/tests/CMakeLists.txt /opt/homebrew/share/cmake/Modules/CMakeCInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /opt/homebrew/share/cmake/Modules/CMakeGenericSystem.cmake /opt/homebrew/share/cmake/Modules/CMakeInitializeConfigs.cmake /opt/homebrew/share/cmake/Modules/CMakeLanguageInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /opt/homebrew/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /opt/homebrew/share/cmake/Modules/Compiler/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /opt/homebrew/share/cmake/Modules/Compiler/Clang.cmake /opt/homebrew/share/cmake/Modules/Compiler/GNU.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Internal/CMakeCommonLinkerInformation.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Linker/AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Apple-Clang.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin-Initialize.cmake /opt/homebrew/share/cmake/Modules/Platform/Darwin.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang-C.cmake /opt/homebrew/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake /opt/homebrew/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/4.1.2/CMakeCCompiler.cmake CMakeFiles/4.1.2/CMakeSystem.cmake: phony
 
 
 #############################################

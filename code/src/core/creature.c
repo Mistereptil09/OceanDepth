@@ -139,16 +139,22 @@ Creature *create_from_template(CreatureTier tier, int id) {
 Action* select_action(Creature *c) {
     if (c == NULL) return NULL;
 
-    Action* available_actions[2];
+    Action* available_actions[MAX_ACTIONS];
     int available_count = 0;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < c->base.action_count; i++) {
         Action* action = &c->base.actions[i];
+
+        // Skip actions that are on cooldown
+        if (action->cooldown_remaining > 0) {
+            continue;
+        }
 
         if (action->type == PHYSICAL_ATTACK) {
             available_actions[available_count++] = action;
         }
         else if (action->type == SPECIAL_SKILL) {
+            // Don't reapply SPECIAL_SKILL if the effect is already active
             int effect_active = 0;
             for (int j = 0; j < c->base.effects_number; j++) {
                 if (strcmp(c->base.effects[j].name, action->effect.name) == 0 &&

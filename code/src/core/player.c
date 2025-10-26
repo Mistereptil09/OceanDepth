@@ -24,7 +24,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     // Initialize player actions
     p->base.actions[0] = (Action){
-        "Coup d'épée", SPECIAL_SKILL, 0, 0,  // cooldown_turns, cooldown_remaining
+            "Coup d'épée", PHYSICAL_ATTACK,TARGET_SELF, 0, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost de l'épée", "+10 points d'attaque pour toi",
             1,
             10, 0, 0, 0, 0,  // flat modifiers
@@ -33,7 +33,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     };
 
     p->base.actions[1] = (Action){
-        "Boost d'attaque", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        "Boost d'attaque", PHYSICAL_ATTACK,TARGET_SELF, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost d'attaque", "Montée de puissance de 0.1 pour toi!",
             1,
             0, 0, 0, 0, 0,  // flat modifiers (10 attack boost)
@@ -42,7 +42,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     };
 
     p->base.actions[2] = (Action){
-        "Boost de défense", SPECIAL_SKILL, 2, 0,  // cooldown_turns, cooldown_remaining
+        "Boost de défense", SPECIAL_SKILL,TARGET_SELF, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Boost de défense", "+ 10 de défense pour toi !",
             2,
             0, 10, 0, 0, 0,  // flat modifiers (10 defense boost)
@@ -51,7 +51,7 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     };
 
     p->base.actions[3] = (Action){
-        "Harpon", PHYSICAL_ATTACK, 2, 0,  // cooldown_turns, cooldown_remaining
+        "Harpon", PHYSICAL_ATTACK,TARGET_OPPONENT, 2, 0,  // cooldown_turns, cooldown_remaining
         create_effect("Malus adversaire", "Ton adversaire est affaibli, sa défense est de -3 pour les 3 prochains tours!",
             3,
             0, -3, 0, 0, 0,  // flat modifiers (10 speed boost)

@@ -47,13 +47,19 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
     // Show custom message if available
     if (action->effect.display_message) {
         printf("\n%s!\n", action->effect.display_message);
+    } else {
+        printf("\n%s uses %s!\n", attacker->name, action->name);
     }
 
     Effect* applied_effect = NULL;
 
     if (action->type == PHYSICAL_ATTACK) {
-        // Attack: apply effect to defender
-        applied_effect = apply_action_to_target(defender, action);
+        // Physical attack: apply effect based on target_type, then compute damage
+        if (action->target_type == TARGET_SELF) {
+            applied_effect = apply_action_to_target(attacker, action);
+        } else if (action->target_type == TARGET_OPPONENT) {
+            applied_effect = apply_action_to_target(defender, action);
+        }
 
         if (applied_effect == NULL) {
             printf("Error while applying effect\n");
@@ -73,15 +79,20 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
         } else {
             printf("%s blocked the attack!\n", defender->name);
         }
-
     } else if (action->type == SPECIAL_SKILL) {
-        // Self-buff: apply effect to self (no damage)
-        applied_effect = apply_action_to_target(attacker, action);
-        printf("%s used %s!\n", attacker->name, action->name);
+        // Special skill: apply effect based on target_type, NO damage
+        if (action->target_type == TARGET_SELF) {
+            applied_effect = apply_action_to_target(attacker, action);
+        } else if (action->target_type == TARGET_OPPONENT) {
+            applied_effect = apply_action_to_target(defender, action);
+        }
 
         if (applied_effect == NULL) {
-            printf("Error while applying buff effect\n");
+            printf("Error while applying effect\n");
+        } else if (applied_effect->on_tick != NULL) {
+            effect_tick(attacker, defender, applied_effect);
         }
+        // NO damage computation for SPECIAL_SKILL
     }
 
     // Set cooldown
@@ -97,17 +108,7 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
  * @param alive_count Number of alive creatures
  * @return 0 if player died, 1 if turn completed successfully, -1 if should retry (e.g., cooldown)
  */
-static int player_turn(Player* player, int alive_count) {
-    // Tick player's effects at START of their turn
-    all_effects_tick(&player->base, NULL);
-
-    // Check if the player died from effects (poison, DoT, etc.)
-    if (!player->base.is_alive) {
-        printf("\nYou died from your afflictions!\n");
-        current_interface->display_defeat();
-        return 0;
-    }
-
+static int player_turn(Player *player, int alive_count) {
     // Display possible actions to player
     printf("\n=== Your Actions ===\n");
     for (int i = 0; i < player->base.action_count; i++) {
@@ -134,27 +135,46 @@ static int player_turn(Player* player, int alive_count) {
         return -1; // Retry turn
     }
 
-    // Decrement all cooldowns
+    // Decrement all cooldowns at start of player turn
     for (int i = 0; i < player->base.action_count; i++) {
         if (player->base.actions[i].cooldown_remaining > 0) {
             player->base.actions[i].cooldown_remaining--;
         }
     }
 
-    // Player chooses target
-    int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
-    Creature *target = get_alive_creature_at(target_choice);
+    Creature *target = NULL;
 
-    if (!target) {
-        printf("Invalid target!\n");
-        return -1; // Retry turn
+    // Only ask for target if it's a physical_attack
+    if (chosen_action->type == PHYSICAL_ATTACK) {
+        int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
+        target = get_alive_creature_at(target_choice);
+
+        if (!target) {
+            printf("Invalid target!\n");
+            return -1;
+        }
+        // OXYGEN DECREASE = -2 to -4
+    } else {
+        // For SPECIAL_SKILL, use first creature as dummy (won't be used anyway)
+        target = get_alive_creature_at(1);
+        // OXYGEN DECREASE = -5 to -8
     }
 
-    // Execute the attack
+    // Execute the attack (Attack function handles effect application and damage)
     int defeated = Attack(&player->base, chosen_action, &target->base);
 
     if (defeated) {
         printf("\n>> You defeated the %s! <<\n", target->base.name);
+    }
+
+    // Tick player's effects at THE END of their turn
+    all_effects_tick(&player->base, NULL);
+
+    // Check if the player is still alive after effects
+    if (!player->base.is_alive) {
+        printf("\nYou died from your afflictions!\n");
+        current_interface->display_defeat();
+        return 0;
     }
 
     return 1; // Turn completed successfully

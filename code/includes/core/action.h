@@ -10,9 +10,15 @@ typedef enum {
     SPECIAL_SKILL,
 } ActionType;
 
+typedef enum {
+    TARGET_SELF,
+    TARGET_OPPONENT,
+} TargetType;
+
 typedef struct {
     char name[30];
     ActionType type;
+    TargetType target_type;
     int cooldown_turns;      // Base cooldown duration
     int cooldown_remaining;  // Current cooldown remaining (0 = ready to use)
     Effect effect;           // The effect the action applies on the receiver
