@@ -22,5 +22,6 @@ int add_item_to_inventory(Inventory *inventory, Item item);
 // remove
 int remove_item_to_inventory(Inventory *inventory, Item* item);
 
+int insert_into_inventory(Inventory* inventory, Item item);
 // ...
 #endif //OCEANDEPTH_INVENTORY_H

@@ -3,22 +3,17 @@
 //
 
 #include "core/inventory_data.h"
+#include "core/item.h"
 #include "core/effect.h"
 #include <stdlib.h>
 #include <string.h>
 
 Item create_epee() {
-    Item epee = {0};
-    strcpy(epee.name, "Épée");
-    epee.type = ITEM_WEAPON;
-    epee.price = 0;
-
     // Allocate 2 actions
-    epee.actions = malloc(sizeof(Action) * 2);
-    epee.action_count = 2;
+    Action* actions = malloc(sizeof(Action) * 2);
 
-    // Action 0: Coup d'épée (same as player.c actions[0])
-    epee.actions[0] = (Action){
+    // Action 0: Coup d'épée
+    actions[0] = (Action){
         .type = PHYSICAL_ATTACK,
         .target_type = TARGET_SELF,
         .cooldown_turns = 0,
@@ -32,10 +27,10 @@ Item create_epee() {
             NULL, 0          // no special effect, applies this turn
         )
     };
-    strcpy(epee.actions[0].name, "Coup d'épée");
+    strcpy(actions[0].name, "Coup d'épée");
 
-    // Action 1: Boost d'attaque (same as player.c actions[1])
-    epee.actions[1] = (Action){
+    // Action 1: Boost d'attaque
+    actions[1] = (Action){
         .type = PHYSICAL_ATTACK,
         .target_type = TARGET_SELF,
         .cooldown_turns = 2,
@@ -49,23 +44,17 @@ Item create_epee() {
             NULL, 0
         )
     };
-    strcpy(epee.actions[1].name, "Boost d'attaque");
+    strcpy(actions[1].name, "Boost d'attaque");
 
-    return epee;
+    return create_item("Épée", ITEM_WEAPON, actions, 2, 0, 0, 0, 0, 0);
 }
 
 Item create_harpon() {
-    Item harpon = {0};
-    strcpy(harpon.name, "Harpon");
-    harpon.type = ITEM_WEAPON;
-    harpon.price = 0;
-
     // Allocate 1 action
-    harpon.actions = malloc(sizeof(Action) * 1);
-    harpon.action_count = 1;
+    Action* actions = malloc(sizeof(Action) * 1);
 
-    // Action 0: Harpon (same as player.c actions[3])
-    harpon.actions[0] = (Action){
+    // Action 0: Harpon
+    actions[0] = (Action){
         .type = PHYSICAL_ATTACK,
         .target_type = TARGET_OPPONENT,
         .cooldown_turns = 2,
@@ -79,23 +68,17 @@ Item create_harpon() {
             NULL, 0
         )
     };
-    strcpy(harpon.actions[0].name, "Harpon");
+    strcpy(actions[0].name, "Harpon");
 
-    return harpon;
+    return create_item("Harpon", ITEM_WEAPON, actions, 1, 0, 0, 0, 0, 0);
 }
 
 Item create_combinaison() {
-    Item combinaison = {0};
-    strcpy(combinaison.name, "Combinaison");
-    combinaison.type = ITEM_WEAPON;
-    combinaison.price = 0;
-
     // Allocate 1 action
-    combinaison.actions = malloc(sizeof(Action) * 1);
-    combinaison.action_count = 1;
+    Action* actions = malloc(sizeof(Action) * 1);
 
-    // Action 0: Boost de défense (same as player.c actions[2])
-    combinaison.actions[0] = (Action){
+    // Action 0: Boost de défense
+    actions[0] = (Action){
         .type = SPECIAL_SKILL,
         .target_type = TARGET_SELF,
         .cooldown_turns = 2,
@@ -109,58 +92,19 @@ Item create_combinaison() {
             NULL, 1            // applies next turn
         )
     };
-    strcpy(combinaison.actions[0].name, "Boost de défense");
+    strcpy(actions[0].name, "Boost de défense");
 
-    return combinaison;
+    return create_item("Combinaison", ITEM_WEAPON, actions, 1, 0, 0, 0, 0, 0);
 }
 
 Item create_oxygen_capsule(int quantity) {
-    Item capsule = {0};
-    strcpy(capsule.name, "Capsule O2");
-    capsule.type = ITEM_CONSUMABLE;
-    capsule.price = 10;
-
-    capsule.quantity = quantity;
-    capsule.oxygen_boost = 40;
-    capsule.fatigue_relief = 0;
-    capsule.hp_boost = 0;
-
-    capsule.actions = NULL;
-    capsule.action_count = 0;
-
-    return capsule;
+    return create_item("Capsule O2", ITEM_CONSUMABLE, NULL, 0, quantity, 40, 0, 0, 10);
 }
 
 Item create_fatigue_stimulant(int quantity) {
-    Item stimulant = {0};
-    strcpy(stimulant.name, "Stimulant Marin");
-    stimulant.type = ITEM_CONSUMABLE;
-    stimulant.price = 10;
-
-    stimulant.quantity = quantity;
-    stimulant.oxygen_boost = 0;
-    stimulant.fatigue_relief = 2;
-    stimulant.hp_boost = 0;
-
-    stimulant.actions = NULL;
-    stimulant.action_count = 0;
-
-    return stimulant;
+    return create_item("Stimulant Marin", ITEM_CONSUMABLE, NULL, 0, quantity, 0, 2, 0, 10);
 }
 
 Item create_health_kit(int quantity) {
-    Item kit = {0};
-    strcpy(kit.name, "Trousse de soin");
-    kit.type = ITEM_CONSUMABLE;
-    kit.price = 15;
-
-    kit.quantity = quantity;
-    kit.oxygen_boost = 0;
-    kit.fatigue_relief = 0;
-    kit.hp_boost = 25;
-
-    kit.actions = NULL;
-    kit.action_count = 0;
-
-    return kit;
+    return create_item("Trousse de soin", ITEM_CONSUMABLE, NULL, 0, quantity, 0, 0, 25, 15);
 }

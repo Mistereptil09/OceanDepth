@@ -3,6 +3,7 @@
 //
 
 #include "core/inventory.h"
+#include "core/error_codes.h"
 #include <stdlib.h>
 
 #include "core/inventory_data.h"
@@ -24,7 +25,45 @@ Inventory *create_inventory(void) {
 void free_inventory(Inventory *inventory) {
     if (inventory == NULL) return;
     for (int i = 0; i < inventory->count; i++) {
-        free_item(&inventory->items[0]);
+        free_item(&inventory->items[i]);
     }
-    free(inventory);
+}
+
+int add_item_to_inventory(Inventory* inventory, Item item) {
+    if (!inventory) return POINTER_NULL;
+    if (inventory->count >= INVENTORY_SIZE) {
+        return insert_into_inventory(inventory, item);
+    }
+
+    inventory->items[inventory->count] = item;
+    inventory->count++;
+    return SUCCESS;
+}
+
+int remove_item_to_inventory(Inventory* inventory, Item* item) {
+    if (!inventory || !item) return POINTER_NULL;
+
+    int index = -1;
+    for (int i = 0; i < inventory->count; i++) {
+        if (&inventory->items[i] == item) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1) return UNPROCESSABLE_REQUEST_ERROR;
+
+    free_item(item);
+
+    for (int i = index; i < inventory->count - 1; i++) {
+        inventory->items[i] = inventory->items[i + 1];
+    }
+
+    inventory->count--;
+    return SUCCESS;
+}
+
+int insert_into_inventory(Inventory* inventory, Item item) {
+    return UNPROCESSABLE_REQUEST_ERROR; // Implémenter le faitd d'écraser un élément de l'array
+
 }

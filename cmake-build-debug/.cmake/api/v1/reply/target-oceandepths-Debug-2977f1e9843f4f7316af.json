@@ -225,7 +225,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "code/src/core/inventory_data.h",
+			"path" : "code/includes/core/inventory_data.h",
 			"sourceGroupIndex" : 1
 		}
 	],

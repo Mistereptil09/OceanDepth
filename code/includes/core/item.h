@@ -25,7 +25,8 @@ typedef struct {
     int price;
 } Item;
 
-int create_item(char* name, ItemType type, Action* actions, int action_count, int quantity, int oxygen_boost, int fatigue_relief, int price);
+Item create_item(char* name, ItemType type, Action* actions, int action_count, int quantity, int oxygen_boost, int fatigue_relief, int hp_boost, int price);
 int free_item(Item* item);
+int item_on_cooldown(Item* item);
 
 #endif //OCEANDEPTH_ITEM_H

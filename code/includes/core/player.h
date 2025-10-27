@@ -85,4 +85,5 @@ int increase_pearls(Player *p, int amount);
  */
 int decrease_pearls(Player *p, int amount);
 
+void use_consumable(Player *p, Item* item);
 #endif //OCEANDEPTH_PLAYER_H

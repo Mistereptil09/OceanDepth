@@ -4,11 +4,12 @@
 #include "core/action.h"
 #include "core/creature.h"
 #include "core/player.h"
+#include "core/item.h"
 #include "interface/interface_table.h"
 #include "interface/interface_api.h"
 #include <stdio.h>
 
-int compute_physical_damage(EntityBase* attacker, EntityBase* defender) {
+int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
 
     // Enhanced debug output showing before and after values
@@ -38,7 +39,7 @@ int compute_physical_damage(EntityBase* attacker, EntityBase* defender) {
     return raw;
 }
 
-int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
+int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
     if (!attacker || !defender || !action) return 0;
 
     // Show action
@@ -51,7 +52,7 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
         printf("\n%s uses %s!\n", attacker->name, action->name);
     }
 
-    Effect* applied_effect = NULL;
+    Effect *applied_effect = NULL;
 
     if (action->type == PHYSICAL_ATTACK) {
         // Physical attack: apply effect based on target_type, then compute damage
@@ -109,62 +110,96 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender) {
  * @return 0 if player died, 1 if turn completed successfully, -1 if should retry (e.g., cooldown)
  */
 static int player_turn(Player *player, int alive_count) {
-    // Display possible actions to player
-    printf("\n=== Your Actions ===\n");
-    for (int i = 0; i < player->base.action_count; i++) {
-        Action *action = &player->base.actions[i];
-        printf("%d. %s", i + 1, action->name);
-        if (action->cooldown_remaining > 0) {
-            printf(" [Cooldown: %d turns]", action->cooldown_remaining);
-        }
-        if (action->type == PHYSICAL_ATTACK) {
-            printf(" (Applies damage to the enemy's stats)");
-        } else if (action->type == SPECIAL_SKILL) {
-            printf(" (Boost your own stats!)");
+    // CHANGES
+    // DISPLAY INVENTORY ITEMS
+    printf("\n=== Your Inventory ===\n");
+    for (int i = 0; i < player->inventory.count; i++) {
+        Item *item = &player->inventory.items[i];
+        printf("%d. %s", i + 1, item->name);
+        int is_on_cooldown = item_on_cooldown(item);
+        if (is_on_cooldown && item->type == ITEM_WEAPON) {
+            printf("[Cooldown]");
         }
         printf("\n");
     }
+    int item_choice = current_interface->get_choice("Choose your item", 1, player->inventory.count);
+    Item *chosen_item = &player->inventory.items[item_choice - 1];
 
-    // Player chooses action
-    int action_choice = current_interface->get_choice("Choose your action", 1, player->base.action_count);
-    Action *chosen_action = &player->base.actions[action_choice - 1];
-
-    // Check cooldown
-    if (chosen_action->cooldown_remaining > 0) {
-        printf("\n%s is on cooldown! Choose another action.\n", chosen_action->name);
+    // IF IT HAS ACTIONS, CHECKS WHETHER ALL ACTIONS ARE ON COOLDOWN, IF SO YOU CANNOT SELECT THAT ITEM
+    // THEN DISPLAY ITEM ACTIONS LIKE WE DOING NOW
+    if (item_on_cooldown(chosen_item) && chosen_item->type == ITEM_WEAPON) {
+        printf("\n%s's actions are all on cooldown! Choose another item.\n", chosen_item->name);
         return -1; // Retry turn
     }
 
-    // Decrement all cooldowns at start of player turn
-    for (int i = 0; i < player->base.action_count; i++) {
-        if (player->base.actions[i].cooldown_remaining > 0) {
-            player->base.actions[i].cooldown_remaining--;
+    // IF IT IS A CONSUMABLE, CALL USE_CONSUMABLE FUNCTION WHICH WE WILL IMPLEMENT AFTER
+
+    if (chosen_item->type == ITEM_WEAPON) {
+        // Display possible actions from the chosen item
+        printf("\n=== %s Actions ===\n", chosen_item->name);
+        for (int i = 0; i < chosen_item->action_count; i++) {
+            Action *action = &chosen_item->actions[i];
+            printf("%d. %s", i + 1, action->name);
+            if (action->cooldown_remaining > 0) {
+                printf(" [Cooldown: %d turns]", action->cooldown_remaining);
+            }
+            if (action->type == PHYSICAL_ATTACK) {
+                printf(" (Applies damage to the enemy's stats)");
+            } else if (action->type == SPECIAL_SKILL) {
+                printf(" (Boost your own stats!)");
+            }
+            printf("\n");
         }
-    }
 
-    Creature *target = NULL;
+        // Player chooses action from the item
+        int action_choice = current_interface->get_choice("Choose your action", 1, chosen_item->action_count);
+        Action *chosen_action = &chosen_item->actions[action_choice - 1];
 
-    // Only ask for target if it's a physical_attack
-    if (chosen_action->type == PHYSICAL_ATTACK) {
-        int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
-        target = get_alive_creature_at(target_choice);
-
-        if (!target) {
-            printf("Invalid target!\n");
-            return -1;
+        // Check cooldown
+        if (chosen_action->cooldown_remaining > 0) {
+            printf("\n%s is on cooldown! Choose another action.\n", chosen_action->name);
+            return -1; // Retry turn
         }
-        // OXYGEN DECREASE = -2 to -4
+
+        Creature *target = NULL;
+
+        // Only ask for target if it's a physical_attack
+        if (chosen_action->type == PHYSICAL_ATTACK) {
+            int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
+            target = get_alive_creature_at(target_choice);
+
+            if (!target) {
+                printf("Invalid target!\n");
+                return -1;
+            }
+            // OXYGEN DECREASE = -2 to -4
+        } else {
+            // For SPECIAL_SKILL, use first creature as dummy (won't be used anyway)
+            target = get_alive_creature_at(1);
+            // OXYGEN DECREASE = -5 to -8
+        }
+
+        // Execute the attack (Attack function handles effect application and damage)
+        int defeated = Attack(&player->base, chosen_action, &target->base);
+
+        if (defeated) {
+            printf("\n>> You defeated the %s! <<\n", target->base.name);
+        }
     } else {
-        // For SPECIAL_SKILL, use first creature as dummy (won't be used anyway)
-        target = get_alive_creature_at(1);
-        // OXYGEN DECREASE = -5 to -8
+        use_consumable(player, chosen_item);
+        if (chosen_item->quantity <= 0) {
+            remove_item_to_inventory(&player->inventory, chosen_item);
+        }
     }
 
-    // Execute the attack (Attack function handles effect application and damage)
-    int defeated = Attack(&player->base, chosen_action, &target->base);
-
-    if (defeated) {
-        printf("\n>> You defeated the %s! <<\n", target->base.name);
+    // Decrement cooldowns for ALL item actions in inventory
+    for (int i = 0; i < player->inventory.count; i++) {
+        Item *item = &player->inventory.items[i];
+        for (int j = 0; j < item->action_count; j++) {
+            if (item->actions[j].cooldown_remaining > 0) {
+                item->actions[j].cooldown_remaining--;
+            }
+        }
     }
 
     // Tick player's effects at THE END of their turn
@@ -187,7 +222,7 @@ static int player_turn(Player *player, int alive_count) {
  * @param player Pointer to the player
  * @return 0 if player died, 1 if turns completed successfully
  */
-static int creature_turns(Creature** creatures, int creature_count, Player* player) {
+static int creature_turns(Creature **creatures, int creature_count, Player *player) {
     printf("\n--- Enemy Turn ---\n");
 
     for (int i = 0; i < creature_count; i++) {
