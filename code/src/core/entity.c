@@ -217,20 +217,20 @@ int entity_recover_hp(EntityBase *base, int hp) {
 }
 
 void print_current_effect_list(EntityBase *target) {
-    printf("%s's effect list is now composed of :\n", target->name);
+    printf("Liste d'effets de %s :\n", target->name);
     for (int i = 0; i < target->effects_number; i++) {
-        printf(" %s with %d turns left\n", target->effects[i].name, target->effects[i].turns_left);
+        printf(" %s avec %d tours restants\n", target->effects[i].name, target->effects[i].turns_left);
     }
 }
 
 void print_current_stat_modifier_list(EntityBase* base) {
-    printf("%s's attack is now composed of these modifiers:\n", base->name);
+    printf("Attaque de %s composee de ces modificateurs:\n", base->name);
     for (int i = 0; i < base->attack.modifier_count; i++) {
-        printf("value : %lf, type : %s\n", base->attack.modifiers[i].value, base->attack.modifiers[i].type == MOD_FLAT ? "FLAT" : "PERCENT");
+        printf("valeur : %lf, type : %s\n", base->attack.modifiers[i].value, base->attack.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
     }
 
-    printf("\n%s's defense is now composed of these modifiers:\n", base->name);
+    printf("\nDefense de %s composee de ces modificateurs:\n", base->name);
     for (int i = 0; i < base->defense.modifier_count; i++) {
-        printf("value : %lf, type : %s\n", base->defense.modifiers[i].value, base->defense.modifiers[i].type == MOD_FLAT ? "FLAT" : "PERCENT");
+        printf("valeur : %lf, type : %s\n", base->defense.modifiers[i].value, base->defense.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
     }
 }

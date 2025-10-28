@@ -21,7 +21,7 @@ int main(void) {
     printf("CREATE PLAYER\n");
     Player *p = create_player("Yasmine", 100, 10, 100);
     if (!p) {
-        fprintf(stderr, "Erreur: create_player a échoué.\n");
+        fprintf(stderr, "Erreur: create_player a echoue.\n");
         return 1;
     }
 
@@ -34,7 +34,7 @@ int main(void) {
            p->pearls, p->base.fatigue_level);
 
     // --- TEST HP ---
-    printf("Appliquer 30 de dégâts : \n");
+    printf("Appliquer 30 de degats : \n");
     entity_take_damage(&p->base, 30);
     printf("HP: %d/%d\n", p->base.current_health_points, p->base.max_health_points);
 
@@ -43,11 +43,11 @@ int main(void) {
     printf("HP: %d/%d\n\n", p->base.current_health_points, p->base.max_health_points);
 
     // --- TEST OXYGEN ---
-    printf("[O2] Consomme 30 oxygène :\n");
+    printf("[O2] Consomme 30 oxygene :\n");
     consume_oxygen(p, 30);
     printf("O2: %d/%d\n", p->base.oxygen_level, p->base.max_oxygen_level);
 
-    printf("[O2] Récupère 50 oxygène :\n");
+    printf("[O2] Recupere 50 oxygene :\n");
     recover_oxygen(p, 50);
     printf("O2: %d/%d\n\n", p->base.oxygen_level, p->base.max_oxygen_level);
 
@@ -56,7 +56,7 @@ int main(void) {
     increase_fatigue(p, 3);
     printf("Fatigue: %d\n", p->base.fatigue_level);
 
-    printf("[Fatigue] Récupère 2 fatigue :\n");
+    printf("[Fatigue] Recupere 2 fatigue :\n");
     recover_fatigue(p, 2);
     printf("Fatigue: %d\n\n", p->base.fatigue_level);
 
@@ -72,6 +72,6 @@ int main(void) {
     // FREE
     free_player(p);
 
-    printf("=== TESTS TERMINÉS ===\n");
+    printf("=== TESTS TERMINES ===\n");
     return 0;
 }

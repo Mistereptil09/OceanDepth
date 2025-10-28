@@ -23,23 +23,23 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
         KRAKEN, CREATURE_HARD, "Kraken", 120, 180, 25, 40, 10, 5,
         {
-            {"Étreinte tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 2, 0,
-                create_effect("ATTACK X2", "L'attaque du Kraken a été doublée !",
+            {"etreinte tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 2, 0,
+                create_effect("ATTACK X2", "L'attaque du Kraken a ete doublee !",
                      1, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, etreinte_tentaculaire_tick,0)},
 
             {"Nuage d'encre", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("BOOST ATK 5", "L'attaque du Kraken est augmenté de 5 !",
+                create_effect("BOOST ATK 5", "L'attaque du Kraken est augmente de 5 !",
                      1, 5, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Tourbillon", SPECIAL_SKILL, TARGET_SELF, 1, 0,
-                create_effect("BOOST DEF +2", "Le Kraken se défend!",
+                create_effect("BOOST DEF +2", "Le Kraken se defend!",
                      2, 0, 2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
             {"Ventouses infernale", PHYSICAL_ATTACK, TARGET_OPPONENT,2, 0,
-                create_effect("MALUS DEF -2", "Le Kraken vous piège avec ses ventouses!",
+                create_effect("MALUS DEF -2", "Le Kraken vous piege avec ses ventouses!",
                      1, 0, -2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
         }
@@ -49,13 +49,13 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
         KING_CRAB, CREATURE_MEDIUM, "Crabe Geant", 80, 120, 12, 20, 10, 3,
         {
-            {"Pince écrasante", PHYSICAL_ATTACK, TARGET_OPPONENT, 0, 0,
+            {"Pince ecrasante", PHYSICAL_ATTACK, TARGET_OPPONENT, 0, 0,
                 create_effect("MALUS ATK -3", "Le joueur subit -3 d'attaque au prochain tour!",
                      1, -3, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Carapace durcie", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("BOOST ATK +20", "Le Crabe a 20 points de défense de plus !",
+                create_effect("BOOST ATK +20", "Le Crabe a 20 points de defense de plus !",
                      1, 0, 20, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
@@ -65,7 +65,7 @@ void init_creature_templates(void) {
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Bulles Protectrices", SPECIAL_SKILL, TARGET_SELF, 1, 0,
-                create_effect("DEF BOOST +2", "Le Crabe a 2 points de défense de plus !",
+                create_effect("DEF BOOST +2", "Le Crabe a 2 points de defense de plus !",
                      1, 0, 2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
         }
@@ -76,24 +76,24 @@ void init_creature_templates(void) {
         JELLYFISH, CREATURE_EASY, "Meduse", 20, 40, 8, 15, 5, 0,
         {
             {"Piqûre tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("ATK BOOST +4", "+4 points d'attaque pour la méduse !",
+                create_effect("ATK BOOST +4", "+4 points d'attaque pour la meduse !",
             1,
             4, 0, 0, 0, 0,  // flat modifiers
             0, 0, 0, 0, 0,  // percentage modifiers
             NULL,0)
     },
             {"Piqûre paralysante", PHYSICAL_ATTACK, TARGET_OPPONENT, 1, 0,
-                create_effect("ATK MALUS -1", "L'attaque du joueur réduite de 1 au prochain tour!",
+                create_effect("ATK MALUS -1", "L'attaque du joueur reduite de 1 au prochain tour!",
                      2, -1, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, NULL,0)},
 
-            {"Shock électrique", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("SPEED BOOST +5", "L'attaque du joueur réduite de 1 au prochain tour!!",
+            {"Shock electrique", SPECIAL_SKILL,TARGET_SELF, 2, 0,
+                create_effect("SPEED BOOST +5", "L'attaque du joueur reduite de 1 au prochain tour!!",
                      1, 0, 0, 5, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
             {"Venin Foudroyant", PHYSICAL_ATTACK, TARGET_OPPONENT,1, 0,
-                create_effect("DEF MALUS -1", "La défense du joueur réduite de 1 au 2 prochains tours!",
+                create_effect("DEF MALUS -1", "La defense du joueur reduite de 1 au 2 prochains tours!",
                      2, -0, -1, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
         }
@@ -104,12 +104,12 @@ void init_creature_templates(void) {
         SHARK, CREATURE_MEDIUM, "Requin", 60, 100, 15, 25, 20, 4,
         {
             {"Morsure", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("DEF BOOST +2", " +2 de défense pour le Requin sur 2 tours !",
+                create_effect("DEF BOOST +2", " +2 de defense pour le Requin sur 2 tours !",
                      2, 0, 2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
-            {"Frénésie sanguinaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("CONDI ATK +30% BOOST", "+30% de dégât si -50% en HP pour le Requin !",
+            {"Frenesie sanguinaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
+                create_effect("CONDI ATK +30% BOOST", "+30% de degât si -50% en HP pour le Requin !",
                      1, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, frenesie_sanguinaire_tick,0)},
 
@@ -118,7 +118,7 @@ void init_creature_templates(void) {
                      1, 3, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
-            {"Rage du Prédateur", PHYSICAL_ATTACK,TARGET_OPPONENT, 3, 0,
+            {"Rage du Predateur", PHYSICAL_ATTACK,TARGET_OPPONENT, 3, 0,
                 create_effect("ATK MALUS -5", "-5% d'attaque pour le joueur au prochain tour!",
                      1, 0, 0, 0, 0, 0,
                     0.05, 0, 0, 0, 0, NULL,0)},
@@ -139,8 +139,8 @@ void init_creature_templates(void) {
                      1, 5, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
-            {"Griffes légendaires", SPECIAL_SKILL, TARGET_SELF, 2, 0,
-                create_effect("DEF BOOST +6", "+ 6 de défense pour le Leviathan sur 2 tours !",
+            {"Griffes legendaires", SPECIAL_SKILL, TARGET_SELF, 2, 0,
+                create_effect("DEF BOOST +6", "+ 6 de defense pour le Leviathan sur 2 tours !",
                      2, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
@@ -160,8 +160,8 @@ void init_creature_templates(void) {
                      1, 0, 0, 0, 0, 0,
                     0.1, 0, 0, 0, 0, NULL,0)},
 
-            {"Voile d'obscurité", PHYSICAL_ATTACK, TARGET_OPPONENT,2, 0,
-                create_effect("DEF MALUS -5", "Perdu dans l'obscurité, défense réduite de 5 !",
+            {"Voile d'obscurite", PHYSICAL_ATTACK, TARGET_OPPONENT,2, 0,
+                create_effect("DEF MALUS -5", "Perdu dans l'obscurite, defense reduite de 5 !",
                      1, 0, -5, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
@@ -171,7 +171,7 @@ void init_creature_templates(void) {
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Camouflage des abysses", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("DEF BOOST +6", "+6 de défense pour l'Anglerfish sur 2 tours !",
+                create_effect("DEF BOOST +6", "+6 de defense pour l'Anglerfish sur 2 tours !",
                      2, 0, 6, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
         }

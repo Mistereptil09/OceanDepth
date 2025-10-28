@@ -162,11 +162,11 @@ static int player_turn(Player *player, int alive_count) {
 
         // Only ask for target if it's a physical_attack
         if (chosen_action->type == PHYSICAL_ATTACK) {
-            int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
+            int target_choice = current_interface->get_choice("Choisissez votre cible", 1, alive_count);
             target = get_alive_creature_at(target_choice);
 
             if (!target) {
-                printf("Invalid target!\n");
+                printf("Cible invalide!\n");
                 return -1;
             }
             // OXYGEN DECREASE = -2 to -4
@@ -267,14 +267,14 @@ int battle_loop(Player *player, Difficulty difficulty) {
     Creature **creatures = generate_creatures(difficulty, &creature_count);
 
     if (!creatures) {
-        printf("Error: Failed to generate creatures!\n");
+        printf("Erreur: Impossible de generer les creatures!\n");
         return 0;
     }
 
     // Display all enemies at start
     current_interface->display_combat_intro(creatures, creature_count);
 
-    current_interface->wait_for_enter("\nPress Enter to begin combat...");
+    current_interface->wait_for_enter("\nAppuyez sur Entree pour commencer le combat...");
 
     int round = 1;
 
@@ -320,7 +320,7 @@ int battle_loop(Player *player, Difficulty difficulty) {
 
 
         round++;
-        current_interface->wait_for_enter("\nPress Enter to continue...");
+        current_interface->wait_for_enter("\nAppuyez sur Entree pour continuer...");
     }
 
     free_generated_creatures(creatures, creature_count);

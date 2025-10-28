@@ -19,7 +19,7 @@ Item create_epee() {
         .cooldown_turns = 0,
         .cooldown_remaining = 0,
         .effect = create_effect(
-            "Boost de l'épée",
+            "Boost de l'epee",
             "+10 points d'attaque pour toi",
             1,
             10, 0, 0, 0, 0,  // flat: +10 attack
@@ -27,7 +27,7 @@ Item create_epee() {
             NULL, 0          // no special effect, applies this turn
         )
     };
-    strcpy(actions[0].name, "Coup d'épée");
+    strcpy(actions[0].name, "Coup d'epee");
 
     // Action 1: Boost d'attaque
     actions[1] = (Action){
@@ -37,7 +37,7 @@ Item create_epee() {
         .cooldown_remaining = 0,
         .effect = create_effect(
             "Boost d'attaque",
-            "Montée de puissance de 0.4 pour toi!",
+            "Montee de puissance de 0.4 pour toi!",
             1,
             0, 0, 0, 0, 0,     // flat: none
             0.4, 0, 0, 0, 0,   // percent: +40% attack
@@ -46,7 +46,7 @@ Item create_epee() {
     };
     strcpy(actions[1].name, "Boost d'attaque");
 
-    return create_item("Épée", ITEM_WEAPON, actions, 2, 0, 0, 0, 0, 0);
+    return create_item("epee", ITEM_WEAPON, actions, 2, 0, 0, 0, 0, 0);
 }
 
 Item create_harpon() {
@@ -61,7 +61,7 @@ Item create_harpon() {
         .cooldown_remaining = 0,
         .effect = create_effect(
             "Malus adversaire",
-            "Ton adversaire est affaibli, sa défense est de -3 pour les 3 prochains tours!",
+            "Ton adversaire est affaibli, sa defense est de -3 pour les 3 prochains tours!",
             3,
             0, -3, 0, 0, 0,    // flat: -3 defense
             0, 0, 0, 0, 0,     // percent: none
@@ -84,15 +84,15 @@ Item create_combinaison() {
         .cooldown_turns = 2,
         .cooldown_remaining = 0,
         .effect = create_effect(
-            "Boost de défense",
-            "+ 10 de défense pour toi !",
+            "Boost de defense",
+            "+ 10 de defense pour toi !",
             2,
             0, 10, 0, 0, 0,    // flat: +10 defense
             0, 0, 0, 0, 0,     // percent: none
             NULL, 1            // applies next turn
         )
     };
-    strcpy(actions[0].name, "Boost de défense");
+    strcpy(actions[0].name, "Boost de defense");
 
     return create_item("Combinaison", ITEM_WEAPON, actions, 1, 0, 0, 0, 0, 0);
 }
