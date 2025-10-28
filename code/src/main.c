@@ -19,29 +19,29 @@ int main(void)
 
     // Create player
     char player_name[30];
-    current_interface->get_input("Please give me your name !", player_name, sizeof(player_name));
+    current_interface->get_input("Donnez-moi votre nom !", player_name, sizeof(player_name));
     Player* player = create_player(player_name, 100, 8
         , 100);
 
     if (!player) {
-        printf("Error: Failed to create player!\n");
+        printf("Erreur: Impossible de creer le joueur!\n");
         cleanup_creature_templates();
         return 1;
     }
 
-    printf("\n\nWelcome, %s, to the Ocean Depths!\n", player_name);
-    printf("You are about to face the creatures of the deep...\n");
+    printf("\n\nBienvenue, %s, dans les Profondeurs Oceaniques!\n", player_name);
+    printf("Vous allez affronter les creatures des abysses...\n");
 
     // Start battle with EASY difficulty
     int result = battle_loop(player, EASY);
 
     if (result) {
-        printf("\nCongratulations! You survived the depths!\n");
-        printf("Final Stats:\n");
-        printf("  HP: %d/%d\n", player->base.current_health_points, player->base.max_health_points);
-        printf("  Pearls: %d\n", player->pearls);
+        printf("\nFelicitations! Vous avez survecu aux profondeurs!\n");
+        printf("Statistiques finales:\n");
+        printf("  PV: %d/%d\n", player->base.current_health_points, player->base.max_health_points);
+        printf("  Perles: %d\n", player->pearls);
     } else {
-        printf("\nThe ocean has claimed another soul...\n");
+        printf("\nL'ocean a reclame une autre ame...\n");
     }
 
     // Clean up
