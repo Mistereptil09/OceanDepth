@@ -8,6 +8,7 @@
 #include "interface/interface_table.h"
 #include "interface/interface_api.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
@@ -47,9 +48,7 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
 
     // Show custom message if available
     if (action->effect.display_message) {
-        printf("\n%s!\n", action->effect.display_message);
-    } else {
-        printf("\n%s uses %s!\n", attacker->name, action->name);
+        current_interface->show_action_effect(action->effect.display_message);
     }
 
     Effect *applied_effect = NULL;
@@ -63,7 +62,7 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
         }
 
         if (applied_effect == NULL) {
-            printf("Error while applying effect\n");
+            current_interface->show_effect_error();
         } else if (applied_effect->on_tick != NULL) {
             effect_tick(attacker, defender, applied_effect);
         }
@@ -72,13 +71,11 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
         int dmg = compute_physical_damage(attacker, defender);
         if (dmg > 0) {
             entity_take_damage(defender, dmg);
-            printf("%s deals %d damage to %s!\n", attacker->name, dmg, defender->name);
-            printf("%s now has %d/%d HP remaining.\n",
-                   defender->name,
-                   defender->current_health_points,
-                   defender->max_health_points);
+            current_interface->show_damage_dealt(attacker->name, defender->name,
+                                                dmg, defender->current_health_points,
+                                                defender->max_health_points);
         } else {
-            printf("%s blocked the attack!\n", defender->name);
+            current_interface->show_attack_blocked(defender->name);
         }
     } else if (action->type == SPECIAL_SKILL) {
         // Special skill: apply effect based on target_type, NO damage
@@ -89,7 +86,7 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
         }
 
         if (applied_effect == NULL) {
-            printf("Error while applying effect\n");
+            current_interface->show_effect_error();
         } else if (applied_effect->on_tick != NULL) {
             effect_tick(attacker, defender, applied_effect);
         }
@@ -128,7 +125,7 @@ static int player_turn(Player *player, int alive_count) {
     // IF IT HAS ACTIONS, CHECKS WHETHER ALL ACTIONS ARE ON COOLDOWN, IF SO YOU CANNOT SELECT THAT ITEM
     // THEN DISPLAY ITEM ACTIONS LIKE WE DOING NOW
     if (item_on_cooldown(chosen_item) && chosen_item->type == ITEM_WEAPON) {
-        printf("\n%s's actions are all on cooldown! Choose another item.\n", chosen_item->name);
+        current_interface->show_item_on_cooldown(chosen_item->name);
         return -1; // Retry turn
     }
 
@@ -157,7 +154,7 @@ static int player_turn(Player *player, int alive_count) {
 
         // Check cooldown
         if (chosen_action->cooldown_remaining > 0) {
-            printf("\n%s is on cooldown! Choose another action.\n", chosen_action->name);
+            current_interface->show_action_on_cooldown(chosen_action->name);
             return -1; // Retry turn
         }
 
@@ -183,7 +180,7 @@ static int player_turn(Player *player, int alive_count) {
         int defeated = Attack(&player->base, chosen_action, &target->base);
 
         if (defeated) {
-            printf("\n>> You defeated the %s! <<\n", target->base.name);
+            current_interface->show_creature_defeated(target->base.name);
         }
     } else {
         use_consumable(player, chosen_item);
@@ -207,7 +204,7 @@ static int player_turn(Player *player, int alive_count) {
 
     // Check if the player is still alive after effects
     if (!player->base.is_alive) {
-        printf("\nYou died from your afflictions!\n");
+        current_interface->show_death_from_afflictions();
         current_interface->display_defeat();
         return 0;
     }
@@ -223,7 +220,7 @@ static int player_turn(Player *player, int alive_count) {
  * @return 0 if player died, 1 if turns completed successfully
  */
 static int creature_turns(Creature **creatures, int creature_count, Player *player) {
-    printf("\n--- Enemy Turn ---\n");
+    current_interface->show_enemy_turn();
 
     for (int i = 0; i < creature_count; i++) {
         if (!creatures[i]->base.is_alive) continue;
@@ -234,7 +231,7 @@ static int creature_turns(Creature **creatures, int creature_count, Player *play
         // Select action for creature
         Action *action = select_action(attacker);
         if (!action) {
-            printf("%s has no available actions!\n", attacker->base.name);
+            current_interface->show_no_actions_available(attacker->base.name);
             continue;
         }
 
@@ -251,7 +248,7 @@ static int creature_turns(Creature **creatures, int creature_count, Player *play
         all_effects_tick(&attacker->base, &player->base);
 
         if (!attacker->base.is_alive) {
-            printf("%s died from its own effects!\n", attacker->base.name);
+            current_interface->show_creature_died_from_effects(attacker->base.name);
             continue;
         }
     }
