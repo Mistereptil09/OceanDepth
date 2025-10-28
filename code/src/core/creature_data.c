@@ -55,7 +55,7 @@ void init_creature_templates(void) {
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Carapace durcie", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("BOOST ATK +20", "Le Crabe a 20 points de defense de plus !",
+                create_effect("BOOST DEF +20", "Le Crabe a 20 points de defense de plus !",
                      1, 0, 20, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
@@ -88,7 +88,7 @@ void init_creature_templates(void) {
                         0, 0, 0, 0, 0, NULL,0)},
 
             {"Shock electrique", SPECIAL_SKILL,TARGET_SELF, 2, 0,
-                create_effect("SPEED BOOST +5", "L'attaque du joueur reduite de 1 au prochain tour!!",
+                create_effect("SPEED BOOST +5", "La Meduse prend en vitesse!",
                      1, 0, 0, 5, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 

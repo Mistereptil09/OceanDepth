@@ -20,10 +20,12 @@ Creature *create_creature(int id, CreatureType type, EntityBase base, Action act
         for (int i = 0; i < MAX_ACTIONS; i++) {
             creature->base.actions[i] = actions[i];
         }
+        creature->base.action_count = MAX_ACTIONS;
     } else {
         for (int i = 0; i < MAX_ACTIONS; i++) {
             memset(&creature->base.actions[i], 0, sizeof(Action));
         }
+        creature->base.action_count = 0;
     }
 
     return creature;
