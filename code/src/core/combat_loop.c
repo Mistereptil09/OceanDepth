@@ -110,29 +110,52 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
  * @return 0 if player died, 1 if turn completed successfully, -1 if should retry (e.g., cooldown)
  */
 static int player_turn(Player *player, int alive_count) {
-    // CHANGES
-    // DISPLAY INVENTORY ITEMS
-    printf("\n=== Your Inventory ===\n");
-    for (int i = 0; i < player->inventory.count; i++) {
-        Item *item = &player->inventory.items[i];
-        printf("%d. %s", i + 1, item->name);
-        int is_on_cooldown = item_on_cooldown(item);
-        if (is_on_cooldown && item->type == ITEM_WEAPON) {
-            printf("[Cooldown]");
+    // Item selection loop - retries only item choice without redisplaying round
+    Item *chosen_item = NULL;
+    while (chosen_item == NULL) {
+        // DISPLAY INVENTORY ITEMS
+        printf("\n=== Your Inventory ===\n");
+        for (int i = 0; i < player->inventory.count; i++) {
+            Item *item = &player->inventory.items[i];
+            printf("%d. %s", i + 1, item->name);
+            int is_on_cooldown = item_on_cooldown(item);
+            if (is_on_cooldown && item->type == ITEM_WEAPON) {
+                printf("[Cooldown]");
+            }
+            printf("\n");
         }
-        printf("\n");
-    }
-    int item_choice = current_interface->get_choice("Choose your item", 1, player->inventory.count);
-    Item *chosen_item = &player->inventory.items[item_choice - 1];
+        int item_choice = current_interface->get_choice("Choose your item", 1, player->inventory.count);
+        Item *selected_item = &player->inventory.items[item_choice - 1];
 
-    // IF IT HAS ACTIONS, CHECKS WHETHER ALL ACTIONS ARE ON COOLDOWN, IF SO YOU CANNOT SELECT THAT ITEM
-    // THEN DISPLAY ITEM ACTIONS LIKE WE DOING NOW
-    if (item_on_cooldown(chosen_item) && chosen_item->type == ITEM_WEAPON) {
-        printf("\n%s's actions are all on cooldown! Choose another item.\n", chosen_item->name);
-        return -1; // Retry turn
-    }
+        // VALIDATION: Check if weapon is on cooldown
+        if (item_on_cooldown(selected_item) && selected_item->type == ITEM_WEAPON) {
+            printf("\n%s's actions are all on cooldown! Choose another item.\n", selected_item->name);
+            continue; // Re-ask for item choice
+        }
 
-    // IF IT IS A CONSUMABLE, CALL USE_CONSUMABLE FUNCTION WHICH WE WILL IMPLEMENT AFTER
+        // VALIDATION: Check if consumable would have no effect
+        if (selected_item->type == ITEM_CONSUMABLE) {
+            int would_have_effect = 0;
+
+            if (selected_item->hp_boost > 0 && player->base.current_health_points < player->base.max_health_points) {
+                would_have_effect = 1;
+            }
+            if (selected_item->oxygen_boost > 0 && player->base.oxygen_level < player->base.max_oxygen_level) {
+                would_have_effect = 1;
+            }
+            if (selected_item->fatigue_relief > 0 && player->base.fatigue_level > 0) {
+                would_have_effect = 1;
+            }
+
+            if (!would_have_effect) {
+                printf("\n%s would have no effect right now! All stats are already maxed.\n", selected_item->name);
+                continue; // Re-ask for item choice
+            }
+        }
+
+        // Item is valid, break the loop
+        chosen_item = selected_item;
+    }
 
     if (chosen_item->type == ITEM_WEAPON) {
         // Display possible actions from the chosen item
@@ -143,16 +166,22 @@ static int player_turn(Player *player, int alive_count) {
             if (action->cooldown_remaining > 0) {
                 printf(" [Cooldown: %d turns]", action->cooldown_remaining);
             }
-            if (action->type == PHYSICAL_ATTACK) {
+            if (action->target_type == TARGET_OPPONENT) {
                 printf(" (Applies damage to the enemy's stats)");
-            } else if (action->type == SPECIAL_SKILL) {
+            } else if (action->target_type == TARGET_SELF) {
                 printf(" (Boost your own stats!)");
             }
             printf("\n");
         }
 
-        // Player chooses action from the item
-        int action_choice = current_interface->get_choice("Choose your action", 1, chosen_item->action_count);
+        // Player chooses action from the item (or auto-select if only one action)
+        int action_choice;
+        if (chosen_item->action_count == 1) {
+            action_choice = 1;
+            printf("(Auto-selected: %s)\n", chosen_item->actions[0].name);
+        } else {
+            action_choice = current_interface->get_choice("Choose your action", 1, chosen_item->action_count);
+        }
         Action *chosen_action = &chosen_item->actions[action_choice - 1];
 
         // Check cooldown
@@ -165,8 +194,15 @@ static int player_turn(Player *player, int alive_count) {
 
         // Only ask for target if it's a physical_attack
         if (chosen_action->type == PHYSICAL_ATTACK) {
-            int target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
-            target = get_alive_creature_at(target_choice);
+            int target_choice;
+            if (alive_count == 1) {
+                target_choice = 1;
+                target = get_alive_creature_at(target_choice);
+                printf("(Auto-selected target: %s)\n", target->base.name);
+            } else {
+                target_choice = current_interface->get_choice("Choose your target", 1, alive_count);
+                target = get_alive_creature_at(target_choice);
+            }
 
             if (!target) {
                 printf("Invalid target!\n");
