@@ -85,7 +85,7 @@ void stat_modifier_add(Stat *stat, ModifierType type, void *source, float value)
         if (new_modifiers == NULL) {
             // Allocation failed
             // throw error
-            fprintf(stderr, "Warning: Failed to expand modifier array\n");
+            fprintf(stderr, "Avertissement: Impossible d'etendre le tableau de modificateurs\n");
             return; // don't right into stat the null pointer
         }
         stat->modifiers = new_modifiers;

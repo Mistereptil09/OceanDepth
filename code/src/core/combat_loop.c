@@ -36,6 +36,7 @@ int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
 
     printf("COMPUTE_PHYSICAL_DAMAGE : ATK %d - DEF %d = RAW %d\n", atk, def, raw);
     printf("[DEBUG] === END OF DAMAGE COMPUTE ===\n\n");
+    printf("CALCUL_DEGATS_PHYSIQUES : ATK %d - DEF %d = BRUT %d\n", atk, def, raw);
 
     return raw;
 }
