@@ -89,6 +89,9 @@ int get_player_defense(Player* player) {
 int get_player_pearls(Player* player) {
     return player ? player->pearls : 0;
 }
+int get_player_fatigue(Player* player) {
+    return player ? player->base.fatigue_level : 0;
+}
 
 // ========== CREATURE QUERIES ==========
 
