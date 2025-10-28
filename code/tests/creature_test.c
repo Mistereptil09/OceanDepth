@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <assert.h>
 #include "core/creature.h"
 
 #include <string.h>
@@ -86,17 +85,45 @@ int main(void) {
 
        Creature* test1 = create_from_template(CREATURE_MEDIUM, 20);
 
+       printf("Test creature 1 actions: %s (cooldown: %d), %s (cooldown: %d)\n",
+              test1->base.actions[0].name, test1->base.actions[0].cooldown_turns,
+              test1->base.actions[1].name, test1->base.actions[1].cooldown_turns);
 
-       printf("Test creature 1 actions: %s, %s\n",
-              test1->base.actions[0].name, test1->base.actions[1].name);
-
-       int ac1_count = 0, ac2_count = 0;
+       int ac1_count = 0, ac2_count = 0, null_count = 0;
        for (int i = 0; i < 100; i++) {
               Action* action = select_action(test1);
-              if (strcmp(action->name, test1->base.actions[0].name) == 0) ac1_count++;
-              else ac2_count++;
+
+              // Check for NULL (no actions available)
+              if (action == NULL) {
+                     null_count++;
+                     // Decrement all cooldowns to make actions available again
+                     for (int j = 0; j < test1->base.action_count; j++) {
+                            if (test1->base.actions[j].cooldown_remaining > 0) {
+                                   test1->base.actions[j].cooldown_remaining--;
+                            }
+                     }
+                     continue;
+              }
+
+              // Count which action was selected
+              if (strcmp(action->name, test1->base.actions[0].name) == 0) {
+                     ac1_count++;
+              } else {
+                     ac2_count++;
+              }
+
+              // Simulate cooldown being set (as it would in real combat)
+              action->cooldown_remaining = action->cooldown_turns;
+
+              // Decrement all cooldowns (as would happen at end of turn)
+              for (int j = 0; j < test1->base.action_count; j++) {
+                     if (test1->base.actions[j].cooldown_remaining > 0) {
+                            test1->base.actions[j].cooldown_remaining--;
+                     }
+              }
        }
-       printf("100 tests - action 1: %d, action 2: %d\n", ac1_count, ac2_count);
+       printf("100 tests - action 1: %d, action 2: %d, null returns: %d\n",
+              ac1_count, ac2_count, null_count);
 
        // Cleanup
        free_creature(test1);

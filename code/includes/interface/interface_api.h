@@ -90,6 +90,11 @@ int get_player_defense(Player* player);
  */
 int get_player_pearls(Player* player);
 
+/**
+ * @brief Get player fatigue level
+ */
+int get_player_fatigue(Player* player);
+
 // ========== CREATURE QUERIES ==========
 
 /**

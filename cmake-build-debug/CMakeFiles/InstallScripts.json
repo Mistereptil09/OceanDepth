@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/cmake_install.cmake",
-		"/Users/yasmineslamani/CLionProjects/OceanDepth/cmake-build-debug/tests/cmake_install.cmake"
-	],
-	"Parallel" : false
-}
