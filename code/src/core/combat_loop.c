@@ -115,7 +115,7 @@ static int player_turn(Player *player, int alive_count) {
         printf("%d. %s", i + 1, item->name);
         int is_on_cooldown = item_on_cooldown(item);
         if (is_on_cooldown && item->type == ITEM_WEAPON) {
-            printf("[Cooldown]");
+            printf("[Recharge]");
         }
         printf("\n");
     }
@@ -169,12 +169,23 @@ static int player_turn(Player *player, int alive_count) {
                 printf("Cible invalide!\n");
                 return -1;
             }
-            // OXYGEN DECREASE = -2 to -4
         } else {
             // For SPECIAL_SKILL, use first creature as dummy (won't be used anyway)
             target = get_alive_creature_at(1);
-            // OXYGEN DECREASE = -5 to -8
         }
+
+        // Consume oxygen based on action type BEFORE executing attack
+        int oxygen_cost;
+        if (chosen_action->type == PHYSICAL_ATTACK) {
+            oxygen_cost = 2 + (rand() % 3); // 2-4 oxygen
+        } else {
+            oxygen_cost = 5 + (rand() % 4); // 5-8 oxygen
+        }
+
+        consume_oxygen(player, oxygen_cost);
+        current_interface->show_oxygen_consumed(oxygen_cost,
+                                                player->base.oxygen_level,
+                                                player->base.max_oxygen_level);
 
         // Execute the attack (Attack function handles effect application and damage)
         int defeated = Attack(&player->base, chosen_action, &target->base);
@@ -196,6 +207,24 @@ static int player_turn(Player *player, int alive_count) {
             if (item->actions[j].cooldown_remaining > 0) {
                 item->actions[j].cooldown_remaining--;
             }
+        }
+    }
+
+    // Check oxygen critical level
+    if (player->base.oxygen_level <= 10 && player->base.oxygen_level > 0) {
+        current_interface->show_oxygen_critical(player->base.oxygen_level);
+    }
+
+    // Check oxygen death - take damage if at 0
+    if (player->base.oxygen_level <= 0) {
+        entity_take_damage(&player->base, 5);
+        current_interface->show_oxygen_death(5, player->base.current_health_points,
+                                            player->base.max_health_points);
+
+        if (!player->base.is_alive) {
+            current_interface->show_death_from_suffocation();
+            current_interface->display_defeat();
+            return 0;
         }
     }
 
@@ -298,15 +327,65 @@ int battle_loop(Player *player, Difficulty difficulty) {
         current_interface->display_combat_state();
 
         // ====== PHASE 1: PLAYER TURN ======
-        int player_result = player_turn(player, alive_count);
 
-        if (player_result == 0) {
-            // Player died
+        // Calculate max actions based on current fatigue
+        int max_actions;
+        if (player->base.fatigue_level >= 4) {
+            max_actions = 1; // High fatigue: 1 action only
+        } else if (player->base.fatigue_level >= 2) {
+            max_actions = 2; // Medium fatigue: 2 actions
+        } else {
+            max_actions = 3; // Low fatigue: 3 actions
+        }
+
+        current_interface->show_your_turn();
+        current_interface->show_fatigue_status(player->base.fatigue_level, max_actions);
+
+        // Allow multiple actions based on fatigue
+        int actions_taken = 0;
+        while (actions_taken < max_actions) {
+            // Update alive count
+            alive_count = get_alive_creature_count();
+            if (alive_count == 0) {
+                break; // All enemies defeated
+            }
+
+            // Ask if player wants to take another action
+            if (actions_taken > 0) {
+                int continue_action = current_interface->get_choice(
+                    "Effectuer une autre action? (1=Oui, 2=Non)", 1, 2);
+                if (continue_action == 2) {
+                    current_interface->show_ending_turn();
+                    break;
+                }
+            }
+
+            int player_result = player_turn(player, alive_count);
+
+            if (player_result == 0) {
+                // Player died
+                free_generated_creatures(creatures, creature_count);
+                return 0;
+            } else if (player_result == -1) {
+                // Retry turn (cooldown or invalid target) - don't count as action
+                continue;
+            }
+
+            // Action was successful - increase fatigue and count
+            actions_taken++;
+            if (player->base.fatigue_level < MAX_FATIGUE) {
+                player->base.fatigue_level++;
+                current_interface->show_fatigue_increased(player->base.fatigue_level);
+            }
+        }
+
+        current_interface->show_actions_taken(actions_taken);
+
+        // Check if all enemies defeated after player turn
+        if (get_alive_creature_count() == 0) {
+            current_interface->display_victory();
             free_generated_creatures(creatures, creature_count);
-            return 0;
-        } else if (player_result == -1) {
-            // Retry turn (cooldown or invalid target)
-            continue;
+            return 1;
         }
 
         // ====== PHASE 2: ENEMY TURN ======
@@ -318,6 +397,38 @@ int battle_loop(Player *player, Difficulty difficulty) {
             return 0;
         }
 
+        // ====== PHASE 3: END OF ROUND ======
+
+        // Recover fatigue at end of round
+        if (player->base.fatigue_level > 0) {
+            player->base.fatigue_level--;
+            current_interface->show_fatigue_recovered(player->base.fatigue_level);
+        }
+
+        // Passive oxygen consumption per round (exploration cost)
+        int passive_oxygen = 2; // Base passive consumption
+        consume_oxygen(player, passive_oxygen);
+        current_interface->show_passive_oxygen(passive_oxygen,
+                                              player->base.oxygen_level,
+                                              player->base.max_oxygen_level);
+
+        // Check oxygen critical/death after passive consumption
+        if (player->base.oxygen_level <= 10 && player->base.oxygen_level > 0) {
+            current_interface->show_oxygen_critical(player->base.oxygen_level);
+        }
+
+        if (player->base.oxygen_level <= 0) {
+            entity_take_damage(&player->base, 5);
+            current_interface->show_oxygen_death(5, player->base.current_health_points,
+                                                player->base.max_health_points);
+
+            if (!player->base.is_alive) {
+                current_interface->show_death_from_suffocation();
+                current_interface->display_defeat();
+                free_generated_creatures(creatures, creature_count);
+                return 0;
+            }
+        }
 
         round++;
         current_interface->wait_for_enter("\nAppuyez sur Entree pour continuer...");

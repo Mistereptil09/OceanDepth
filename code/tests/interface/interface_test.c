@@ -83,6 +83,113 @@ void test_get_input(const char* prompt, char* result, size_t result_size) {
     snprintf(result, result_size, "TestInput");
 }
 
+// ========== COMBAT FEEDBACK FUNCTIONS (for new interface API) ==========
+
+void test_show_oxygen_consumed(int amount, int current, int max) {
+    (void)amount; (void)current; (void)max;
+    // Silent for tests
+}
+
+void test_show_oxygen_critical(int current) {
+    (void)current;
+    // Silent for tests
+}
+
+void test_show_oxygen_death(int damage, int hp, int max_hp) {
+    (void)damage; (void)hp; (void)max_hp;
+    // Silent for tests
+}
+
+void test_show_fatigue_status(int fatigue, int max_actions) {
+    (void)fatigue; (void)max_actions;
+    // Silent for tests
+}
+
+void test_show_fatigue_increased(int new_fatigue) {
+    (void)new_fatigue;
+    // Silent for tests
+}
+
+void test_show_fatigue_recovered(int new_fatigue) {
+    (void)new_fatigue;
+    // Silent for tests
+}
+
+void test_show_passive_oxygen(int amount, int current, int max) {
+    (void)amount; (void)current; (void)max;
+    // Silent for tests
+}
+
+void test_show_damage_dealt(const char* attacker_name, const char* target_name,
+                            int damage, int target_hp, int target_max_hp) {
+    (void)attacker_name; (void)target_name; (void)damage; (void)target_hp; (void)target_max_hp;
+    // Silent for tests
+}
+
+void test_show_attack_blocked(const char* defender_name) {
+    (void)defender_name;
+    // Silent for tests
+}
+
+void test_show_creature_defeated(const char* creature_name) {
+    (void)creature_name;
+    // Silent for tests
+}
+
+void test_show_actions_taken(int actions_taken) {
+    (void)actions_taken;
+    // Silent for tests
+}
+
+void test_show_death_from_afflictions(void) {
+    // Silent for tests
+}
+
+void test_show_death_from_suffocation(void) {
+    // Silent for tests
+}
+
+void test_show_enemy_turn(void) {
+    // Silent for tests
+}
+
+void test_show_your_turn(void) {
+    // Silent for tests
+}
+
+void test_show_ending_turn(void) {
+    // Silent for tests
+}
+
+void test_show_action_effect(const char* message) {
+    (void)message;
+    // Silent for tests
+}
+
+void test_show_effect_error(void) {
+    // Silent for tests
+}
+
+void test_show_action_on_cooldown(const char* action_name) {
+    (void)action_name;
+    // Silent for tests
+}
+
+void test_show_item_on_cooldown(const char* item_name) {
+    (void)item_name;
+    // Silent for tests
+}
+
+void test_show_no_actions_available(const char* creature_name) {
+    (void)creature_name;
+    // Silent for tests
+}
+
+void test_show_creature_died_from_effects(const char* creature_name) {
+    (void)creature_name;
+    // Silent for tests
+}
+
 // Define the test interface vtable
 InterfaceVTable test_interface = {
     .display_map = test_display_map,
@@ -98,6 +205,30 @@ InterfaceVTable test_interface = {
     .get_choice = test_get_choice,
     .show_attack = test_show_attack,
     .show_inventory = test_show_inventory,
-    .get_input = test_get_input
+    .get_input = test_get_input,
+
+    // Combat feedback functions
+    .show_oxygen_consumed = test_show_oxygen_consumed,
+    .show_oxygen_critical = test_show_oxygen_critical,
+    .show_oxygen_death = test_show_oxygen_death,
+    .show_fatigue_status = test_show_fatigue_status,
+    .show_fatigue_increased = test_show_fatigue_increased,
+    .show_fatigue_recovered = test_show_fatigue_recovered,
+    .show_passive_oxygen = test_show_passive_oxygen,
+    .show_damage_dealt = test_show_damage_dealt,
+    .show_attack_blocked = test_show_attack_blocked,
+    .show_creature_defeated = test_show_creature_defeated,
+    .show_actions_taken = test_show_actions_taken,
+    .show_death_from_afflictions = test_show_death_from_afflictions,
+    .show_death_from_suffocation = test_show_death_from_suffocation,
+    .show_enemy_turn = test_show_enemy_turn,
+    .show_your_turn = test_show_your_turn,
+    .show_ending_turn = test_show_ending_turn,
+    .show_action_effect = test_show_action_effect,
+    .show_effect_error = test_show_effect_error,
+    .show_action_on_cooldown = test_show_action_on_cooldown,
+    .show_item_on_cooldown = test_show_item_on_cooldown,
+    .show_no_actions_available = test_show_no_actions_available,
+    .show_creature_died_from_effects = test_show_creature_died_from_effects,
 };
 

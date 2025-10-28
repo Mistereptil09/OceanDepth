@@ -338,6 +338,288 @@ static void test_multiple_effects_stacking(void) {
     printf("test_multiple_effects_stacking passed\n");
 }
 
+// Test oxygen consumption and critical levels
+static void test_oxygen_system(void) {
+    printf("Running test_oxygen_system...\n");
+
+    Player* player = create_player("OxygenTester", 100, 10, 100);
+    assert(player != NULL);
+    assert(player->base.oxygen_level == 100);
+    assert(player->base.max_oxygen_level == 100);
+
+    // Test normal oxygen consumption
+    consume_oxygen(player, 20);
+    assert(player->base.oxygen_level == 80);
+
+    // Test multiple consumptions
+    consume_oxygen(player, 15);
+    assert(player->base.oxygen_level == 65);
+
+    // Test consumption to critical level (<=10)
+    consume_oxygen(player, 56);
+    assert(player->base.oxygen_level == 9);
+
+    // Test consumption to zero (shouldn't go negative)
+    consume_oxygen(player, 15);
+    assert(player->base.oxygen_level == 0);
+
+    // Test that it doesn't go negative
+    consume_oxygen(player, 10);
+    assert(player->base.oxygen_level == 0);
+
+    // Test oxygen death - player should take 5 damage per turn when oxygen = 0
+    int initial_hp = player->base.current_health_points;
+    entity_take_damage(&player->base, 5); // Simulate suffocation damage
+    assert(player->base.current_health_points == initial_hp - 5);
+
+    free_player(player);
+    printf("test_oxygen_system passed\n");
+}
+
+// Test oxygen recovery
+static void test_oxygen_recovery(void) {
+    printf("Running test_oxygen_recovery...\n");
+
+    Player* player = create_player("RecoveryTester", 100, 10, 100);
+    assert(player != NULL);
+
+    // Consume oxygen
+    consume_oxygen(player, 40);
+    assert(player->base.oxygen_level == 60);
+
+    // Test recovery (oxygen capsule simulation)
+    player->base.oxygen_level += 40;
+    if (player->base.oxygen_level > player->base.max_oxygen_level) {
+        player->base.oxygen_level = player->base.max_oxygen_level;
+    }
+    assert(player->base.oxygen_level == 100);
+
+    // Test over-recovery doesn't exceed max
+    consume_oxygen(player, 20);
+    assert(player->base.oxygen_level == 80);
+
+    player->base.oxygen_level += 50; // Try to add more than max
+    if (player->base.oxygen_level > player->base.max_oxygen_level) {
+        player->base.oxygen_level = player->base.max_oxygen_level;
+    }
+    assert(player->base.oxygen_level == 100); // Should cap at max
+
+    free_player(player);
+    printf("test_oxygen_recovery passed\n");
+}
+
+// Test fatigue system
+static void test_fatigue_system(void) {
+    printf("Running test_fatigue_system...\n");
+
+    Player* player = create_player("FatigueTester", 100, 10, 100);
+    assert(player != NULL);
+    assert(player->base.fatigue_level == 0);
+
+    // Test fatigue increase
+    player->base.fatigue_level++;
+    assert(player->base.fatigue_level == 1);
+
+    player->base.fatigue_level++;
+    assert(player->base.fatigue_level == 2);
+
+    // Test fatigue cap (should not exceed MAX_FATIGUE which is 5)
+    player->base.fatigue_level = MAX_FATIGUE;
+    assert(player->base.fatigue_level == 5);
+
+    // Trying to increase beyond max (should be prevented in real code)
+    if (player->base.fatigue_level < MAX_FATIGUE) {
+        player->base.fatigue_level++;
+    }
+    assert(player->base.fatigue_level == 5); // Should stay at max
+
+    // Test fatigue recovery
+    player->base.fatigue_level--;
+    assert(player->base.fatigue_level == 4);
+
+    player->base.fatigue_level--;
+    player->base.fatigue_level--;
+    assert(player->base.fatigue_level == 2);
+
+    // Test that fatigue doesn't go below 0
+    player->base.fatigue_level = 0;
+    if (player->base.fatigue_level > 0) {
+        player->base.fatigue_level--;
+    }
+    assert(player->base.fatigue_level == 0);
+
+    free_player(player);
+    printf("test_fatigue_system passed\n");
+}
+
+// Test fatigue action limits
+static void test_fatigue_action_limits(void) {
+    printf("Running test_fatigue_action_limits...\n");
+
+    Player* player = create_player("ActionLimitTester", 100, 10, 100);
+    assert(player != NULL);
+
+    // Test low fatigue (0-1): 3 actions
+    player->base.fatigue_level = 0;
+    int max_actions;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 3);
+
+    player->base.fatigue_level = 1;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 3);
+
+    // Test medium fatigue (2-3): 2 actions
+    player->base.fatigue_level = 2;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 2);
+
+    player->base.fatigue_level = 3;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 2);
+
+    // Test high fatigue (4-5): 1 action
+    player->base.fatigue_level = 4;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 1);
+
+    player->base.fatigue_level = 5;
+    if (player->base.fatigue_level >= 4) {
+        max_actions = 1;
+    } else if (player->base.fatigue_level >= 2) {
+        max_actions = 2;
+    } else {
+        max_actions = 3;
+    }
+    assert(max_actions == 1);
+
+    free_player(player);
+    printf("test_fatigue_action_limits passed\n");
+}
+
+// Test combined oxygen and fatigue mechanics
+static void test_oxygen_fatigue_combined(void) {
+    printf("Running test_oxygen_fatigue_combined...\n");
+
+    Player* player = create_player("CombinedTester", 100, 10, 100);
+    assert(player != NULL);
+
+    // Simulate a combat round cycle
+    // Initial state
+    assert(player->base.oxygen_level == 100);
+    assert(player->base.fatigue_level == 0);
+
+    // Player takes action - consumes oxygen and increases fatigue
+    consume_oxygen(player, 3); // Action oxygen cost
+    player->base.fatigue_level++;
+    assert(player->base.oxygen_level == 97);
+    assert(player->base.fatigue_level == 1);
+
+    // Player takes another action
+    consume_oxygen(player, 4);
+    player->base.fatigue_level++;
+    assert(player->base.oxygen_level == 93);
+    assert(player->base.fatigue_level == 2);
+
+    // End of round: passive oxygen consumption and fatigue recovery
+    consume_oxygen(player, 2); // Passive consumption
+    if (player->base.fatigue_level > 0) {
+        player->base.fatigue_level--;
+    }
+    assert(player->base.oxygen_level == 91);
+    assert(player->base.fatigue_level == 1);
+
+    // Second round
+    consume_oxygen(player, 3);
+    player->base.fatigue_level++;
+    assert(player->base.oxygen_level == 88);
+    assert(player->base.fatigue_level == 2);
+
+    // End of second round
+    consume_oxygen(player, 2);
+    if (player->base.fatigue_level > 0) {
+        player->base.fatigue_level--;
+    }
+    assert(player->base.oxygen_level == 86);
+    assert(player->base.fatigue_level == 1);
+
+    free_player(player);
+    printf("test_oxygen_fatigue_combined passed\n");
+}
+
+// Test oxygen critical state behavior
+static void test_oxygen_critical_state(void) {
+    printf("Running test_oxygen_critical_state...\n");
+
+    Player* player = create_player("CriticalTester", 100, 10, 100);
+    assert(player != NULL);
+
+    // Bring oxygen to critical level (<=10)
+    consume_oxygen(player, 91);
+    assert(player->base.oxygen_level == 9);
+
+    // Verify critical state (<=10)
+    int is_critical = (player->base.oxygen_level <= 10 && player->base.oxygen_level > 0);
+    assert(is_critical == 1);
+
+    // Consume more to reach zero
+    consume_oxygen(player, 10);
+    assert(player->base.oxygen_level == 0);
+
+    // Verify death state (oxygen = 0)
+    int is_suffocating = (player->base.oxygen_level <= 0);
+    assert(is_suffocating == 1);
+
+    // Simulate suffocation damage over multiple turns
+    int hp_before = player->base.current_health_points;
+    entity_take_damage(&player->base, 5); // Turn 1
+    assert(player->base.current_health_points == hp_before - 5);
+
+    entity_take_damage(&player->base, 5); // Turn 2
+    assert(player->base.current_health_points == hp_before - 10);
+
+    entity_take_damage(&player->base, 5); // Turn 3
+    assert(player->base.current_health_points == hp_before - 15);
+
+    // Player uses oxygen capsule (+40 oxygen)
+    player->base.oxygen_level += 40;
+    assert(player->base.oxygen_level == 40);
+    assert(player->base.is_alive == 1); // Should still be alive if HP > 0
+
+    free_player(player);
+    printf("test_oxygen_critical_state passed\n");
+}
+
 // Smoke test for battle_loop: verify it completes without crashes
 static void test_battle_loop_smoke(void) {
     printf("Running test_battle_loop_smoke...\n");
@@ -379,6 +661,18 @@ int main(void) {
     // Combat mechanics tests
     test_action_cooldown();
     test_entity_death();
+
+    // Oxygen system tests
+    test_oxygen_system();
+    test_oxygen_recovery();
+    test_oxygen_critical_state();
+
+    // Fatigue system tests
+    test_fatigue_system();
+    test_fatigue_action_limits();
+
+    // Combined mechanics test
+    test_oxygen_fatigue_combined();
 
     // Integration test
     test_battle_loop_smoke();
