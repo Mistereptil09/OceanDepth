@@ -17,24 +17,20 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
 
     p->base = create_entity_base(ENTITY_PLAYER, name, max_hp, base_defense, 0, 15);
 
-    // entity base values (operate directly on p->base)
     p->base.oxygen_level = max_oxygen;
     p->base.max_oxygen_level = max_oxygen;
     p->base.fatigue_level = 0;
 
-    // Player no longer has direct actions - they use items from inventory instead
     p->base.action_count = 0;
 
-    // player unique values
     p->pearls = 10;
-    // Inventory initialization - properly handle memory
     Inventory* inv = create_inventory();
     if (inv == NULL) {
         free(p);
         return NULL;
     }
     p->inventory = *inv;
-    free(inv);  // Free the temporary inventory pointer after copying
+    free(inv);
     return p;
 }
 
@@ -44,7 +40,6 @@ void free_player(Player *p) {
 
     free_inventory(&p->inventory);
 
-    // Free the entity base (this also frees active effects and stats)
     free_entity_base(&p->base);
 
     free(p);

@@ -13,7 +13,6 @@
 int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
 
-    // Enhanced debug output showing before and after values
     printf("[DEBUG] === COMPUTING DAMAGE ===\n");
     printf("[DEBUG] Attacker: %s, Defender: %s\n", attacker->name, defender->name);
     printf("[DEBUG] ATTACKER'S ATTACK BASE VALUE : %d\n", attacker->attack.base_value);
@@ -73,6 +72,17 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
             current_interface->show_damage_dealt(attacker->name, defender->name,
                                                 dmg, defender->current_health_points,
                                                 defender->max_health_points);
+
+            // If defender is a player, apply oxygen stress (1-2 oxygen loss)
+            if (defender->type == ENTITY_PLAYER) {
+                Player *player_defender = (Player*)((char*)defender - offsetof(Player, base));
+                int oxygen_stress = 1 + (rand() % 2); // 1-2 oxygen
+                consume_oxygen(player_defender, oxygen_stress);
+                printf("Stress from attack: -%d oxygen (current: %d/%d)\n",
+                       oxygen_stress,
+                       player_defender->base.oxygen_level,
+                       player_defender->base.max_oxygen_level);
+            }
         } else {
             current_interface->show_attack_blocked(defender->name);
         }
@@ -107,7 +117,6 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
  */
 static int player_turn(Player *player, int alive_count) {
     // DISPLAY INVENTORY ITEMS
-    // Item selection loop - retries only item choice without redisplaying round
     Item *chosen_item = NULL;
     while (chosen_item == NULL) {
         // DISPLAY INVENTORY ITEMS
@@ -126,7 +135,7 @@ static int player_turn(Player *player, int alive_count) {
 
         // VALIDATION: Check if weapon is on cooldown
         if (item_on_cooldown(selected_item) && selected_item->type == ITEM_WEAPON) {
-            current_interface->show_item_on_cooldown(chosen_item->name);
+            current_interface->show_item_on_cooldown(selected_item->name);
             continue; // Re-ask for item choice
         }
 
@@ -310,6 +319,11 @@ static int creature_turns(Creature **creatures, int creature_count, Player *play
             return 0; // Player died
         }
 
+        // Check oxygen critical level after enemy attack
+        if (player->base.oxygen_level <= 10 && player->base.oxygen_level > 0) {
+            current_interface->show_oxygen_critical(player->base.oxygen_level);
+        }
+
         // Tick creature's effects at the END of its turn
         all_effects_tick(&attacker->base, &player->base);
 
@@ -381,14 +395,20 @@ int battle_loop(Player *player, Difficulty difficulty) {
         // Allow multiple actions based on fatigue
         int actions_taken = 0;
         while (actions_taken < max_actions) {
-            // Update alive count
+            // Update alive count BEFORE asking for another action
             alive_count = get_alive_creature_count();
             if (alive_count == 0) {
                 break; // All enemies defeated
             }
 
-            // Ask if player wants to take another action
+            // Ask if player wants to take another action (only after first action)
             if (actions_taken > 0) {
+                // Check again if enemies are still alive before asking
+                alive_count = get_alive_creature_count();
+                if (alive_count == 0) {
+                    break; // All enemies defeated during previous action
+                }
+
                 int continue_action = current_interface->get_choice(
                     "Effectuer une autre action? (1=Oui, 2=Non)", 1, 2);
                 if (continue_action == 2) {
@@ -425,23 +445,7 @@ int battle_loop(Player *player, Difficulty difficulty) {
             return 1;
         }
 
-        // ====== PHASE 2: ENEMY TURN ======
-        int creature_result = creature_turns(creatures, creature_count, player);
-
-        if (creature_result == 0) {
-            // Player was defeated by creatures
-            free_generated_creatures(creatures, creature_count);
-            return 0;
-        }
-
-        // ====== PHASE 3: END OF ROUND ======
-
-        // Recover fatigue at end of round
-        if (player->base.fatigue_level > 0) {
-            player->base.fatigue_level--;
-            current_interface->show_fatigue_recovered(player->base.fatigue_level);
-        }
-
+        // ====== PHASE 2: PASSIVE OXYGEN CONSUMPTION ======
         // Passive oxygen consumption per round (exploration cost)
         int passive_oxygen = 2; // Base passive consumption
         consume_oxygen(player, passive_oxygen);
@@ -465,6 +469,23 @@ int battle_loop(Player *player, Difficulty difficulty) {
                 free_generated_creatures(creatures, creature_count);
                 return 0;
             }
+        }
+
+        // ====== PHASE 3: ENEMY TURN ======
+        int creature_result = creature_turns(creatures, creature_count, player);
+
+        if (creature_result == 0) {
+            // Player was defeated by creatures
+            free_generated_creatures(creatures, creature_count);
+            return 0;
+        }
+
+        // ====== PHASE 4: END OF ROUND ======
+
+        // Recover fatigue at end of round
+        if (player->base.fatigue_level > 0) {
+            player->base.fatigue_level--;
+            current_interface->show_fatigue_recovered(player->base.fatigue_level);
         }
 
         round++;

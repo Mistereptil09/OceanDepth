@@ -37,10 +37,10 @@ Item create_epee() {
         .cooldown_remaining = 0,
         .effect = create_effect(
             "Boost d'attaque",
-            "Montee de puissance de 0.4 pour toi!",
+            "Montee de puissance de 0.2 pour toi",
             1,
             0, 0, 0, 0, 0,     // flat: none
-            0.4, 0, 0, 0, 0,   // percent: +40% attack
+            0.2, 0, 0, 0, 0,   // percent: +40% attack
             NULL, 0
         )
     };
