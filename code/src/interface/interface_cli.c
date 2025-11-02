@@ -191,6 +191,13 @@ void cli_get_input(const char* prompt, char* result, size_t result_size){
     }
 }
 
+void cli_show_information(const char* message)
+{
+    if (message && *message) {
+        printf("%s\n", message);
+    }
+}
+
 // ========== COMBAT FEEDBACK IMPLEMENTATIONS ==========
 
 void cli_show_oxygen_consumed(int amount, int current, int max)
@@ -200,15 +207,15 @@ void cli_show_oxygen_consumed(int amount, int current, int max)
 
 void cli_show_oxygen_critical(int current)
 {
-    printf("\n⚠️  === OXYGeNE CRITIQUE! === ⚠️\n");
-    printf("⚠️  Il ne reste que %d d'oxygene! ⚠️\n", current);
-    printf("⚠️  Utilisez une capsule MAINTENANT ou vous allez suffoquer! ⚠️\n\n");
+    printf("\n!  === OXYGENE CRITIQUE! === !\n");
+    printf("️! Il ne reste que %d d'oxygene! !\n", current);
+    printf("Utilisez une capsule MAINTENANT ou vous allez suffoquer!\n\n");
 }
 
 void cli_show_oxygen_death(int damage, int hp, int max_hp)
 {
-    printf("\n💀 PLUS D'OXYGeNE! Vous suffoquez!\n");
-    printf("💀 Vous perdez %d PV par tour jusqu'à utilisation d'une capsule d'oxygene!\n", damage);
+    printf("\n! PLUS D'OXYGENE! Vous suffoquez!\n");
+    printf("Vous perdez %d PV par tour jusqu'à utilisation d'une capsule d'oxygene!\n", damage);
     printf("PV: %d/%d\n", hp, max_hp);
 }
 
@@ -406,55 +413,52 @@ void cli_show_shop_restocked(void) {
 
 // Define the CLI vtable instance
 InterfaceVTable cli_interface = {
-        .display_map = cli_display_map,
-        .display_combat_state = cli_display_combat_state,
-        .display_combat_intro = cli_display_combat_intro,
-        .display_round_header = cli_display_round_header,
-        .display_victory = cli_display_victory,
-        .display_defeat = cli_display_defeat,
-        .display_battle_start = cli_display_battle_start,
-        .wait_for_enter = cli_wait_for_enter,
-        .get_choice = cli_get_choice,
-        .show_attack = cli_show_attack,
-        .show_inventory = cli_show_inventory,
-        .get_input = cli_get_input,
-        .show_action = cli_show_action,
-        .show_defeat_by = cli_show_defeat_by,
-
-        // Combat feedback
-        .show_oxygen_consumed = cli_show_oxygen_consumed,
-        .show_oxygen_critical = cli_show_oxygen_critical,
-        .show_oxygen_death = cli_show_oxygen_death,
-        .show_fatigue_status = cli_show_fatigue_status,
-        .show_fatigue_increased = cli_show_fatigue_increased,
-        .show_fatigue_recovered = cli_show_fatigue_recovered,
-        .show_passive_oxygen = cli_show_passive_oxygen,
-        .show_damage_dealt = cli_show_damage_dealt,
-        .show_attack_blocked = cli_show_attack_blocked,
-        .show_creature_defeated = cli_show_creature_defeated,
-        .show_actions_taken = cli_show_actions_taken,
-        .show_death_from_afflictions = cli_show_death_from_afflictions,
-        .show_death_from_suffocation = cli_show_death_from_suffocation,
-        .show_enemy_turn = cli_show_enemy_turn,
-        .show_your_turn = cli_show_your_turn,
-        .show_ending_turn = cli_show_ending_turn,
-        .show_action_effect = cli_show_action_effect,
-        .show_effect_error = cli_show_effect_error,
-        .show_action_on_cooldown = cli_show_action_on_cooldown,
-        .show_item_on_cooldown = cli_show_item_on_cooldown,
-        .show_no_actions_available = cli_show_no_actions_available,
-        .show_creature_died_from_effects = cli_show_creature_died_from_effects,
-        .ask_item_choice_reward = cli_ask_item_choice_reward,
-        .show_inventory_full = cli_show_inventory_full,
-
-        // Shop functions
-        .display_shop = cli_display_shop,
-        .show_purchase_success = cli_show_purchase_success,
-        .show_purchase_failed = cli_show_purchase_failed,
-        .show_sell_success = cli_show_sell_success,
-        .show_sell_failed = cli_show_sell_failed,
-        .show_shop_refreshed = cli_show_shop_refreshed,
-        .show_refresh_failed = cli_show_refresh_failed,
-        .show_discount_applied = cli_show_discount_applied,
-        .show_shop_restocked = cli_show_shop_restocked,
+    .display_map = cli_display_map,
+    .display_combat_state = cli_display_combat_state,
+    .display_combat_intro = cli_display_combat_intro,
+    .display_round_header = cli_display_round_header,
+    .display_victory = cli_display_victory,
+    .display_defeat = cli_display_defeat,
+    .display_battle_start = cli_display_battle_start,
+    .wait_for_enter = cli_wait_for_enter,
+    .show_action = cli_show_action,
+    .show_defeat_by = cli_show_defeat_by,
+    .get_choice = cli_get_choice,
+    .show_attack = cli_show_attack,
+    .show_inventory = cli_show_inventory,
+    .get_input = cli_get_input,
+    .show_information = cli_show_information,
+    .show_oxygen_consumed = cli_show_oxygen_consumed,
+    .show_oxygen_critical = cli_show_oxygen_critical,
+    .show_oxygen_death = cli_show_oxygen_death,
+    .show_fatigue_status = cli_show_fatigue_status,
+    .show_fatigue_increased = cli_show_fatigue_increased,
+    .show_fatigue_recovered = cli_show_fatigue_recovered,
+    .show_passive_oxygen = cli_show_passive_oxygen,
+    .show_damage_dealt = cli_show_damage_dealt,
+    .show_attack_blocked = cli_show_attack_blocked,
+    .show_creature_defeated = cli_show_creature_defeated,
+    .show_actions_taken = cli_show_actions_taken,
+    .show_death_from_afflictions = cli_show_death_from_afflictions,
+    .show_death_from_suffocation = cli_show_death_from_suffocation,
+    .show_enemy_turn = cli_show_enemy_turn,
+    .show_your_turn = cli_show_your_turn,
+    .show_ending_turn = cli_show_ending_turn,
+    .show_action_effect = cli_show_action_effect,
+    .show_effect_error = cli_show_effect_error,
+    .show_action_on_cooldown = cli_show_action_on_cooldown,
+    .show_item_on_cooldown = cli_show_item_on_cooldown,
+    .show_no_actions_available = cli_show_no_actions_available,
+    .show_creature_died_from_effects = cli_show_creature_died_from_effects,
+    .ask_item_choice_reward = cli_ask_item_choice_reward,
+    .show_inventory_full = cli_show_inventory_full,
+    .display_shop = cli_display_shop,
+    .show_purchase_success = cli_show_purchase_success,
+    .show_purchase_failed = cli_show_purchase_failed,
+    .show_sell_success = cli_show_sell_success,
+    .show_sell_failed = cli_show_sell_failed,
+    .show_shop_refreshed = cli_show_shop_refreshed,
+    .show_refresh_failed = cli_show_refresh_failed,
+    .show_discount_applied = cli_show_discount_applied,
+    .show_shop_restocked = cli_show_shop_restocked,
 };

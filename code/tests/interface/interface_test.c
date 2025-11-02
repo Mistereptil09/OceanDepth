@@ -238,6 +238,10 @@ void test_show_shop_restocked(void) {
     printf("Test: Shop restocked\n");
 }
 
+void test_show_information(const char* message) {
+    (void)message; // Silent in tests
+}
+
 // Define the test interface vtable
 InterfaceVTable test_interface = {
     .display_map = test_display_map,
@@ -254,6 +258,7 @@ InterfaceVTable test_interface = {
     .show_attack = test_show_attack,
     .show_inventory = test_show_inventory,
     .get_input = test_get_input,
+    .show_information = test_show_information,
 
     // Combat feedback functions
     .show_oxygen_consumed = test_show_oxygen_consumed,
@@ -290,4 +295,3 @@ InterfaceVTable test_interface = {
     .show_discount_applied = test_show_discount_applied,
     .show_shop_restocked = test_show_shop_restocked,
 };
-

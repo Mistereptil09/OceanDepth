@@ -66,6 +66,12 @@ typedef struct {
     void (*get_input)(const char* prompt, char* result, size_t result_size);
 
     /**
+     * @brief Show a generic information message
+     * @param message The message to display (may include newlines)
+     */
+    void (*show_information)(const char* message);
+
+    /**
      * @brief Show an action message (creature uses skill, etc.)
      * @param entity_name Name of entity performing action
      * @param action_name Name of action
@@ -289,3 +295,4 @@ extern InterfaceVTable* current_interface;
 InterfaceVTable* select_interface(void);
 
 #endif //OCEANDEPTHS_INTERFACE_TABLE_H
+

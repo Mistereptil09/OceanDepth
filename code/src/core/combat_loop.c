@@ -5,10 +5,13 @@
 #include "core/creature.h"
 #include "core/player.h"
 #include "core/item.h"
+#include "core/inventory.h"
+#include "core/reward_system.h"
 #include "interface/interface_table.h"
 #include "interface/interface_api.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
@@ -361,6 +364,8 @@ int battle_loop(Player *player, Difficulty difficulty) {
         int alive_count = get_alive_creature_count();
         if (alive_count == 0) {
             current_interface->display_victory();
+            // Post-battle rewards
+            award_post_battle_rewards(player, difficulty);
             free_generated_creatures(creatures, creature_count);
             return 1;
         }
@@ -432,6 +437,8 @@ int battle_loop(Player *player, Difficulty difficulty) {
         // Check if all enemies defeated after player turn
         if (get_alive_creature_count() == 0) {
             current_interface->display_victory();
+            // Post-battle rewards
+            award_post_battle_rewards(player, difficulty);
             free_generated_creatures(creatures, creature_count);
             return 1;
         }
