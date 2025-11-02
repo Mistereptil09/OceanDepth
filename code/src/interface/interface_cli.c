@@ -310,6 +310,83 @@ void cli_show_creature_died_from_effects(const char* creature_name)
     printf("%s est mort de ses propres effets!\n", creature_name);
 }
 
+// ========== SHOP INTERFACE IMPLEMENTATIONS ==========
+
+void cli_display_shop(const char* shop_name, int player_gold, int refresh_cost,
+                      const char** items, const int* prices, const int* stocks,
+                      const int* rarities, const int* can_afford, int item_count) {
+    printf("\n========================================\n");
+    printf("| %s |\n", shop_name);
+    printf("========================================\n");
+    printf("Votre Or: %d\n", player_gold);
+    printf("Cout de rafraichissement: %d\n", refresh_cost);
+    printf("========================================\n\n");
+
+    printf("Articles disponibles:\n");
+    for (int i = 0; i < item_count; i++) {
+        const char* rarity_str = "";
+        switch(rarities[i]) {
+            case 0: rarity_str = "[Commun]"; break;
+            case 1: rarity_str = "[Peu commun]"; break;
+            case 2: rarity_str = "[Rare]"; break;
+            case 3: rarity_str = "[Epique]"; break;
+            case 4: rarity_str = "[Legendaire]"; break;
+        }
+
+        printf(" %d. %-20s %s - %d or (Stock: %d)%s\n",
+               i + 1,
+               items[i],
+               rarity_str,
+               prices[i],
+               stocks[i],
+               can_afford[i] ? "" : " [Pas assez d'or]");
+    }
+
+    printf("\n========================================\n");
+    printf("[A]cheter | [V]endre | [R]afraichir | [Q]uitter\n");
+    printf("========================================\n");
+}
+
+void cli_show_purchase_success(const char* item_name, int price, int quantity) {
+    printf("\n>> Achat reussi! <<\n");
+    printf("Vous avez achete %s pour %d or", item_name, price);
+    if (quantity > 0) {
+        printf(" (x%d)", quantity);
+    }
+    printf("\n");
+}
+
+void cli_show_purchase_failed(const char* reason) {
+    printf("\n>> Achat echoue: %s <<\n", reason);
+}
+
+void cli_show_sell_success(const char* item_name, int gold_received) {
+    printf("\n>> Vente reussie! <<\n");
+    printf("Vous avez vendu %s pour %d or\n", item_name, gold_received);
+}
+
+void cli_show_sell_failed(const char* reason) {
+    printf("\n>> Vente echouee: %s <<\n", reason);
+}
+
+void cli_show_shop_refreshed(void) {
+    printf("\n>> Boutique rafraichie! Nouveaux articles disponibles. <<\n");
+}
+
+void cli_show_refresh_failed(int cost, int player_gold) {
+    printf("\n>> Rafraichissement echoue! <<\n");
+    printf("Cout: %d or (Vous avez: %d or)\n", cost, player_gold);
+}
+
+void cli_show_discount_applied(int discount_percent) {
+    printf("\n>> PROMOTION SPECIALE! <<\n");
+    printf("Tous les articles a -%d%%!\n", discount_percent);
+}
+
+void cli_show_shop_restocked(void) {
+    printf("\n>> Boutique reapprovisionnee! <<\n");
+}
+
 // ========== END OF IMPLEMENTATIONS ==========
 
 // Define the CLI vtable instance
@@ -352,4 +429,15 @@ InterfaceVTable cli_interface = {
     .show_item_on_cooldown = cli_show_item_on_cooldown,
     .show_no_actions_available = cli_show_no_actions_available,
     .show_creature_died_from_effects = cli_show_creature_died_from_effects,
+
+    // Shop functions
+    .display_shop = cli_display_shop,
+    .show_purchase_success = cli_show_purchase_success,
+    .show_purchase_failed = cli_show_purchase_failed,
+    .show_sell_success = cli_show_sell_success,
+    .show_sell_failed = cli_show_sell_failed,
+    .show_shop_refreshed = cli_show_shop_refreshed,
+    .show_refresh_failed = cli_show_refresh_failed,
+    .show_discount_applied = cli_show_discount_applied,
+    .show_shop_restocked = cli_show_shop_restocked,
 };

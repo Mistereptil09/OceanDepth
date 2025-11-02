@@ -217,6 +217,57 @@ typedef struct {
      * @param creature_name Name of creature
      */
     void (*show_creature_died_from_effects)(const char* creature_name);
+
+
+    // ========== SHOP INTERFACE FUNCTIONS ==========
+
+    /**
+     * @brief Display shop with inventory
+     */
+    void (*display_shop)(const char* shop_name, int player_gold, int refresh_cost,
+                         const char** items, const int* prices, const int* stocks,
+                         const int* rarities, const int* can_afford, int item_count);
+
+    /**
+     * @brief Show purchase success message
+     */
+    void (*show_purchase_success)(const char* item_name, int price, int quantity);
+
+    /**
+     * @brief Show purchase failure message
+     */
+    void (*show_purchase_failed)(const char* reason);
+
+    /**
+     * @brief Show sell success message
+     */
+    void (*show_sell_success)(const char* item_name, int gold_received);
+
+    /**
+     * @brief Show sell failure message
+     */
+    void (*show_sell_failed)(const char* reason);
+
+    /**
+     * @brief Show shop refresh success
+     */
+    void (*show_shop_refreshed)(void);
+
+    /**
+     * @brief Show shop refresh failure
+     */
+    void (*show_refresh_failed)(int cost, int player_gold);
+
+    /**
+     * @brief Show discount applied
+     */
+    void (*show_discount_applied)(int discount_percent);
+
+    /**
+     * @brief Show shop restocked
+     */
+    void (*show_shop_restocked)(void);
+
 } InterfaceVTable;
 
 // Global interface pointer (declared here, defined in interface_table.c)

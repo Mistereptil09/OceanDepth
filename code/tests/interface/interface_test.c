@@ -190,6 +190,54 @@ void test_show_creature_died_from_effects(const char* creature_name) {
     // Silent for tests
 }
 
+
+void test_display_shop(const char* shop_name, int player_gold, int refresh_cost,
+                       const char** items, const int* prices, const int* stocks,
+                       const int* rarities, const int* can_afford, int item_count) {
+    printf("\n--- SHOP: %s ---\n", shop_name);
+    printf("Gold: %d | Refresh: %d\n", player_gold, refresh_cost);
+    for (int i = 0; i < item_count; i++) {
+        const char* rarity_str[] = {"COM", "UNC", "RARE", "EPIC", "LEGEND"};
+        printf(" %d. %-20s [%s] %3dg (Stock:%2d)%s\n",
+               i + 1, items[i], rarity_str[rarities[i]], prices[i], stocks[i],
+               can_afford[i] ? "" : " [TOO EXPENSIVE]");
+    }
+}
+
+void test_show_purchase_success(const char* item_name, int price, int quantity) {
+    printf("Test: Purchased %s for %d gold", item_name, price);
+    if (quantity > 0) printf(" (x%d)", quantity);
+    printf("\n");
+}
+
+void test_show_purchase_failed(const char* reason) {
+    printf("Test: Purchase failed - %s\n", reason);
+}
+
+void test_show_sell_success(const char* item_name, int gold_received) {
+    printf("Test: Sold %s for %d gold\n", item_name, gold_received);
+}
+
+void test_show_sell_failed(const char* reason) {
+    printf("Test: Sell failed - %s\n", reason);
+}
+
+void test_show_shop_refreshed(void) {
+    printf("Test: Shop refreshed\n");
+}
+
+void test_show_refresh_failed(int cost, int player_gold) {
+    printf("Test: Refresh failed - need %d, have %d\n", cost, player_gold);
+}
+
+void test_show_discount_applied(int discount_percent) {
+    printf("Test: Discount applied - %d%% off\n", discount_percent);
+}
+
+void test_show_shop_restocked(void) {
+    printf("Test: Shop restocked\n");
+}
+
 // Define the test interface vtable
 InterfaceVTable test_interface = {
     .display_map = test_display_map,
@@ -230,5 +278,16 @@ InterfaceVTable test_interface = {
     .show_item_on_cooldown = test_show_item_on_cooldown,
     .show_no_actions_available = test_show_no_actions_available,
     .show_creature_died_from_effects = test_show_creature_died_from_effects,
+
+    // Shop functions
+    .display_shop = test_display_shop,
+    .show_purchase_success = test_show_purchase_success,
+    .show_purchase_failed = test_show_purchase_failed,
+    .show_sell_success = test_show_sell_success,
+    .show_sell_failed = test_show_sell_failed,
+    .show_shop_refreshed = test_show_shop_refreshed,
+    .show_refresh_failed = test_show_refresh_failed,
+    .show_discount_applied = test_show_discount_applied,
+    .show_shop_restocked = test_show_shop_restocked,
 };
 
