@@ -13,12 +13,6 @@
 int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     if (!attacker || !defender) return 0;
 
-    printf("[DEBUG] === COMPUTING DAMAGE ===\n");
-    printf("[DEBUG] Attacker: %s, Defender: %s\n", attacker->name, defender->name);
-    printf("[DEBUG] ATTACKER'S ATTACK BASE VALUE : %d\n", attacker->attack.base_value);
-    printf("[DEBUG] ATTACKER'S ATTACK CACHED VALUE BEFORE RECALC : %d\n", attacker->attack.cached_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE BASE VALUE : %d\n", defender->defense.base_value);
-    printf("[DEBUG] DEFENDER'S DEFENSE CACHED VALUE BEFORE RECALC : %d\n", defender->defense.cached_value);
 
     // Force recalculation
     attacker->attack.to_calculate = true;
@@ -27,14 +21,11 @@ int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     int atk = stat_get_value(&attacker->attack);
     int def = stat_get_value(&defender->defense);
 
-    printf("[DEBUG] %s'S ATTACK CACHED VALUE AFTER RECALC : %d\n", attacker->name, attacker->attack.cached_value);
-    printf("[DEBUG] %s'S DEFENSE CACHED VALUE AFTER RECALC : %d\n", defender->name, defender->defense.cached_value);
 
     int raw = atk - def;
     if (raw < 0) raw = 0;
 
     printf("CALCUL_DEGATS_PHYSIQUES : ATK %d - DEF %d = BRUT %d\n", atk, def, raw);
-
     return raw;
 }
 

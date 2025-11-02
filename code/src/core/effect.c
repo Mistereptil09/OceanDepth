@@ -111,60 +111,45 @@ void effect_apply(EntityBase* base, Effect* effect)
 
     // Apply FLAT modifiers
     if (effect->attack_boost_flat != 0) {
-        printf("[DEBUG] FLAT ATK BOOST ADDED %d TO ENTITY : %s\n", effect->attack_boost_flat, base->name);
         stat_modifier_add(&base->attack, MOD_FLAT, effect, (float)effect->attack_boost_flat);
     }
     if (effect->defense_boost_flat != 0) {
-        printf("[DEBUG] FLAT DEFENSE BOOST ADDED %d TO ENTITY : %s\n", effect->defense_boost_flat, base->name);
         stat_modifier_add(&base->defense, MOD_FLAT, effect, (float)effect->defense_boost_flat);
     }
     if (effect->speed_boost_flat != 0) {
-        printf("[DEBUG] FLAT SPEED BOOST ADDED %d TO ENTITY : %s\n", effect->speed_boost_flat, base->name);
         stat_modifier_add(&base->speed, MOD_FLAT, effect, (float)effect->speed_boost_flat);
     }
     if (effect->hp_max_boost_flat != 0) {
-        printf("[DEBUG] FLAT HP MAX BOOST ADDED %d TO ENTITY : %s\n", effect->hp_max_boost_flat, base->name);
         base->max_health_points += effect->hp_max_boost_flat;
     }
     if (effect->oxygen_max_boost_flat != 0) {
-        printf("[DEBUG] FLAT OXYGEN BOOST ADDED %d TO ENTITY : %s\n", effect->oxygen_max_boost_flat, base->name);
         base->max_oxygen_level += effect->oxygen_max_boost_flat;
     }
 
 
     // Apply PERCENTAGE modifiers
     if (effect->attack_boost_percent != 0.0) {
-        printf("[DEBUG] PERCENT ATTACK BOOST ADDED %lf TO ENTITY : %s\n", effect->attack_boost_percent, base->name);
         stat_modifier_add(&base->attack, MOD_PERCENTAGE, effect, effect->attack_boost_percent);
     }
     if (effect->defense_boost_percent != 0.0) {
-        printf("[DEBUG] PERCENT DEFENSE BOOST ADDED %lf TO ENTITY : %s\n", effect->defense_boost_percent, base->name);
         stat_modifier_add(&base->defense, MOD_PERCENTAGE, effect, effect->defense_boost_percent);
     }
     if (effect->speed_boost_percent != 0.0) {
-        printf("[DEBUG] PERCENT SPEED BOOST ADDED %lf TO ENTITY : %s\n", effect->speed_boost_percent, base->name);
         stat_modifier_add(&base->speed, MOD_PERCENTAGE, effect, effect->speed_boost_percent);
     }
     if (effect->hp_max_boost_percent != 0) {
-        printf("[DEBUG] PERCENT HP BOOST ADDED %lf TO ENTITY : %s\n", effect->hp_max_boost_percent, base->name);
         base->max_health_points += (int)effect->hp_max_boost_percent * base->max_health_points;
     }
     if (effect->oxygen_max_boost_flat != 0) {
-        printf("[DEBUG] PERCENT OXYGEN BOOST ADDED %lf TO ENTITY : %s\n", effect->oxygen_max_boost_percent, base->name);
         base->max_oxygen_level += (int)effect->oxygen_max_boost_percent * base->max_oxygen_level;
     }
 
-
     effect->is_active = 1;
-    printf("[DEBUG] Modifier was successfully added \n");
-
 }
 
 void all_effects_tick(EntityBase* self, EntityBase* ennemy)
 {
-    // DEBUG: Show which entity's effects are ticking
     if (self->effects_number > 0) {
-        printf("[DEBUG] Ticking %d effects on %s\n", self->effects_number, self->name);
     }
 
     // Apply and tick active effects
@@ -220,7 +205,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 
     if (effect->on_tick != NULL) {
           effect->on_tick(self, ennemy);
-          printf("[DEBUG] Special on tick function was triggered by effect : %s\n", effect->name);
     } else {
         // Clamp resources
         int max_hp = self->max_health_points;
@@ -241,8 +225,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
         }
     }
     effect->turns_left--;
-    printf("[DEBUG] Effect now has %d turns left\n", effect->turns_left);
-
 
     // remove modifiers when effect expires
     if (effect->turns_left <= 0) {
@@ -253,7 +235,6 @@ void effect_tick(EntityBase* self, EntityBase* ennemy, Effect* effect)
 void effect_remove(EntityBase* base, Effect* effect)
 {
     if (!effect->is_active) return;
-    printf("[DEBUG] Removing %s from %s's effects\n", effect->name, base->name);
 
     if (effect->on_tick == NULL) {
         // Remove modifiers from this effect (using pointer)
