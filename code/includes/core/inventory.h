@@ -18,10 +18,15 @@ Inventory *create_inventory(void);
 void free_inventory(Inventory *inventory);
 
 // add
-int add_item_to_inventory(Inventory *inventory, Item item);
+int add_item_to_inventory(Inventory *inventory, Item *item);
+
 // remove
 int remove_item_to_inventory(Inventory *inventory, Item* item);
 
-int insert_into_inventory(Inventory* inventory, Item item);
-// ...
+// remove by index
+int remove_item_by_index(Inventory* inventory, int index);
+
+// insert at position
+int insert_into_inventory(Inventory* inventory, Item* item, int position);
+
 #endif //OCEANDEPTH_INVENTORY_H

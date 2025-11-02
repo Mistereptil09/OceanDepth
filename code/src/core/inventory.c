@@ -5,6 +5,7 @@
 #include "core/inventory.h"
 #include "core/error_codes.h"
 #include <stdlib.h>
+#include <string.h>
 
 #include "core/inventory_data.h"
 
@@ -29,13 +30,13 @@ void free_inventory(Inventory *inventory) {
     }
 }
 
-int add_item_to_inventory(Inventory* inventory, Item item) {
-    if (!inventory) return POINTER_NULL;
+int add_item_to_inventory(Inventory* inventory, Item* item) {
+    if (!inventory || !item) return POINTER_NULL;
     if (inventory->count >= INVENTORY_SIZE) {
-        return insert_into_inventory(inventory, item);
+        return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    inventory->items[inventory->count] = item;
+    inventory->items[inventory->count] = *item;
     inventory->count++;
     return SUCCESS;
 }
@@ -63,7 +64,26 @@ int remove_item_to_inventory(Inventory* inventory, Item* item) {
     return SUCCESS;
 }
 
-int insert_into_inventory(Inventory* inventory, Item item) {
-    return UNPROCESSABLE_REQUEST_ERROR; // Implémenter le faitd d'écraser un élément de l'array
+int remove_item_by_index(Inventory* inventory, int index) {
+    if (!inventory) return POINTER_NULL;
+    if (index < 0 || index >= inventory->count) return UNPROCESSABLE_REQUEST_ERROR;
 
+    free_item(&inventory->items[index]);
+
+    for (int i = index; i < inventory->count - 1; i++) {
+        inventory->items[i] = inventory->items[i + 1];
+    }
+
+    inventory->count--;
+    return SUCCESS;
+}
+
+int insert_into_inventory(Inventory* inventory, Item* item, int position) {
+    if (!inventory || !item) return POINTER_NULL;
+    if (position < 0 || position > inventory->count) {
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    inventory->items[position] = *item;
+    return SUCCESS;
 }
