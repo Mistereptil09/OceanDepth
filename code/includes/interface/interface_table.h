@@ -218,6 +218,18 @@ typedef struct {
      */
     void (*show_creature_died_from_effects)(const char* creature_name);
 
+    /**
+     * @brief Ask player to choose an item as reward
+     * @param item_names Array of item names
+     * @param item_count Number of items
+     * @return Index of chosen item
+     */
+     Item* (*ask_item_choice_reward)(int max_item_pool_size, Item* drawn_item);
+
+    /**
+     * @brief Show inventory full message
+     */
+     void (*show_inventory_full)(void);
 
     // ========== SHOP INTERFACE FUNCTIONS ==========
 

@@ -33,11 +33,57 @@ void free_inventory(Inventory *inventory) {
 int add_item_to_inventory(Inventory* inventory, Item* item) {
     if (!inventory || !item) return POINTER_NULL;
     if (inventory->count >= INVENTORY_SIZE) {
-        return UNPROCESSABLE_REQUEST_ERROR;
+        return INVENTORY_FULL;
     }
 
     inventory->items[inventory->count] = *item;
     inventory->count++;
+    return SUCCESS;
+}
+
+int add_item_to_inventory_with_callback(Inventory* inventory, Item* item,
+                                        int (*replace_callback)(Inventory* inv, Item* new_item)) {
+    if (!inventory || !item) return POINTER_NULL;
+
+    // Try simple add first
+    int result = add_item_to_inventory(inventory, item);
+
+    // If not full, we're done
+    if (result == SUCCESS) {
+        return SUCCESS;
+    }
+
+    // Inventory is full - invoke callback if provided
+    if (result == INVENTORY_FULL && replace_callback) {
+        int replace_index = replace_callback(inventory, item);
+
+        // User cancelled or invalid index
+        if (replace_index < 0 || replace_index >= inventory->count) {
+            return INVENTORY_FULL;
+        }
+
+        // Replace item at chosen index
+        free_item(&inventory->items[replace_index]);
+        inventory->items[replace_index] = *item;
+        return SUCCESS;
+    }
+
+    // No callback provided or other error
+    return result;
+}
+
+int remove_item_by_index(Inventory* inventory, int index) {
+    if (!inventory) return POINTER_NULL;
+    if (index < 0 || index >= inventory->count) return 1; // Invalid index (no specific code defined)
+
+    free_item(&inventory->items[index]);
+
+    // Shift items down
+    for (int i = index; i < inventory->count - 1; i++) {
+        inventory->items[i] = inventory->items[i + 1];
+    }
+
+    inventory->count--;
     return SUCCESS;
 }
 
@@ -46,7 +92,7 @@ int remove_item_to_inventory(Inventory* inventory, Item* item) {
 
     int index = -1;
     for (int i = 0; i < inventory->count; i++) {
-        if (&inventory->items[i] == item) {
+        if (inventory->items[i], item) {
             index = i;
             break;
         }
@@ -64,26 +110,12 @@ int remove_item_to_inventory(Inventory* inventory, Item* item) {
     return SUCCESS;
 }
 
-int remove_item_by_index(Inventory* inventory, int index) {
-    if (!inventory) return POINTER_NULL;
-    if (index < 0 || index >= inventory->count) return UNPROCESSABLE_REQUEST_ERROR;
-
-    free_item(&inventory->items[index]);
-
-    for (int i = index; i < inventory->count - 1; i++) {
-        inventory->items[i] = inventory->items[i + 1];
-    }
-
-    inventory->count--;
-    return SUCCESS;
+int inventory_has_space(Inventory* inventory) {
+    if (!inventory) return 0;
+    return inventory->count < INVENTORY_SIZE;
 }
 
-int insert_into_inventory(Inventory* inventory, Item* item, int position) {
-    if (!inventory || !item) return POINTER_NULL;
-    if (position < 0 || position > inventory->count) {
-        return UNPROCESSABLE_REQUEST_ERROR;
-    }
-
-    inventory->items[position] = *item;
-    return SUCCESS;
+int inventory_get_free_slots(Inventory* inventory) {
+    if (!inventory) return 0;
+    return INVENTORY_SIZE - inventory->count;
 }
