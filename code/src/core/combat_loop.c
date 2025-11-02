@@ -228,10 +228,19 @@ static int player_turn(Player *player, int alive_count) {
                                                 player->base.max_oxygen_level);
 
         // Execute the attack (Attack function handles effect application and damage)
-        int defeated = Attack(&player->base, chosen_action, &target->base);
+        if (target) {
+            int defeated = Attack(&player->base, chosen_action, &target->base);
 
-        if (defeated) {
-            current_interface->show_creature_defeated(target->base.name);
+            if (defeated) {
+                current_interface->show_creature_defeated(target->base.name);
+            }
+        } else if (chosen_action->type == SPECIAL_SKILL && chosen_action->target_type == TARGET_SELF) {
+            // SPECIAL_SKILL targeting self when no enemies remain - just apply the effect to player
+            Effect *applied_effect = apply_action_to_target(&player->base, chosen_action);
+            if (applied_effect && applied_effect->on_tick != NULL) {
+                effect_tick(&player->base, NULL, applied_effect);
+            }
+            chosen_action->cooldown_remaining = chosen_action->cooldown_turns;
         }
     } else {
         use_consumable(player, chosen_item);
@@ -430,6 +439,9 @@ int battle_loop(Player *player, Difficulty difficulty) {
                 player->base.fatigue_level++;
                 current_interface->show_fatigue_increased(player->base.fatigue_level);
             }
+
+            // Update combat state after action to refresh alive_count cache
+            set_combat_state(player, creatures, creature_count, round);
         }
 
         current_interface->show_actions_taken(actions_taken);
