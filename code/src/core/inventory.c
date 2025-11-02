@@ -92,7 +92,7 @@ int remove_item_to_inventory(Inventory* inventory, Item* item) {
 
     int index = -1;
     for (int i = 0; i < inventory->count; i++) {
-        if (inventory->items[i], item) {
+        if (&inventory->items[i] == item) {
             index = i;
             break;
         }
