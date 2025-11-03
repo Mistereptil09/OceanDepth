@@ -109,11 +109,11 @@ void init_creature_templates(void) {
                     0, 0, 0, 0, 0, NULL,1)},
 
             {"Frenesie sanguinaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("CONDI ATK +30% BOOST", "+30% de degât si -50% en HP pour le Requin !",
+                create_effect("CONDI ATK +30% BOOST", "+30% de degat si -50% en HP pour le Requin !",
                      1, 0, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, frenesie_sanguinaire_tick,0)},
 
-            {"Mâchoires d'Acier", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
+            {"Machoires d'Acier", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
                 create_effect("ATK BOOST +3", "+3 d'attaque pour le Requin !",
                      1, 3, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
@@ -165,7 +165,7 @@ void init_creature_templates(void) {
                      1, 0, -5, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
-            {"Mâchoires des profondeurs", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
+            {"Machoires des profondeurs", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
                 create_effect("ATK BOOST +6", "+6 d'attaque pour l'Anglerfish durant ce tour !",
                      1, 6, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
@@ -182,16 +182,16 @@ void init_creature_templates(void) {
         SWORDFISH, CREATURE_MEDIUM, "Swordfish", 70, 90, 18, 28, 10, 4,
         {
             {"Charge perforante", PHYSICAL_ATTACK, TARGET_OPPONENT, 0, 0,
-                create_effect("DEF MALUS -2", "L'épée transperce vos défenses, -2 !",
+                create_effect("DEF MALUS -2", "L'epee transperce vos defenses, -2 !",
                      1, 0, -2, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
-            {"Élan de vitesse", SPECIAL_SKILL, TARGET_SELF, 2, 0,
-                create_effect("SPEED BOOST +2", "Montée d'adrénaline pour le Swordfish !",
+            {"Elan de vitesse", SPECIAL_SKILL, TARGET_SELF, 2, 0,
+                create_effect("SPEED BOOST +2", "Montee d'adrenaline pour le Swordfish !",
                      1, 0, 0, 2, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
 
-            {"Lame argentée", PHYSICAL_ATTACK, TARGET_SELF, 1, 0,
+            {"Lame argentee", PHYSICAL_ATTACK, TARGET_SELF, 1, 0,
                 create_effect("ATK BOOST +5", "+5 d'attaque pour le Swordfish durant ce tour !",
                      1, 5, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
@@ -207,23 +207,23 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
         MEGALODON, CREATURE_BOSS, "Megalodon", 210, 230, 25, 45, 15, 1,
         {
-            {"Morsure préhistorique", PHYSICAL_ATTACK,TARGET_OPPONENT, 2, 0,
-                create_effect("DEF MALUS -7", "-7 de défense sur 2 tours pour le joueur !",
+            {"Morsure prehistorique", PHYSICAL_ATTACK,TARGET_OPPONENT, 2, 0,
+                create_effect("DEF MALUS -7", "-7 de defense sur 2 tours pour le joueur !",
                      1, 0, -7, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
-            {"Instinct de prédateur", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("ATK BOOST +10", "+10 d'attaque pour le Mégalodon durant ce tour !",
+            {"Instinct de predateur", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
+                create_effect("ATK BOOST +10", "+10 d'attaque pour le Megalodon durant ce tour !",
                      1, 10, 0, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,0)},
 
             {"Rage primordiale", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
-                create_effect("ATK BOOST +15%", "+15% d'attaque pour le Mégalodon durant ce tour !",
+                create_effect("ATK BOOST +15%", "+15% d'attaque pour le Megalodon durant ce tour !",
                      1, 0, 0, 0, 0, 0,
                     0.15, 0, 0, 0, 0, NULL,0)},
 
-            {"Écailles titanesques", SPECIAL_SKILL, TARGET_SELF, 6, 0,
-                create_effect("DEF BOOST +10", "+10 de défense pour le Mégalodon sur 3 tours !",
+            {"Ecailles titanesques", SPECIAL_SKILL, TARGET_SELF, 6, 0,
+                create_effect("DEF BOOST +10", "+10 de defense pour le Megalodon sur 3 tours !",
                      3, 0, 10, 0, 0, 0,
                     0, 0, 0, 0, 0, NULL,1)},
         }
@@ -277,11 +277,11 @@ int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy) {
         return POINTER_NULL;
     }
     if (self->current_health_points < self->max_health_points * 0.5) {
-        Effect boostAttack = create_effect("Frenesie en action", "Maximisez les dégâts ! ", 1,0,0,0,0,0,0.3,0,0,0,0, NULL,0);
+        Effect boostAttack = create_effect("Frenesie en action", "Maximisez les degats ! ", 1,0,0,0,0,0,0.3,0,0,0,0, NULL,0);
         apply_effect_to_target(self, boostAttack);
-        printf("Le requin entre en frénésie!\n");
+        printf("Le requin entre en frenesie!\n");
     } else {
-        printf("Le requin n'est pas assez faible pour la frénésie!\n");
+        printf("Le requin n'est pas assez faible pour la frenesie!\n");
     }
 
     return SUCCESS;
@@ -292,7 +292,7 @@ int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) { // th
         return POINTER_NULL;
     }
     Effect malusAttack = create_effect("Piqûre paralysante en action","La piqûre paralysante vous affaibli !", 1, -1, 0,0,0,0,0,0,0,0,0,NULL,0);
-    printf("%s", "Décharge électrique !");
+    printf("%s", "Decharge electrique !");
     Effect *effect = apply_effect_to_target(ennemy, malusAttack);
     if (effect == NULL) {
         return POINTER_NULL;

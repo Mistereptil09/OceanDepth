@@ -166,7 +166,7 @@ int cli_get_choice(const char* prompt, const int min, const int max)
 }
 void cli_show_attack(EntityBase* attacker, EntityBase* target, int damage)
 {
-    printf("%s attaque %s pour %d degâts!\n", attacker->name, target->name, damage);
+    printf("%s attaque %s pour %d degats!\n", attacker->name, target->name, damage);
 }
 
 void cli_show_inventory(Inventory* inv)
@@ -215,7 +215,7 @@ void cli_show_oxygen_critical(int current)
 void cli_show_oxygen_death(int damage, int hp, int max_hp)
 {
     printf("\n! PLUS D'OXYGENE! Vous suffoquez!\n");
-    printf("Vous perdez %d PV par tour jusqu'à utilisation d'une capsule d'oxygene!\n", damage);
+    printf("Vous perdez %d PV par tour jusqu'a utilisation d'une capsule d'oxygene!\n", damage);
     printf("PV: %d/%d\n", hp, max_hp);
 }
 
@@ -243,7 +243,7 @@ void cli_show_passive_oxygen(int amount, int current, int max)
 void cli_show_damage_dealt(const char* attacker_name, const char* target_name,
                            int damage, int target_hp, int target_max_hp)
 {
-    printf("%s inflige %d degâts à %s!\n", attacker_name, damage, target_name);
+    printf("%s inflige %d degats a %s!\n", attacker_name, damage, target_name);
     printf("%s a maintenant %d/%d PV restants.\n", target_name, target_hp, target_max_hp);
 }
 

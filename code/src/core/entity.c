@@ -222,11 +222,11 @@ void print_current_effect_list(EntityBase *target) {
 void print_current_stat_modifier_list(EntityBase* base) {
     printf("Attaque de %s composee de ces modificateurs:\n", base->name);
     for (int i = 0; i < base->attack.modifier_count; i++) {
-        printf("valeur : %lf, type : %s\n", base->attack.modifiers[i].value, base->attack.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
+        printf("valeur : %.2lf, type : %s\n", base->attack.modifiers[i].value, base->attack.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
     }
 
     printf("\nDefense de %s composee de ces modificateurs:\n", base->name);
     for (int i = 0; i < base->defense.modifier_count; i++) {
-        printf("valeur : %lf, type : %s\n", base->defense.modifiers[i].value, base->defense.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
+        printf("valeur : %.2lf, type : %s\n", base->defense.modifiers[i].value, base->defense.modifiers[i].type == MOD_FLAT ? "PLAT" : "POURCENT");
     }
 }
