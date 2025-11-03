@@ -30,15 +30,21 @@ Item create_item(char* name, ItemType type, Action* actions, int action_count, i
 int free_item(Item* item) {
     if (!item) return POINTER_NULL;
 
-    // Free the effect's display_message for each action
-    for (int i = 0; i < item->action_count; i++) {
-        free_effect_content(&item->actions[i].effect);
+    /* Only free effect content within actions if actions exist.
+       Do NOT free the actions array itself - caller owns that memory. */
+    if (item->actions != NULL) {
+        for (int i = 0; i < item->action_count; i++) {
+            free_effect_content(&item->actions[i].effect);
+        }
     }
 
-    // Free the entire actions array (not individual elements)
-    free(item->actions);
-
-    return SUCCESS;
+    if (!item) return POINTER_NULL;
+    for (int j = 0; j < item->action_count; j++) {
+        if (item->actions[j].cooldown_remaining <= 0) {
+            break;
+        }
+    }
+    return 0;
 }
 
 int item_on_cooldown(Item* item) {
