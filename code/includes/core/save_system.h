@@ -7,7 +7,7 @@
 
 #include "player.h"
 
-#define SAVE_FILE_PATH "../../saves/oceandepth_save.dat"
+#define SAVE_FILE_PATH "../saves/oceandepth_save.dat"
 #define SAVE_VERSION 1
 
 // Component flags for modular saving

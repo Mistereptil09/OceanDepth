@@ -5,10 +5,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "core/save_system.h"
 #include "core/error_codes.h"
 #include "core/player.h"
 #include "core/entity.h"
+
+// Platform-specific includes for directory creation
+#ifdef _WIN32
+    #include <direct.h>
+    #define MKDIR(path) _mkdir(path)
+#else
+    #include <sys/stat.h>
+    #include <sys/types.h>
+    #define MKDIR(path) mkdir((path), 0755)
+#endif
+
+/**
+ * @brief Creates the directory for the save file path if it doesn't exist
+ * @return 0 on success, -1 on failure
+ */
+static int ensure_save_directory_exists(void) {
+    // Extract directory path from SAVE_FILE_PATH
+    char dir_path[256];
+    strncpy(dir_path, SAVE_FILE_PATH, sizeof(dir_path) - 1);
+    dir_path[sizeof(dir_path) - 1] = '\0';
+
+    // Find last slash or backslash
+    char *last_slash = strrchr(dir_path, '/');
+    char *last_backslash = strrchr(dir_path, '\\');
+    char *separator = (last_backslash > last_slash) ? last_backslash : last_slash;
+
+    if (!separator) {
+        // No directory in path, save in current directory
+        return 0;
+    }
+
+    *separator = '\0';  // Terminate string at directory
+
+    // Try to create each directory in the path
+    for (char *p = dir_path; *p; p++) {
+        if (*p == '/' || *p == '\\') {
+            char temp = *p;
+            *p = '\0';
+
+            // Skip empty path components (like leading slash)
+            if (p > dir_path) {
+                MKDIR(dir_path);  // Ignore errors - might already exist
+            }
+
+            *p = temp;
+        }
+    }
+
+    // Create the final directory
+    if (MKDIR(dir_path) != 0 && errno != EEXIST) {
+        return -1;  // Failed to create directory
+    }
+
+    return 0;
+}
 
 /**
  * @brief Converts SaveData structure to player data
@@ -242,6 +298,12 @@ int save_game_modular(Player* player, int difficulty, int battles_won, int save_
 
     if (save_flags & SAVE_PROGRESS_DATA) {
         save_progress_data(difficulty, battles_won, &save_data);
+    }
+
+    // Ensure save directory exists before writing
+    if (ensure_save_directory_exists() != 0) {
+        fprintf(stderr, "Error: Could not create save directory\n");
+        return UNPROCESSABLE_REQUEST_ERROR;
     }
 
     // Write to file
