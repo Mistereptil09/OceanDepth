@@ -29,6 +29,7 @@ set(SOURCES
         ${CORE_SOURCES}
         ${INTERFACE_SOURCES}
         ${HELPER_SOURCES}
+        code/src/core/map.c
 )
 
 # Main executable

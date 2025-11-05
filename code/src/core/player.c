@@ -11,7 +11,7 @@
  * player.c = Player stats, actions, resources (HP, oxygen, fatigue, pearls, inventory)
  */
 
-Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) {
+Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen, Position current, Position max) {
     Player *p = calloc(1,sizeof(Player));
     if (p == NULL) return NULL;
 
@@ -24,6 +24,10 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen) 
     p->base.action_count = 0;
 
     p->pearls = 10;
+
+    p->current_position = current;
+    p->max_position = max;
+
     Inventory* inv = create_inventory();
     if (inv == NULL) {
         free(p);
@@ -146,4 +150,22 @@ void use_consumable(Player *p, Item *item) {
     } else {
         printf("Remaining: %d\n", item->quantity);
     }
+}
+
+int unlock_new_position(Player *player) {
+    if (player == NULL) return POINTER_NULL;
+    if (player->current_position.row == player->max_position.row &&
+        player->current_position.col == player->max_position.col) {
+
+        if (player->max_position.col < 3) {
+            player->max_position.col++;
+            return NEW_CELL;
+        } else if (player->max_position.row < 3) {
+            player->max_position.row++;
+            player->max_position.col = 0;
+            return NEW_ROW;
+        }
+        return WIN;
+        }
+    return NO_UNLOCK_NEEDED;
 }

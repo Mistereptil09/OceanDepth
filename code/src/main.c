@@ -12,7 +12,8 @@
 
 int main(void)
 {
-    srand(time(NULL));
+    int seed = time(NULL);
+    srand(seed);
 
     // Initialize creature templates
     init_creature_templates();
@@ -47,7 +48,8 @@ int main(void)
     if (!player) {
         char player_name[30];
         current_interface->get_input("Donnez-moi votre nom !", player_name, sizeof(player_name));
-        player = create_player(player_name, 100, 8, 100);
+        Position start_pos = {0, 0};
+        player = create_player(player_name, 100, 8, 100, start_pos, start_pos);
 
         if (!player) {
             printf("Erreur: Impossible de creer le joueur!\n");

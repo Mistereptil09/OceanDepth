@@ -14,5 +14,9 @@ typedef enum {
     INVALID_INPUT,
     UNPROCESSABLE_REQUEST_ERROR,
     INVENTORY_FULL,
+    NEW_CELL,
+    NEW_ROW,
+    NO_UNLOCK_NEEDED,
+    WIN,
 } ErrorCodes;
 #endif //OCEANDEPTH_ERROR_CODES_H

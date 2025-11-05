@@ -19,7 +19,7 @@ int main(void) {
     printf("=== TEST PLAYER ===\n");
 
     printf("CREATE PLAYER\n");
-    Player *p = create_player("Yasmine", 100, 10, 100);
+    Player *p = create_player("Yasmine", 100, 10, 100, 0, 0, 0);
     if (!p) {
         fprintf(stderr, "Erreur: create_player a echoue.\n");
         return 1;

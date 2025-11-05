@@ -6,9 +6,14 @@
 #include "inventory.h"
 #include "entity.h"
 #include "effect.h"
+#include "map.h"
 
 #define MAX_FATIGUE 5
 
+typedef struct {
+    int row;
+    int col;
+} Position;
 /**
  * @struct Player
  * @brief Represents the player's state, statistics, and resources.
@@ -18,6 +23,12 @@ typedef struct {
     // oxygen_level, max_oxygen_level, fatigue_level now in base
     int pearls;
     Inventory inventory;
+
+    // Current cell visited by the player
+    Position current_position;
+
+    // The last cell unlocked
+    Position max_position;
 } Player;
 
 /**
@@ -26,10 +37,12 @@ typedef struct {
  * @param max_hp Maximum hp of the player
  * @param base_defense Base defense of the player
  * @param max_oxygen Maximum oxygen of the player
+ * @param row Starting row position (0 for new game)
+ * @param col Starting col position (0 for new game)
  * @return Pointer to the new Player, or NULL if allocation failed.
  * @note Caller must free the returned Player with free_player().
  */
-Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen);
+Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen, Position current, Position max);
 
 /**
  * @brief Frees allocated memory for a Player instance.
@@ -86,4 +99,7 @@ int increase_pearls(Player *p, int amount);
 int decrease_pearls(Player *p, int amount);
 
 void use_consumable(Player *p, Item* item);
+
+int unlock_new_position(Player *player);
+
 #endif //OCEANDEPTH_PLAYER_H
