@@ -11,8 +11,9 @@
 
 // Test interface implementations - mostly silent, no user input required
 
-void test_display_map(Map* map) {
+void test_display_map(Map* map, Player* player) {
     (void)map; // Unused in tests
+    (void)player; // Unused in tests
     // Silent for tests
 }
 

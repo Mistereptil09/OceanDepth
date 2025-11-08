@@ -30,6 +30,8 @@ set(SOURCES
         ${INTERFACE_SOURCES}
         ${HELPER_SOURCES}
         code/src/core/map.c
+        code/src/core/game_init.c
+        code/includes/core/game_init.h
 )
 
 # Main executable

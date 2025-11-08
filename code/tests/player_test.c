@@ -18,8 +18,10 @@
 int main(void) {
     printf("=== TEST PLAYER ===\n");
 
+    Position current_position = {0};
+    Position max_position = {0};
     printf("CREATE PLAYER\n");
-    Player *p = create_player("Yasmine", 100, 10, 100, 0, 0, 0);
+    Player *p = create_player("Yasmine", 100, 10, 100, current_position, max_position);
     if (!p) {
         fprintf(stderr, "Erreur: create_player a echoue.\n");
         return 1;

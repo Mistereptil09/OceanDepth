@@ -154,6 +154,8 @@ void use_consumable(Player *p, Item *item) {
 
 int unlock_new_position(Player *player) {
     if (player == NULL) return POINTER_NULL;
+
+    // Player must be at the frontier (max_position) to unlock
     if (player->current_position.row == player->max_position.row &&
         player->current_position.col == player->max_position.col) {
 
@@ -166,6 +168,14 @@ int unlock_new_position(Player *player) {
             return NEW_ROW;
         }
         return WIN;
-        }
-    return NO_UNLOCK_NEEDED;
+    }
+
+    // Player is not at frontier - invalid operation
+    return INVALID_INPUT;
+}
+
+int player_move_to(Player* player, Position new_position) {
+    if (!player) return POINTER_NULL;
+    player->current_position = new_position;
+    return SUCCESS;
 }

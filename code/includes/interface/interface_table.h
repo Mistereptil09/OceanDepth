@@ -19,7 +19,7 @@
  * receiving all data as parameters. This allows cleaner separation.
  */
 typedef struct {
-    void (*display_map)(Map* map);
+    void (*display_map)(Map* map, Player* player);
 
     /**
      * @brief Display current combat state

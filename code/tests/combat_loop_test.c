@@ -342,7 +342,7 @@ static void test_multiple_effects_stacking(void) {
 static void test_oxygen_system(void) {
     printf("Running test_oxygen_system...\n");
 
-    Player* player = create_player("OxygenTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("OxygenTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
     assert(player->base.oxygen_level == 100);
     assert(player->base.max_oxygen_level == 100);
@@ -380,7 +380,7 @@ static void test_oxygen_system(void) {
 static void test_oxygen_recovery(void) {
     printf("Running test_oxygen_recovery...\n");
 
-    Player* player = create_player("RecoveryTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("RecoveryTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
 
     // Consume oxygen
@@ -412,7 +412,7 @@ static void test_oxygen_recovery(void) {
 static void test_fatigue_system(void) {
     printf("Running test_fatigue_system...\n");
 
-    Player* player = create_player("FatigueTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("FatigueTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
     assert(player->base.fatigue_level == 0);
 
@@ -456,7 +456,7 @@ static void test_fatigue_system(void) {
 static void test_fatigue_action_limits(void) {
     printf("Running test_fatigue_action_limits...\n");
 
-    Player* player = create_player("ActionLimitTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("ActionLimitTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
 
     // Test low fatigue (0-1): 3 actions
@@ -531,7 +531,7 @@ static void test_fatigue_action_limits(void) {
 static void test_oxygen_fatigue_combined(void) {
     printf("Running test_oxygen_fatigue_combined...\n");
 
-    Player* player = create_player("CombinedTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("CombinedTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
 
     // Simulate a combat round cycle
@@ -581,7 +581,7 @@ static void test_oxygen_fatigue_combined(void) {
 static void test_oxygen_critical_state(void) {
     printf("Running test_oxygen_critical_state...\n");
 
-    Player* player = create_player("CriticalTester", 100, 10, 100, 0, 0, 0);
+    Player* player = create_player("CriticalTester", 100, 10, 100, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
 
     // Bring oxygen to critical level (<=10)
@@ -626,11 +626,11 @@ static void test_battle_loop_smoke(void) {
     init_creature_templates();
 
     // Create a player with enough stats to defeat weak creatures
-    Player* player = create_player("Tester", 50, 1, 10, 0, 0, 0);
+    Player* player = create_player("Tester", 50, 1, 10, (Position){0, 0}, (Position){0, 0});
     assert(player != NULL);
 
     // Run battle loop at EASY difficulty
-    int result = battle_loop(player, EASY);
+    int result = battle_loop(player, EASY, 1000);
     printf("battle_loop returned: %d (0=loss, 1=win)\n", result);
 
     // Just verify it completed (result is 0 or 1)
@@ -674,7 +674,7 @@ int main(void) {
     // Combined mechanics test
     test_oxygen_fatigue_combined();
 
-    // Integration test
+    // Integration tests
     test_battle_loop_smoke();
 
     printf("\n=== All Combat Loop Tests Completed Successfully ===\n");

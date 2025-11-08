@@ -73,11 +73,15 @@ static Player* save_data_to_player(SaveData* save_data) {
     if (!save_data) return NULL;
 
     // Create player with basic stats
+    // TODO: SaveData needs to store position data for proper save/load
+    Position start_pos = {0, 0};
     Player* player = create_player(
         save_data->player_name,
         save_data->max_hp,
         save_data->base_defense,
-        save_data->max_oxygen
+        save_data->max_oxygen,
+        start_pos,
+        start_pos
     );
 
     if (!player) return NULL;

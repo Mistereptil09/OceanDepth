@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "core/map.h"
+#include "core/player.h"
 #include "core/error_codes.h"
 
 

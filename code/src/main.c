@@ -65,7 +65,7 @@ int main(void)
     int continue_playing = 1;
     while (continue_playing) {
         // Start battle
-        int result = battle_loop(player, difficulty);
+        int result = battle_loop(player, difficulty, seed);
 
         if (result) {
             battles_won++;

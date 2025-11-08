@@ -14,7 +14,8 @@ extern InterfaceVTable cli_interface;
 // You can also declare individual functions if you want to call them directly
 
 // ========== MAP INTERFACE ==========
-void cli_display_map(Map* map);
+void cli_display_map(Map* map, Player* player);
+Position cli_get_movement_choice(Player* player);
 
 // ========== COMBAT INTERFACE ==========
 void cli_display_combat_state(void);

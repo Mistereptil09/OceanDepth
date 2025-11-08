@@ -290,7 +290,8 @@ int test_reward_system_integration() {
     printf("For now, we verify the basic structure is sound.\n");
 
     // Create a player
-    Player* player = create_player("TestPlayer", 100, 10, 100, 0, 0, 0);
+    Position position = {0};
+    Player* player = create_player("TestPlayer", 100, 10, 100, position, position);
     assert(player != NULL);
 
     printf("\nPlayer created successfully\n");

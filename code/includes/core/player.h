@@ -10,17 +10,12 @@
 
 #define MAX_FATIGUE 5
 
-typedef struct {
-    int row;
-    int col;
-} Position;
 /**
  * @struct Player
  * @brief Represents the player's state, statistics, and resources.
  */
-typedef struct {
+typedef struct Player {
     EntityBase base;
-    // oxygen_level, max_oxygen_level, fatigue_level now in base
     int pearls;
     Inventory inventory;
 
@@ -101,5 +96,7 @@ int decrease_pearls(Player *p, int amount);
 void use_consumable(Player *p, Item* item);
 
 int unlock_new_position(Player *player);
+
+int player_move_to(Player* player, Position new_position);
 
 #endif //OCEANDEPTH_PLAYER_H

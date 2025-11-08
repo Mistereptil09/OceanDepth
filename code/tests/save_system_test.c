@@ -14,7 +14,9 @@ void test_save_and_load() {
     printf("=== Testing Save and Load System ===\n");
 
     // Create a test player
-    Player* original = create_player("TestPlayer", 100, 10, 80);
+    Position position = {0};
+
+    Player* original = create_player("TestPlayer", 100, 10, 80, position, position);
     assert(original != NULL);
 
     // Modify player state
@@ -92,7 +94,8 @@ void test_save_with_inventory() {
     printf("\n=== Testing Save with Inventory ===\n");
 
     // Create a player
-    Player* player = create_player("InventoryTest", 100, 10, 80);
+    Position position = {0};
+    Player* player = create_player("InventoryTest", 100, 10, 80, position, position);
     assert(player != NULL);
 
     // Add some items to inventory

@@ -4,7 +4,15 @@
 
 #ifndef OCEANDEPTHS_MAP_H
 #define OCEANDEPTHS_MAP_H
-#include "player.h"
+
+// Position struct definition
+typedef struct Position {
+    int row;
+    int col;
+} Position;
+
+// Forward declaration for Player
+typedef struct Player Player;
 
 typedef enum {
     EMPTY = 0,

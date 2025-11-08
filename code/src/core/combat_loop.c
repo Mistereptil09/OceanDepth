@@ -339,8 +339,12 @@ static int creature_turns(Creature **creatures, int creature_count, Player *play
     return 1; // All creature turns completed
 }
 
-int battle_loop(Player *player, Difficulty difficulty) {
+int battle_loop(Player *player, Difficulty difficulty, int seed) {
     if (!player) return 0;
+    srand(seed);
+
+    // Reset fatigue before fight
+    player->base.fatigue_level = 0;
 
     // Display battle start
     current_interface->display_battle_start();

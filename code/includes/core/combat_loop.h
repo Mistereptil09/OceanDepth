@@ -32,8 +32,9 @@ int Attack(EntityBase* attacker, Action* action, EntityBase* defender);
  * @brief Main battle loop - handles combat between player and multiple creatures
  * @param player Pointer to the player
  * @param difficulty Difficulty level to generate creatures
+ * @param seed
  * @return 1 if player won, 0 if player lost
  */
-int battle_loop(Player* player, Difficulty difficulty);
+int battle_loop(Player* player, Difficulty difficulty, int seed);
 
 #endif // OCEANDEPTH_COMBAT_LOOP_H
