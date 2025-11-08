@@ -18,5 +18,6 @@ typedef enum {
     NEW_ROW,
     NO_UNLOCK_NEEDED,
     WIN,
+    LOSS
 } ErrorCodes;
 #endif //OCEANDEPTH_ERROR_CODES_H

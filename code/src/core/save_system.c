@@ -10,6 +10,7 @@
 #include "core/error_codes.h"
 #include "core/player.h"
 #include "core/entity.h"
+#include "core/inventory_data.h"
 
 // Platform-specific includes for directory creation
 #ifdef _WIN32
@@ -72,16 +73,17 @@ static int ensure_save_directory_exists(void) {
 static Player* save_data_to_player(SaveData* save_data) {
     if (!save_data) return NULL;
 
-    // Create player with basic stats
-    // TODO: SaveData needs to store position data for proper save/load
-    Position start_pos = {0, 0};
+    // Restore positions from save data
+    Position current_pos = {save_data->player_current_row, save_data->player_current_col};
+    Position max_pos = {save_data->player_max_row, save_data->player_max_col};
+
     Player* player = create_player(
         save_data->player_name,
         save_data->max_hp,
         save_data->base_defense,
         save_data->max_oxygen,
-        start_pos,
-        start_pos
+        current_pos,
+        max_pos
     );
 
     if (!player) return NULL;
@@ -97,23 +99,34 @@ static Player* save_data_to_player(SaveData* save_data) {
     player->base.defense.base_value = save_data->base_defense;
     player->base.speed.base_value = save_data->base_speed;
 
-    // Restore inventory
+    // Restore inventory by looking up items from inventory_data
     player->inventory.count = save_data->inventory_count;
     for (int i = 0; i < save_data->inventory_count && i < INVENTORY_SIZE; i++) {
-        Item* item = &player->inventory.items[i];
-        strncpy(item->name, save_data->inventory_items[i].name, sizeof(item->name) - 1);
-        item->name[sizeof(item->name) - 1] = '\0';
-        item->type = save_data->inventory_items[i].type;
-        item->quantity = save_data->inventory_items[i].quantity;
-        item->oxygen_boost = save_data->inventory_items[i].oxygen_boost;
-        item->fatigue_relief = save_data->inventory_items[i].fatigue_relief;
-        item->hp_boost = save_data->inventory_items[i].hp_boost;
-        item->price = save_data->inventory_items[i].price;
+        const char* item_name = save_data->inventory_items[i].name;
+        int quantity = save_data->inventory_items[i].quantity;
 
-        // Note: Actions are not saved as they're typically references to static data
-        // Set both to NULL/0 to maintain consistency
-        item->actions = NULL;
-        item->action_count = 0;
+        // Lookup the item to get its full definition including actions
+        Item* looked_up_item = lookup_item_by_name(item_name, quantity);
+
+        if (looked_up_item) {
+            // Copy the fully initialized item (including actions)
+            player->inventory.items[i] = *looked_up_item;
+            free(looked_up_item);  // Free the temporary lookup result
+        } else {
+            // Item not found in lookup - restore what we can from save data
+            Item* item = &player->inventory.items[i];
+            strncpy(item->name, item_name, sizeof(item->name) - 1);
+            item->name[sizeof(item->name) - 1] = '\0';
+            item->type = save_data->inventory_items[i].type;
+            item->quantity = quantity;
+            item->oxygen_boost = save_data->inventory_items[i].oxygen_boost;
+            item->fatigue_relief = save_data->inventory_items[i].fatigue_relief;
+            item->hp_boost = save_data->inventory_items[i].hp_boost;
+            item->price = save_data->inventory_items[i].price;
+            item->actions = NULL;
+            item->action_count = 0;
+            printf("Warning: Item '%s' not found in item database\n", item_name);
+        }
     }
 
     // Restore effects (simplified - doesn't restore function pointers)
@@ -222,6 +235,18 @@ int save_progress_data(int difficulty, int battles_won, SaveData* save_data) {
 
     save_data->current_difficulty = difficulty;
     save_data->battles_won = battles_won;
+
+    return SUCCESS;
+}
+
+int save_position_data(Player* player, int map_seed, SaveData* save_data) {
+    if (!player || !save_data) return POINTER_NULL;
+
+    save_data->map_seed = map_seed;
+    save_data->player_current_row = player->current_position.row;
+    save_data->player_current_col = player->current_position.col;
+    save_data->player_max_row = player->max_position.row;
+    save_data->player_max_col = player->max_position.col;
 
     return SUCCESS;
 }
@@ -501,4 +526,72 @@ int delete_save_file(void) {
     }
     perror("Error deleting save file");
     return UNPROCESSABLE_REQUEST_ERROR;
+}
+
+int get_map_seed_from_save(int* map_seed) {
+    if (!map_seed) return POINTER_NULL;
+
+    // Open and read file
+    FILE* file = fopen(SAVE_FILE_PATH, "rb");
+    if (!file) {
+        perror("Error opening save file for reading");
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    SaveData save_data = {0};
+    size_t read = fread(&save_data, sizeof(SaveData), 1, file);
+    fclose(file);
+
+    if (read != 1) {
+        perror("Error reading save data");
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    // Check version
+    if (save_data.version != SAVE_VERSION) {
+        fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
+                SAVE_VERSION, save_data.version);
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    *map_seed = save_data.map_seed;
+    return SUCCESS;
+}
+
+int save_game_complete(Player* player, int difficulty, int battles_won, int map_seed) {
+    if (!player) return POINTER_NULL;
+
+    SaveData save_data = {0};
+    save_data.version = SAVE_VERSION;
+
+    // Save all components
+    save_player_data(player, &save_data);
+    save_inventory_data(player, &save_data);
+    save_effects_data(player, &save_data);
+    save_progress_data(difficulty, battles_won, &save_data);
+    save_position_data(player, map_seed, &save_data);
+
+    // Ensure save directory exists before writing
+    if (ensure_save_directory_exists() != 0) {
+        fprintf(stderr, "Error: Could not create save directory\n");
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    // Write to file
+    FILE* file = fopen(SAVE_FILE_PATH, "wb");
+    if (!file) {
+        perror("Error opening save file for writing");
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    size_t written = fwrite(&save_data, sizeof(SaveData), 1, file);
+    fclose(file);
+
+    if (written != 1) {
+        perror("Error writing save data");
+        return UNPROCESSABLE_REQUEST_ERROR;
+    }
+
+    printf("Game saved successfully to %s\n", SAVE_FILE_PATH);
+    return SUCCESS;
 }

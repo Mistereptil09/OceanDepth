@@ -108,3 +108,34 @@ Item create_fatigue_stimulant(int quantity) {
 Item create_health_kit(int quantity) {
     return create_item("Trousse de soin", ITEM_CONSUMABLE, NULL, 0, quantity, 0, 0, 25, 15);
 }
+
+Item* lookup_item_by_name(const char* name, int quantity) {
+    if (!name) return NULL;
+
+    Item* item = malloc(sizeof(Item));
+    if (!item) return NULL;
+
+    // Lookup weapons
+    if (strcmp(name, "epee") == 0) {
+        *item = create_epee();
+    } else if (strcmp(name, "Harpon") == 0) {
+        *item = create_harpon();
+    } else if (strcmp(name, "Combinaison") == 0) {
+        *item = create_combinaison();
+    }
+    // Lookup consumables
+    else if (strcmp(name, "Capsule O2") == 0) {
+        *item = create_oxygen_capsule(quantity);
+    } else if (strcmp(name, "Stimulant Marin") == 0) {
+        *item = create_fatigue_stimulant(quantity);
+    } else if (strcmp(name, "Trousse de soin") == 0) {
+        *item = create_health_kit(quantity);
+    }
+    // Unknown item
+    else {
+        free(item);
+        return NULL;
+    }
+
+    return item;
+}

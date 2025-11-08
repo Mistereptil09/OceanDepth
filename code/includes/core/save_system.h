@@ -74,7 +74,14 @@ typedef struct {
     int current_difficulty;
     int battles_won;
 
-    // Map data (NEW!)
+    // Map and position data
+    int map_seed;                  // Seed used to generate the map
+    int player_current_row;        // Current player position (row)
+    int player_current_col;        // Current player position (col)
+    int player_max_row;            // Maximum unlocked position (row)
+    int player_max_col;            // Maximum unlocked position (col)
+
+    // Map data (legacy - for the generic tile system)
     int has_map_data;              // Flag: 1 if map data is present, 0 otherwise
     int map_width;                 // Map width
     int map_height;                // Map height
@@ -131,6 +138,15 @@ int save_effects_data(Player* player, SaveData* save_data);
 int save_progress_data(int difficulty, int battles_won, SaveData* save_data);
 
 /**
+ * @brief Saves map seed and player position data
+ * @param player Pointer to the player (for position data)
+ * @param map_seed The seed used to generate the map
+ * @param save_data Pointer to SaveData structure to fill
+ * @return SUCCESS on success, error code on failure
+ */
+int save_position_data(Player* player, int map_seed, SaveData* save_data);
+
+/**
  * @brief Saves map data (tiles and dimensions)
  * @param width Map width
  * @param height Map height
@@ -159,6 +175,23 @@ int save_map_data(int width, int height, char map_tiles[100][100], SaveData* sav
  * load_map_data(&save_data, &w, &h, my_map);
  */
 int load_map_data(SaveData* save_data, int* width, int* height, char map_tiles[100][100]);
+
+/**
+ * @brief Gets the map seed from a save file
+ * @param map_seed Pointer to store the map seed
+ * @return SUCCESS on success, error code on failure
+ */
+int get_map_seed_from_save(int* map_seed);
+
+/**
+ * @brief Complete game save including map seed and positions
+ * @param player Pointer to the player
+ * @param difficulty Current difficulty level
+ * @param battles_won Number of battles won
+ * @param map_seed The seed used to generate the map
+ * @return SUCCESS on success, error code on failure
+ */
+int save_game_complete(Player* player, int difficulty, int battles_won, int map_seed);
 
 /**
  * @brief Modular save - save specific components using flags
