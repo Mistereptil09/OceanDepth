@@ -35,7 +35,6 @@ Effect *apply_effect_to_target(EntityBase *target, Effect effect) {
 
     p = &target->effects[target->effects_number - 1];
 
-    print_current_effect_list(target);
     return p;
 }
 
@@ -53,7 +52,6 @@ Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
             target->effects[i] = effect_copy(&effect);
             effect_apply(target, &target->effects[i]);
             p = &target->effects[i];
-            print_current_effect_list(target);
             return p;
         }
     }
@@ -68,6 +66,5 @@ Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
     effect_apply(target, &target->effects[last_replaced]);
 
     p = &target->effects[last_replaced];
-    print_current_effect_list(target);
     return p;
 }

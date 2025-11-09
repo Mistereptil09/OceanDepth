@@ -6,6 +6,7 @@
 #include "core/inventory.h"
 #include "core/error_codes.h"
 #include "core/reward_system.h"
+#include "core/player.h"
 #include <stdio.h>   // snprintf
 #include <stdlib.h>  // calloc, free
 #ifdef _WIN32
@@ -13,6 +14,17 @@
 #endif
 
 // ======================= REWARD SYSTEM HELPERS =======================
+
+// Decide how many pearls to award based on difficulty
+static int get_pearl_reward(Difficulty d) {
+    switch (d) {
+        case EASY: return 5 + (rand() % 6);      // 5-10 pearls
+        case MEDIUM: return 10 + (rand() % 11);  // 10-20 pearls
+        case HARD: return 20 + (rand() % 11);    // 20-30 pearls
+        case FINAL: return 40 + (rand() % 11);   // 40-50 pearls
+        default: return 10;
+    }
+}
 
 // Decide how many loot options to draw based on difficulty
 static int get_reward_draw_count(Difficulty d) {
@@ -125,6 +137,11 @@ static void free_unselected_items(Item* options, int count, int keep_index) {
 // Orchestrates the reward flow at end of battle
 void award_post_battle_rewards(Player* player, Difficulty difficulty) {
     if (!player) return;
+
+    // Award pearls first
+    int pearl_reward = get_pearl_reward(difficulty);
+    increase_pearls(player, pearl_reward);
+    printf("\n💎 Vous avez gagne %d perles! (Total: %d)\n", pearl_reward, player->pearls);
 
     int draw_count = get_reward_draw_count(difficulty);
     if (draw_count <= 0) return;

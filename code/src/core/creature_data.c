@@ -73,13 +73,13 @@ void init_creature_templates(void) {
 
     // JELLYFISH - Poison specialist
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
-        JELLYFISH, CREATURE_EASY, "Meduse", 20, 40, 8, 15, 5, 0,
+        JELLYFISH, CREATURE_EASY, "Meduse", 20, 60, 10, 15, 8, 0,
         {
             {"Piqûre tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
                 create_effect("ATK BOOST +4", "+4 points d'attaque pour la meduse !",
             1,
-            4, 0, 0, 0, 0,  // flat modifiers
-            0, 0, 0, 0, 0,  // percentage modifiers
+            4, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
             NULL,0)
     },
             {"Piqûre paralysante", PHYSICAL_ATTACK, TARGET_OPPONENT, 1, 0,

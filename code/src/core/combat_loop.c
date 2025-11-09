@@ -67,10 +67,10 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
                                                 dmg, defender->current_health_points,
                                                 defender->max_health_points);
 
-            // If defender is a player, apply oxygen stress (1-2 oxygen loss)
+            // If defender is a player, apply oxygen stress (1 oxygen loss)
             if (defender->type == ENTITY_PLAYER) {
                 Player *player_defender = (Player*)((char*)defender - offsetof(Player, base));
-                int oxygen_stress = 1 + (rand() % 2); // 1-2 oxygen
+                int oxygen_stress = 1; // 1 oxygen (reduced from 1-2)
                 consume_oxygen(player_defender, oxygen_stress);
                 printf("Stress from attack: -%d oxygen (current: %d/%d)\n",
                        oxygen_stress,
@@ -217,9 +217,9 @@ static int player_turn(Player *player, int alive_count) {
         // Consume oxygen based on action type BEFORE executing attack
         int oxygen_cost;
         if (chosen_action->type == PHYSICAL_ATTACK) {
-            oxygen_cost = 2 + (rand() % 3); // 2-4 oxygen
+            oxygen_cost = 1 + (rand() % 2); // 1-2 oxygen (reduced from 2-4)
         } else {
-            oxygen_cost = 5 + (rand() % 4); // 5-8 oxygen
+            oxygen_cost = 3 + (rand() % 3); // 3-5 oxygen (reduced from 5-8)
         }
 
         consume_oxygen(player, oxygen_cost);
@@ -461,7 +461,7 @@ int battle_loop(Player *player, Difficulty difficulty, int seed) {
 
         // ====== PHASE 2: PASSIVE OXYGEN CONSUMPTION ======
         // Passive oxygen consumption per round (exploration cost)
-        int passive_oxygen = 2; // Base passive consumption
+        int passive_oxygen = 1; // Base passive consumption (reduced from 2)
         consume_oxygen(player, passive_oxygen);
         current_interface->show_passive_oxygen(passive_oxygen,
                                               player->base.oxygen_level,
