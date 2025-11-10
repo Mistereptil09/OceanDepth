@@ -46,11 +46,9 @@ static int reward_inventory_replace_callback(Inventory* inv, Item* new_item) {
         current_interface->show_inventory(inv);
     }
 
-    // Announce inventory full and new item name using simple strings
-    if (current_interface && current_interface->show_information) {
-        current_interface->show_information("\nVotre inventaire est plein. Remplacer un objet par:");
-        current_interface->show_information((new_item && new_item->name[0]) ? new_item->name : "(inconnu)");
-        current_interface->show_information("Choisissez un emplacement a remplacer, ou le dernier numero pour annuler.");
+    // Show inventory replacement prompt
+    if (current_interface && current_interface->show_inventory_replacement_prompt) {
+        current_interface->show_inventory_replacement_prompt((new_item && new_item->name[0]) ? new_item->name : "(inconnu)");
     }
 
     int choice = 0;
@@ -112,9 +110,8 @@ static int grant_reward_to_player(Player* player, Item* reward) {
 
     int res = add_item_to_inventory_with_callback(&player->inventory, reward, reward_inventory_replace_callback);
     if (res == SUCCESS) {
-        if (current_interface && current_interface->show_information) {
-            current_interface->show_information("\nRecompense obtenue:");
-            current_interface->show_information(reward->name);
+        if (current_interface && current_interface->show_reward_obtained) {
+            current_interface->show_reward_obtained(reward->name);
         }
     } else if (res == INVENTORY_FULL) {
         // If still full and user cancelled replacement
@@ -141,7 +138,11 @@ void award_post_battle_rewards(Player* player, Difficulty difficulty) {
     // Award pearls first
     int pearl_reward = get_pearl_reward(difficulty);
     increase_pearls(player, pearl_reward);
-    printf("\n💎 Vous avez gagne %d perles! (Total: %d)\n", pearl_reward, player->pearls);
+
+    // Show pearl reward via interface
+    if (current_interface && current_interface->show_pearl_reward) {
+        current_interface->show_pearl_reward(pearl_reward, player->pearls);
+    }
 
     int draw_count = get_reward_draw_count(difficulty);
     if (draw_count <= 0) return;

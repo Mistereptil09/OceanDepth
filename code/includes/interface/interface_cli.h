@@ -36,6 +36,11 @@ void cli_wait_for_enter(const char* prompt);
 int cli_get_choice(const char* prompt, int min, int max);
 void cli_get_input(const char* prompt, char* result, size_t result_size);
 
+// ========== REWARD INTERFACE ==========
+void cli_show_pearl_reward(int amount, int total);
+void cli_show_reward_obtained(const char* item_name);
+void cli_show_inventory_replacement_prompt(const char* new_item_name);
+
 // ========== SHOP INTERFACE ==========
 void cli_display_shop(const char* shop_name, int player_gold, int refresh_cost,
                       const char** items, const int* prices, const int* stocks,

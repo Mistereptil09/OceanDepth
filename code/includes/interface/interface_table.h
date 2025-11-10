@@ -237,6 +237,27 @@ typedef struct {
      */
      void (*show_inventory_full)(void);
 
+    // ========== REWARD SYSTEM INTERFACE ==========
+
+    /**
+     * @brief Show pearl reward message
+     * @param amount Amount of pearls gained
+     * @param total Total pearls after reward
+     */
+    void (*show_pearl_reward)(int amount, int total);
+
+    /**
+     * @brief Show reward obtained message
+     * @param item_name Name of item obtained
+     */
+    void (*show_reward_obtained)(const char* item_name);
+
+    /**
+     * @brief Show inventory replacement prompt
+     * @param new_item_name Name of new item
+     */
+    void (*show_inventory_replacement_prompt)(const char* new_item_name);
+
     // ========== SHOP INTERFACE FUNCTIONS ==========
 
     /**

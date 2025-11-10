@@ -449,6 +449,31 @@ void cli_show_shop_restocked(void) {
     printf("\n>> Boutique reapprovisionnee! <<\n");
 }
 
+// ========== REWARD INTERFACE IMPLEMENTATIONS ==========
+
+void cli_show_pearl_reward(int amount, int total) {
+    printf("\n========================================\n");
+    printf("Vous avez gagne %d perles!\n", amount);
+    printf("Total: %d perles\n", total);
+    printf("========================================\n");
+}
+
+void cli_show_reward_obtained(const char* item_name) {
+    printf("\n========================================\n");
+    printf("Recompense obtenue:\n");
+    printf("%s\n", item_name ? item_name : "(inconnu)");
+    printf("========================================\n");
+}
+
+void cli_show_inventory_replacement_prompt(const char* new_item_name) {
+    printf("\n========================================\n");
+    printf("Votre inventaire est plein.\n");
+    printf("Remplacer un objet par: %s\n", new_item_name ? new_item_name : "(inconnu)");
+    printf("Choisissez un emplacement a remplacer,\n");
+    printf("ou le dernier numero pour annuler.\n");
+    printf("========================================\n");
+}
+
 // ========== END OF IMPLEMENTATIONS ==========
 
 // Define the CLI vtable instance
@@ -492,6 +517,9 @@ InterfaceVTable cli_interface = {
     .show_creature_died_from_effects = cli_show_creature_died_from_effects,
     .ask_item_choice_reward = cli_ask_item_choice_reward,
     .show_inventory_full = cli_show_inventory_full,
+    .show_pearl_reward = cli_show_pearl_reward,
+    .show_reward_obtained = cli_show_reward_obtained,
+    .show_inventory_replacement_prompt = cli_show_inventory_replacement_prompt,
     .display_shop = cli_display_shop,
     .show_purchase_success = cli_show_purchase_success,
     .show_purchase_failed = cli_show_purchase_failed,
