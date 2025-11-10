@@ -7,7 +7,7 @@ option(ENABLE_TESTS "Build and run tests" ON)
 set(CMAKE_C_STANDARD 99)
 
 # Debug flags for development
-set(CMAKE_C_FLAGS_DEBUG "-g -Wall -Wextra -Wshadow -Wstrict-prototypes -fsanitize=address")
+set(CMAKE_C_FLAGS_DEBUG "-g -Wall -Wextra -Wshadow -Wstrict-prototypes")
 
 # Release flags for submission
 set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG")
