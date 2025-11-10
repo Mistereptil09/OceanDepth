@@ -47,6 +47,12 @@ Cell* get_cell(Map* map, int row, int col);
 // Movement validation
 int is_valid_move(Map* map, Player* player, Position to_position);
 
+// Helper functions for display
+const char* get_depth_name(int row);
+char get_cell_symbol(Cell* cell);
+int is_cell_unlocked(Player* player, int row, int col);
+int is_player_at(Player* player, int row, int col);
+Position parse_direction_input(const char* input, Position current);
 
 // Grid's depths
 int generate_surface(Cell* cells, int size);
