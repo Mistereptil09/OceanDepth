@@ -50,9 +50,9 @@ static int handle_combat_cell(Player* player, Map* map, Difficulty diff, int* ba
 
         int unlock_result = unlock_new_position(player);
         if (unlock_result == NEW_CELL) {
-            printf("Nouvelle cellule débloquée!\n");
+            printf("Nouvelle cellule debloquee!\n");
         } else if (unlock_result == NEW_ROW) {
-            printf("Nouvelle profondeur débloquée!\n");
+            printf("Nouvelle profondeur debloquee!\n");
         } else if (unlock_result == WIN) {
             printf("\n🏆VICTOIRE! Vous avez atteint l'Abysse !\n");
             return WIN;

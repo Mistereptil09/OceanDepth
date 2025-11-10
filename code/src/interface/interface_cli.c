@@ -15,82 +15,48 @@
 #include "helper/input_validator.h"
 
 void cli_display_map(Map* map, Player* player) {
-    const char* depth_names[] = {
-        "🌊 SURFACE",
-        "🐠 PROFONDEUR 1",
-        "🦈 PROFONDEUR 2",
-        "🐙 PROFONDEUR 3"
-    };
-
-    printf("\n╔════════════════════════════════════════════════════════╗\n");
-    printf("║           🗺️  CARTE DES PROFONDEURS 🗺️                ║\n");
-    printf("╠════════════════════════════════════════════════════════╣\n");
+    printf("\n========================================\n");
+    printf("|     CARTE DES PROFONDEURS            |\n");
+    printf("========================================\n\n");
 
     for (int row = 0; row < map->rows; row++) {
-        printf("║ %-15s │ ", depth_names[row]);
+        printf("%-15s | ", get_depth_name(row));
 
         for (int col = 0; col < map->cols; col++) {
-            Cell* cell = get_cell(map, row, col);
-            int is_player = (player->current_position.row == row &&
-                            player->current_position.col == col);
-            int is_unlocked = (row < player->max_position.row) ||
-                             (row == player->max_position.row && col <= player->max_position.col);
-
-            if (is_player) {
-                printf("[🧍]");  // Player position
-            } else if (!is_unlocked) {
-                printf("[?]");  // Locked
+            if (is_player_at(player, row, col)) {
+                printf("[@]");
+            } else if (!is_cell_unlocked(player, row, col)) {
+                printf("[?]");
             } else {
-                switch(cell->type) {
-                    case SHOP:      printf("[💰]"); break;
-                    case HEAL:      printf("[❤️ ]"); break;
-                    case SAVE:      printf("[💾]"); break;
-                    case EMPTY:     printf("[--]"); break;
-                    case REEF:      printf("[🐡]"); break;
-                    case CAVE:      printf("[🏖️ ]"); break;
-                    case SHIPWRECK: printf("[⚓]"); break;
-                    case PIT:       printf("[⚡]"); break;
-                    case ABYSS:     printf("[👹]"); break;
-                    default:        printf("[??]"); break;
-                }
+                Cell* cell = get_cell(map, row, col);
+                printf("[%c]", get_cell_symbol(cell));
             }
             printf(" ");
         }
-        printf("║\n");
+        printf("\n");
     }
 
-    printf("╠════════════════════════════════════════════════════════╣\n");
-    printf("║ LÉGENDE:                                               ║\n");
-    printf("║ [@]=Vous  [💰]=Shop  [❤️ ]=Heal  [💾]=Save  [🏖️ ]=Repos  ║\n");
-    printf("║ [🐡]=Facile [⚓]=Moyen [⚡]=Difficile [👹]=Boss [?]=❓  ║\n");
-    printf("╚════════════════════════════════════════════════════════╝\n");
+    printf("\n========================================\n");
+    printf("LEGENDE:\n");
+    printf("[@]=Vous  [$]=Shop  [+]=Heal  [S]=Save\n");
+    printf("[R]=Facile [W]=Moyen [P]=Difficile\n");
+    printf("[A]=Boss  [?]=Verrouille\n");
+    printf("========================================\n");
 }
 
 Position cli_get_movement_choice(Player* player) {
-    printf("\nPosition actuelle: (%d, %d)\n",
+    printf("\n========================================\n");
+    printf("Position actuelle: (%d, %d)\n",
            player->current_position.row, player->current_position.col);
     printf("Ou voulez-vous aller?\n");
-    printf("  [U] Haut | [D] Bas | [L] Gauche | [R] Droite | [Q] Quitter\n");
+    printf("[U] Haut | [D] Bas | [L] Gauche | [R] Droite\n");
+    printf("[Q] Quitter\n");
+    printf("========================================\n");
 
     char choice[10];
     cli_get_input("Direction", choice, sizeof(choice));
 
-    Position new_pos = player->current_position;
-
-    if (strcmp(choice, "u") == 0 || strcmp(choice, "U") == 0) {
-        new_pos.row--;
-    } else if (strcmp(choice, "d") == 0 || strcmp(choice, "D") == 0) {
-        new_pos.row++;
-    } else if (strcmp(choice, "l") == 0 || strcmp(choice, "L") == 0) {
-        new_pos.col--;
-    } else if (strcmp(choice, "r") == 0 || strcmp(choice, "R") == 0) {
-        new_pos.col++;
-    } else if (strcmp(choice, "q") == 0 || strcmp(choice, "Q") == 0) {
-        new_pos.row = -1;
-        new_pos.col = -1;
-    }
-
-    return new_pos;
+    return parse_direction_input(choice, player->current_position);
 }
 
 void cli_display_combat_state(void)

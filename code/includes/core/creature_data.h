@@ -37,7 +37,7 @@ int etreinte_tentaculaire_tick(EntityBase* self, EntityBase* ennemy);
 /** Requin : "Frénésie sanguinaire" → +30% dégats si PV < 50% */
 int frenesie_sanguinaire_tick(EntityBase* self, EntityBase* ennemy);
 
-/**"Piqûre paralysante" → Réduit les attaques du joueur de 1 au prochain tour**/
+/**"Piqure paralysante" → Réduit les attaques du joueur de 1 au prochain tour**/
 int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy);
 
 
