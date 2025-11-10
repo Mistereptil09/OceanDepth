@@ -75,14 +75,14 @@ void init_creature_templates(void) {
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
         JELLYFISH, CREATURE_EASY, "Meduse", 20, 60, 10, 15, 8, 0,
         {
-            {"Piqûre tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
+            {"Piqure tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
                 create_effect("ATK BOOST +4", "+4 points d'attaque pour la meduse !",
             1,
             4, 0, 0, 0, 0,
             0, 0, 0, 0, 0,
             NULL,0)
     },
-            {"Piqûre paralysante", PHYSICAL_ATTACK, TARGET_OPPONENT, 1, 0,
+            {"Piqure paralysante", PHYSICAL_ATTACK, TARGET_OPPONENT, 1, 0,
                 create_effect("ATK MALUS -1", "L'attaque du joueur reduite de 1 au prochain tour!",
                      2, -1, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, NULL,0)},
@@ -291,7 +291,7 @@ int create_piqure_paralysante_tick(EntityBase* self, EntityBase* ennemy) { // th
     if (ennemy == NULL) {
         return POINTER_NULL;
     }
-    Effect malusAttack = create_effect("Piqûre paralysante en action","La piqûre paralysante vous affaibli !", 1, -1, 0,0,0,0,0,0,0,0,0,NULL,0);
+    Effect malusAttack = create_effect("Piqure paralysante en action","La piqure paralysante vous affaibli !", 1, -1, 0,0,0,0,0,0,0,0,0,NULL,0);
     printf("%s", "Decharge electrique !");
     Effect *effect = apply_effect_to_target(ennemy, malusAttack);
     if (effect == NULL) {
