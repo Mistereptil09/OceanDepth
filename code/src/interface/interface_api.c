@@ -134,3 +134,21 @@ const char* get_creature_action_name(Creature* creature, int action_index) {
     return creature->base.actions[action_index].name;
 }
 
+int get_creature_effect_count(Creature* creature) {
+    return creature ? creature->base.effects_number : 0;
+}
+
+const char* get_creature_effect_name(Creature* creature, int effect_index) {
+    if (!creature || effect_index < 0 || effect_index >= creature->base.effects_number) {
+        return NULL;
+    }
+    return creature->base.effects[effect_index].name;
+}
+
+int get_creature_effect_turns(Creature* creature, int effect_index) {
+    if (!creature || effect_index < 0 || effect_index >= creature->base.effects_number) {
+        return -1;
+    }
+    return creature->base.effects[effect_index].turns_left;
+}
+

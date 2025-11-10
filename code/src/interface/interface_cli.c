@@ -79,19 +79,43 @@ void cli_display_combat_state(void)
     printf("==================\n\n");
 
     // Display alive enemies
-    printf("Ennemis restants:\n");
+    printf("========================================\n");
+    printf("|     ENNEMIS RESTANTS                 |\n");
+    printf("========================================\n");
     int alive_count = get_alive_creature_count();
-    for (int i = 1; i <= alive_count; i++) {
-        Creature* creature = get_alive_creature_at(i);
-        if (creature) {
-            printf("  %d. %s - PV: %d/%d\n",
-                   i,
-                   get_creature_name(creature),
-                   get_creature_hp(creature),
-                   get_creature_max_hp(creature));
+    
+    if (alive_count == 0) {
+        printf("Aucun ennemi restant!\n");
+    } else {
+        for (int i = 1; i <= alive_count; i++) {
+            Creature* creature = get_alive_creature_at(i);
+            if (creature) {
+                printf("\n[%d] %s\n", i, get_creature_name(creature));
+                printf("    PV: %d/%d\n", 
+                       get_creature_hp(creature), 
+                       get_creature_max_hp(creature));
+                printf("    Attaque: %d | Defense: %d | Vitesse: %d\n",
+                       get_creature_attack(creature),
+                       get_creature_defense(creature),
+                       get_creature_speed(creature));
+                
+                // Display active effects on the creature
+                int effect_count = get_creature_effect_count(creature);
+                if (effect_count > 0) {
+                    printf("    Effets actifs: ");
+                    for (int j = 0; j < effect_count; j++) {
+                        const char* effect_name = get_creature_effect_name(creature, j);
+                        int turns_left = get_creature_effect_turns(creature, j);
+                        if (effect_name) {
+                            printf("%s(%d) ", effect_name, turns_left);
+                        }
+                    }
+                    printf("\n");
+                }
+            }
         }
     }
-    printf("\n");
+    printf("========================================\n\n");
 }
 
 void cli_display_combat_intro(Creature** creatures, int count)

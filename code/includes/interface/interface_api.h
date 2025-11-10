@@ -145,5 +145,28 @@ int is_creature_alive(Creature* creature);
  */
 const char* get_creature_action_name(Creature* creature, int action_index);
 
+/**
+ * @brief Get number of active effects on creature
+ * @param creature Creature pointer
+ * @return Number of active effects
+ */
+int get_creature_effect_count(Creature* creature);
+
+/**
+ * @brief Get effect name by index
+ * @param creature Creature pointer
+ * @param effect_index Effect index
+ * @return Effect name or NULL if invalid index
+ */
+const char* get_creature_effect_name(Creature* creature, int effect_index);
+
+/**
+ * @brief Get effect turns remaining by index
+ * @param creature Creature pointer
+ * @param effect_index Effect index
+ * @return Turns remaining or -1 if invalid index
+ */
+int get_creature_effect_turns(Creature* creature, int effect_index);
+
 #endif //OCEANDEPTHS_INTERFACE_API_H
 

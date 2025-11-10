@@ -18,7 +18,48 @@ void test_display_map(Map* map, Player* player) {
 }
 
 void test_display_combat_state(void) {
-    // Silent for tests - could print if needed for debugging
+    // Display combat state for debugging/visibility during tests
+    const CombatState* state = get_combat_state();
+    if (!state || !state->player) return;
+
+    printf("\n--- Player Status ---\n");
+    printf("HP: %d/%d | Oxygen: %d/%d | Fatigue: %d\n",
+           get_player_hp(state->player), get_player_max_hp(state->player),
+           get_player_oxygen(state->player), get_player_max_oxygen(state->player),
+           get_player_fatigue(state->player));
+
+    printf("\n--- Enemies ---\n");
+    int alive_count = get_alive_creature_count();
+    if (alive_count == 0) {
+        printf("No enemies remaining!\n");
+    } else {
+        for (int i = 1; i <= alive_count; i++) {
+            Creature* creature = get_alive_creature_at(i);
+            if (creature) {
+                printf("[%d] %s: HP %d/%d | ATK %d | DEF %d | SPD %d",
+                       i, get_creature_name(creature),
+                       get_creature_hp(creature), get_creature_max_hp(creature),
+                       get_creature_attack(creature),
+                       get_creature_defense(creature),
+                       get_creature_speed(creature));
+                
+                // Show active effects
+                int effect_count = get_creature_effect_count(creature);
+                if (effect_count > 0) {
+                    printf(" | Effects: ");
+                    for (int j = 0; j < effect_count; j++) {
+                        const char* effect_name = get_creature_effect_name(creature, j);
+                        int turns_left = get_creature_effect_turns(creature, j);
+                        if (effect_name) {
+                            printf("%s(%d) ", effect_name, turns_left);
+                        }
+                    }
+                }
+                printf("\n");
+            }
+        }
+    }
+    printf("\n");
 }
 
 void test_display_combat_intro(Creature** creatures, int count) {
