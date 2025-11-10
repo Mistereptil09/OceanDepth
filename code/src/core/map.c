@@ -2,7 +2,6 @@
 // Created by Yasmine Slamani on 04/11/2025.
 //
 #include <stdlib.h>
-#include <stdio.h>
 #include "core/map.h"
 #include "core/player.h"
 #include "core/error_codes.h"
@@ -122,5 +121,68 @@ int is_valid_move(Map* map, Player* player, Position to_position) {
                        abs(player->current_position.col - to_position.col) == 1);
 
     return is_adjacent;
+}
+
+// Helper functions for display
+const char* get_depth_name(int row) {
+    static const char* depth_names[] = {
+        "SURFACE",
+        "PROFONDEUR 1",
+        "PROFONDEUR 2",
+        "PROFONDEUR 3"
+    };
+
+    if (row < 0 || row > 3) return "UNKNOWN";
+    return depth_names[row];
+}
+
+char get_cell_symbol(Cell* cell) {
+    if (!cell) return '?';
+
+    switch(cell->type) {
+        case SHOP:      return '$';
+        case HEAL:      return '+';
+        case SAVE:      return 'S';
+        case EMPTY:     return '~';
+        case REEF:      return 'R';
+        case CAVE:      return 'C';
+        case SHIPWRECK: return 'W';
+        case PIT:       return 'P';
+        case ABYSS:     return 'A';
+        default:        return '?';
+    }
+}
+
+int is_cell_unlocked(Player* player, int row, int col) {
+    if (!player) return 0;
+    return (row < player->max_position.row) ||
+           (row == player->max_position.row && col <= player->max_position.col);
+}
+
+int is_player_at(Player* player, int row, int col) {
+    if (!player) return 0;
+    return (player->current_position.row == row &&
+            player->current_position.col == col);
+}
+
+Position parse_direction_input(const char* input, Position current) {
+    Position new_pos = current;
+
+    if (!input) return new_pos;
+
+    if (input[0] == 'u' || input[0] == 'U') {
+        new_pos.row--;
+    } else if (input[0] == 'd' || input[0] == 'D') {
+        new_pos.row++;
+    } else if (input[0] == 'l' || input[0] == 'L') {
+        new_pos.col--;
+    } else if (input[0] == 'r' || input[0] == 'R') {
+        new_pos.col++;
+    } else if (input[0] == 'q' || input[0] == 'Q') {
+        new_pos.row = -1;
+        new_pos.col = -1;
+    }
+
+    return new_pos;
 }
 
