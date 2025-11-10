@@ -16,11 +16,11 @@ oceandepths/
 │   ├── src/               # All .c files
 │   │   ├── core/          # Game logic (SDL-independent)
 │   │   │   ├── creatures.c
-│   │   │   ├── joueur.c
+│   │   │   ├── player.c
 │   │   │   ├── combat.c
-│   │   │   ├── inventaire.c
-│   │   │   ├── carte.c
-│   │   │   └── sauvegarde.c
+│   │   │   ├── inventory.c
+│   │   │   ├── map.c
+│   │   │   └── save.c
 │   │   ├── interface/     # Display abstraction
 │   │   │   ├── display.c
 │   │   │   ├── terminal_ui.c
@@ -29,11 +29,11 @@ oceandepths/
 │   ├── include/           # All .h files
 │   │   ├── core/
 │   │   │   ├── creatures.h
-│   │   │   ├── joueur.h
+│   │   │   ├── player.h
 │   │   │   ├── combat.h
-│   │   │   ├── inventaire.h
-│   │   │   ├── carte.h
-│   │   │   └── sauvegarde.h
+│   │   │   ├── inventory.h
+│   │   │   ├── map.h
+│   │   │   └── save.h
 │   │   ├── interface/      
 │   │   │   ├── display.h
 │   │   │   ├── terminal_ui.h
