@@ -20,7 +20,7 @@ Item create_epee() {
         .cooldown_remaining = 0,
         .effect = create_effect(
             "Boost de l'epee",
-            "+10 points d'attaque pour toi",
+            "+10 points d'attaque pour cette attaque ",
             1,
             10, 0, 0, 0, 0,  // flat: +10 attack
             0, 0, 0, 0, 0,   // percent: none
