@@ -1,5 +1,5 @@
 //
-// Ta fonction adaptée pour le système hybride
+//
 //
 
 #include "../../includes/core/action.h"

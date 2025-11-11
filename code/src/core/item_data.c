@@ -183,15 +183,15 @@ Item create_emergency_medkit(int quantity) {
 }
 
 Item create_full_restore(int quantity) {
-    return create_item("Restauration Complete", ITEM_CONSUMABLE, NULL, 0, quantity, 100, 5, 75, 50);
+    return create_item("Restauration Complete", ITEM_CONSUMABLE, NULL, 0, quantity, 125, 5, 125, 50);
 }
 
 Item create_energy_drink(int quantity) {
-    return create_item("Boisson Energie", ITEM_CONSUMABLE, NULL, 0, quantity, 20, 3, 10, 15);
+    return create_item("Boisson Energie", ITEM_CONSUMABLE, NULL, 0, quantity, 20, 2, 20, 15);
 }
 
 Item create_antidote(int quantity) {
-    return create_item("Antidote", ITEM_CONSUMABLE, NULL, 0, quantity, 0, 0, 20, 12);
+    return create_item("Antidote", ITEM_CONSUMABLE, NULL, 0, quantity, 10, 0, 20, 12);
 }
 
 Item create_nanobots(int quantity) {

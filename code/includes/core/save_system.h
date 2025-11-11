@@ -34,6 +34,10 @@ typedef struct {
     int fatigue_level;
     int pearls;
 
+    // Session-wide limits
+    int heal_uses_left;     // Number of heal center uses remaining
+    int has_used_cave;      // 0 = not used, 1 = used cave
+
     // Player stats
     int base_attack;
     int base_defense;

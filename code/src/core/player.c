@@ -28,6 +28,10 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen, 
     p->current_position = current;
     p->max_position = max;
 
+    // Initialize usage limits
+    p->heal_uses_left = 2;  // Can use heal center 2 times per game
+    p->has_used_cave = 0;   // Haven't used cave yet
+
     Inventory* inv = create_inventory();
     if (inv == NULL) {
         free(p);

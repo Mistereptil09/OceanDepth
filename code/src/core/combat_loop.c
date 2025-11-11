@@ -35,10 +35,8 @@ int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
 int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
     if (!attacker || !defender || !action) return 0;
 
-    // Show action
     current_interface->show_action(attacker->name, action->name);
 
-    // Show custom message if available
     if (action->effect.display_message) {
         current_interface->show_action_effect(action->effect.display_message);
     }
@@ -46,7 +44,7 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
     Effect *applied_effect = NULL;
 
     if (action->type == PHYSICAL_ATTACK) {
-        // Physical attack: apply effect based on target_type, then compute damage
+        // physical attack: apply effect based on target_type, then compute damage
         if (action->target_type == TARGET_SELF) {
             applied_effect = apply_action_to_target(attacker, action);
         } else if (action->target_type == TARGET_OPPONENT) {
@@ -59,7 +57,7 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
             effect_tick(attacker, defender, applied_effect);
         }
 
-        // Calculate and apply damage (only for physical attacks)
+        // calculate and apply damage
         int dmg = compute_physical_damage(attacker, defender);
         if (dmg > 0) {
             entity_take_damage(defender, dmg);
@@ -67,10 +65,10 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
                                                 dmg, defender->current_health_points,
                                                 defender->max_health_points);
 
-            // If defender is a player, apply oxygen stress (1 oxygen loss)
+            // if defender is a player, apply oxygen stress
             if (defender->type == ENTITY_PLAYER) {
                 Player *player_defender = (Player*)((char*)defender - offsetof(Player, base));
-                int oxygen_stress = 1; // 1 oxygen (reduced from 1-2)
+                int oxygen_stress = 1;
                 consume_oxygen(player_defender, oxygen_stress);
                 current_interface->show_oxygen_stress(oxygen_stress,
                                                      player_defender->base.oxygen_level,
@@ -95,10 +93,8 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
         // NO damage computation for SPECIAL_SKILL
     }
 
-    // Set cooldown
     action->cooldown_remaining = action->cooldown_turns;
 
-    // Check defeat
     return !defender->is_alive ? 1 : 0;
 }
 
@@ -120,7 +116,7 @@ static int player_turn(Player *player, int alive_count) {
         // VALIDATION: Check if weapon is on cooldown
         if (item_on_cooldown(selected_item) && selected_item->type == ITEM_WEAPON) {
             current_interface->show_item_on_cooldown(selected_item->name);
-            continue; // Re-ask for item choice
+            continue;
         }
 
         // VALIDATION: Check if consumable would have no effect
@@ -143,7 +139,6 @@ static int player_turn(Player *player, int alive_count) {
             }
         }
 
-        // Item is valid, break the loop
         chosen_item = selected_item;
     }
 
@@ -151,7 +146,7 @@ static int player_turn(Player *player, int alive_count) {
         // Display possible actions from the chosen item
         current_interface->show_weapon_actions(chosen_item);
 
-        // Player chooses action from the item (or auto-select if only one action)
+        // player chooses action from the item (or auto-select if only one)
         int action_choice;
         if (chosen_item->action_count == 1) {
             action_choice = 1;
@@ -161,10 +156,9 @@ static int player_turn(Player *player, int alive_count) {
         }
         Action *chosen_action = &chosen_item->actions[action_choice - 1];
 
-        // Check cooldown
         if (chosen_action->cooldown_remaining > 0) {
             current_interface->show_action_on_cooldown(chosen_action->name);
-            return -1; // Retry turn
+            return -1;
         }
 
         Creature *target = NULL;
@@ -187,7 +181,7 @@ static int player_turn(Player *player, int alive_count) {
                 return -1;
             }
         } else {
-            // For SPECIAL_SKILL, use first creature as dummy (won't be used anyway)
+            // For SPECIAL_SKILL, use first creature as dummy
             target = get_alive_creature_at(1);
         }
 
@@ -204,7 +198,6 @@ static int player_turn(Player *player, int alive_count) {
                                                 player->base.oxygen_level,
                                                 player->base.max_oxygen_level);
 
-        // Execute the attack (Attack function handles effect application and damage)
         if (target) {
             int defeated = Attack(&player->base, chosen_action, &target->base);
 
@@ -226,7 +219,7 @@ static int player_turn(Player *player, int alive_count) {
         }
     }
 
-    // Decrement cooldowns for ALL item actions in inventory
+    // Decrement cooldowns for ALL item actions
     for (int i = 0; i < player->inventory.count; i++) {
         Item *item = &player->inventory.items[i];
         for (int j = 0; j < item->action_count; j++) {
@@ -236,12 +229,12 @@ static int player_turn(Player *player, int alive_count) {
         }
     }
 
-    // Check oxygen critical level
+    // Check oxygen critical level (DISPLAY IN RED)
     if (player->base.oxygen_level <= 10 && player->base.oxygen_level > 0) {
         current_interface->show_oxygen_critical(player->base.oxygen_level);
     }
 
-    // Check oxygen death - take damage if at 0
+    // Check oxygen & take damage if 0
     if (player->base.oxygen_level <= 0) {
         entity_take_damage(&player->base, 5);
         current_interface->show_oxygen_death(5, player->base.current_health_points,
@@ -257,14 +250,13 @@ static int player_turn(Player *player, int alive_count) {
     // Tick player's effects at THE END of their turn
     all_effects_tick(&player->base, NULL);
 
-    // Check if the player is still alive after effects
     if (!player->base.is_alive) {
         current_interface->show_death_from_afflictions();
         current_interface->display_defeat();
         return 0;
     }
 
-    return 1; // Turn completed successfully
+    return 1;
 }
 
 /**

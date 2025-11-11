@@ -404,7 +404,7 @@ void cli_display_shop(const char* shop_name, int player_gold, int refresh_cost,
     printf("\n========================================\n");
     printf("| %s |\n", shop_name);
     printf("========================================\n");
-    printf("Votre Or: %d\n", player_gold);
+    printf("Vos perles: %d\n", player_gold);
     printf("Cout de rafraichissement: %d\n", refresh_cost);
     printf("========================================\n\n");
 
@@ -419,13 +419,13 @@ void cli_display_shop(const char* shop_name, int player_gold, int refresh_cost,
             case 4: rarity_str = "[Legendaire]"; break;
         }
 
-        printf(" %d. %-20s %s - %d or (Stock: %d)%s\n",
+        printf(" %d. %-20s %s - %d perles (Stock: %d)%s\n",
                i + 1,
                items[i],
                rarity_str,
                prices[i],
                stocks[i],
-               can_afford[i] ? "" : " [Pas assez d'or]");
+               can_afford[i] ? "" : " [Pas assez de perles]");
     }
 
     printf("\n========================================\n");
@@ -435,7 +435,7 @@ void cli_display_shop(const char* shop_name, int player_gold, int refresh_cost,
 
 void cli_show_purchase_success(const char* item_name, int price, int quantity) {
     printf("\n>> Achat reussi! <<\n");
-    printf("Vous avez achete %s pour %d or", item_name, price);
+    printf("Vous avez achete %s pour %d perles", item_name, price);
     if (quantity > 0) {
         printf(" (x%d)", quantity);
     }
@@ -448,7 +448,7 @@ void cli_show_purchase_failed(const char* reason) {
 
 void cli_show_sell_success(const char* item_name, int gold_received) {
     printf("\n>> Vente reussie! <<\n");
-    printf("Vous avez vendu %s pour %d or\n", item_name, gold_received);
+    printf("Vous avez vendu %s pour %d perles\n", item_name, gold_received);
 }
 
 void cli_show_sell_failed(const char* reason) {
@@ -461,7 +461,7 @@ void cli_show_shop_refreshed(void) {
 
 void cli_show_refresh_failed(int cost, int player_gold) {
     printf("\n>> Rafraichissement echoue! <<\n");
-    printf("Cout: %d or (Vous avez: %d or)\n", cost, player_gold);
+    printf("Cout: %d perles (Vous avez: %d perles)\n", cost, player_gold);
 }
 
 void cli_show_discount_applied(int discount_percent) {

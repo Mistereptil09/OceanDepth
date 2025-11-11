@@ -48,7 +48,7 @@ void free_creature(Creature *c) {
 Creature **generate_creatures(Difficulty d, int *count) {
     if (!count) return NULL;
 
-    int size = (d == FINAL) ? 2 : 3;
+    int size = 3;
     Creature **lineup = malloc(sizeof(Creature *) * size);
     if (!lineup) return NULL;
 
@@ -77,6 +77,8 @@ Creature **generate_creatures(Difficulty d, int *count) {
         case FINAL:
             lineup[0] = create_from_template(CREATURE_BOSS, id++);
             lineup[1] = create_from_template(CREATURE_MEDIUM, id);
+            lineup[2] = create_from_template(CREATURE_MEDIUM, id);
+
             break;
     }
 
