@@ -307,6 +307,59 @@ typedef struct {
      */
     void (*show_shop_restocked)(void);
 
+    // ========== COMBAT LOOP SPECIFIC FUNCTIONS ==========
+
+    /**
+     * @brief Show damage calculation debug info
+     * @param atk Attack value
+     * @param def Defense value
+     * @param raw Raw damage value
+     */
+    void (*show_damage_calculation)(int atk, int def, int raw);
+
+    /**
+     * @brief Show oxygen stress from attack
+     * @param oxygen_stress Amount of oxygen lost
+     * @param current Current oxygen level
+     * @param max Max oxygen level
+     */
+    void (*show_oxygen_stress)(int oxygen_stress, int current, int max);
+
+    /**
+     * @brief Show inventory items for selection
+     * @param items Array of items
+     * @param item_count Number of items
+     */
+    void (*show_inventory_selection)(Item* items, int item_count);
+
+    /**
+     * @brief Show consumable has no effect warning
+     * @param item_name Name of the consumable item
+     */
+    void (*show_consumable_no_effect)(const char* item_name);
+
+    /**
+     * @brief Show weapon actions for selection
+     * @param weapon Pointer to the weapon item
+     */
+    void (*show_weapon_actions)(Item* weapon);
+
+    /**
+     * @brief Show auto-selection message
+     * @param choice_name Name of auto-selected choice
+     */
+    void (*show_auto_selection)(const char* choice_name);
+
+    /**
+     * @brief Show invalid target error
+     */
+    void (*show_invalid_target)(void);
+
+    /**
+     * @brief Show creature generation error
+     */
+    void (*show_creature_generation_error)(void);
+
 } InterfaceVTable;
 
 // Global interface pointer (declared here, defined in interface_table.c)
