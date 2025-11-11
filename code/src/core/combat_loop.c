@@ -28,7 +28,7 @@ int compute_physical_damage(EntityBase *attacker, EntityBase *defender) {
     int raw = atk - def;
     if (raw < 0) raw = 0;
 
-    printf("CALCUL_DEGATS_PHYSIQUES : ATK %d - DEF %d = BRUT %d\n", atk, def, raw);
+    current_interface->show_damage_calculation(atk, def, raw);
     return raw;
 }
 
@@ -72,10 +72,9 @@ int Attack(EntityBase *attacker, Action *action, EntityBase *defender) {
                 Player *player_defender = (Player*)((char*)defender - offsetof(Player, base));
                 int oxygen_stress = 1; // 1 oxygen (reduced from 1-2)
                 consume_oxygen(player_defender, oxygen_stress);
-                printf("Stress from attack: -%d oxygen (current: %d/%d)\n",
-                       oxygen_stress,
-                       player_defender->base.oxygen_level,
-                       player_defender->base.max_oxygen_level);
+                current_interface->show_oxygen_stress(oxygen_stress,
+                                                     player_defender->base.oxygen_level,
+                                                     player_defender->base.max_oxygen_level);
             }
         } else {
             current_interface->show_attack_blocked(defender->name);
@@ -114,16 +113,7 @@ static int player_turn(Player *player, int alive_count) {
     Item *chosen_item = NULL;
     while (chosen_item == NULL) {
         // DISPLAY INVENTORY ITEMS
-        printf("\n=== Your Inventory ===\n");
-        for (int i = 0; i < player->inventory.count; i++) {
-            Item *item = &player->inventory.items[i];
-            printf("%d. %s", i + 1, item->name);
-            int is_on_cooldown = item_on_cooldown(item);
-            if (is_on_cooldown && item->type == ITEM_WEAPON) {
-                printf("[Cooldown]");
-            }
-            printf("\n");
-        }
+        current_interface->show_inventory_selection(player->inventory.items, player->inventory.count);
         int item_choice = current_interface->get_choice("Choose your item", 1, player->inventory.count);
         Item *selected_item = &player->inventory.items[item_choice - 1];
 
@@ -148,7 +138,7 @@ static int player_turn(Player *player, int alive_count) {
             }
 
             if (!would_have_effect) {
-                printf("\n%s would have no effect right now! All stats are already maxed.\n", selected_item->name);
+                current_interface->show_consumable_no_effect(selected_item->name);
                 continue; // Re-ask for item choice
             }
         }
@@ -159,26 +149,13 @@ static int player_turn(Player *player, int alive_count) {
 
     if (chosen_item->type == ITEM_WEAPON) {
         // Display possible actions from the chosen item
-        printf("\n=== %s Actions ===\n", chosen_item->name);
-        for (int i = 0; i < chosen_item->action_count; i++) {
-            Action *action = &chosen_item->actions[i];
-            printf("%d. %s", i + 1, action->name);
-            if (action->cooldown_remaining > 0) {
-                printf(" [Cooldown: %d turns]", action->cooldown_remaining);
-            }
-            if (action->target_type == TARGET_OPPONENT) {
-                printf(" (Applies damage to the enemy's stats)");
-            } else if (action->target_type == TARGET_SELF) {
-                printf(" (Boost your own stats!)");
-            }
-            printf("\n");
-        }
+        current_interface->show_weapon_actions(chosen_item);
 
         // Player chooses action from the item (or auto-select if only one action)
         int action_choice;
         if (chosen_item->action_count == 1) {
             action_choice = 1;
-            printf("(Choix-automatique: %s)\n", chosen_item->actions[0].name);
+            current_interface->show_auto_selection(chosen_item->actions[0].name);
         } else {
             action_choice = current_interface->get_choice("Choose your action", 1, chosen_item->action_count);
         }
@@ -198,7 +175,7 @@ static int player_turn(Player *player, int alive_count) {
             if (alive_count == 1) {
                 target_choice = 1;
                 target = get_alive_creature_at(target_choice);
-                printf("(Choix-automatique: %s)\n", target->base.name);
+                current_interface->show_auto_selection(target->base.name);
             } else {
                 target_choice = current_interface->get_choice("Choisissez votre cible", 1, alive_count);
                 target = get_alive_creature_at(target_choice);
@@ -206,7 +183,7 @@ static int player_turn(Player *player, int alive_count) {
 
 
             if (!target) {
-                printf("Cible invalide!\n");
+                current_interface->show_invalid_target();
                 return -1;
             }
         } else {
@@ -354,7 +331,7 @@ int battle_loop(Player *player, Difficulty difficulty, int seed) {
     Creature **creatures = generate_creatures(difficulty, &creature_count);
 
     if (!creatures) {
-        printf("Erreur: Impossible de generer les creatures!\n");
+        current_interface->show_creature_generation_error();
         return 0;
     }
 

@@ -473,6 +473,62 @@ void cli_show_shop_restocked(void) {
     printf("\n>> Boutique reapprovisionnee! <<\n");
 }
 
+// ========== COMBAT LOOP SPECIFIC IMPLEMENTATIONS ==========
+
+void cli_show_damage_calculation(int atk, int def, int raw) {
+    printf("ATK %d - DEF %d = BRUT %d\n", atk, def, raw);
+}
+
+void cli_show_oxygen_stress(int oxygen_stress, int current, int max) {
+    printf("Stress from attack: -%d oxygen (current: %d/%d)\n", oxygen_stress, current, max);
+}
+
+void cli_show_inventory_selection(Item* items, int item_count) {
+    printf("\n=== Your Inventory ===\n");
+    for (int i = 0; i < item_count; i++) {
+        Item *item = &items[i];
+        printf("%d. %s", i + 1, item->name);
+        int is_on_cooldown = item_on_cooldown(item);
+        if (is_on_cooldown && item->type == ITEM_WEAPON) {
+            printf("[Cooldown]");
+        }
+        printf("\n");
+    }
+}
+
+void cli_show_consumable_no_effect(const char* item_name) {
+    printf("\n%s would have no effect right now! All stats are already maxed.\n", item_name);
+}
+
+void cli_show_weapon_actions(Item* weapon) {
+    printf("\n=== %s Actions ===\n", weapon->name);
+    for (int i = 0; i < weapon->action_count; i++) {
+        Action *action = &weapon->actions[i];
+        printf("%d. %s", i + 1, action->name);
+        if (action->cooldown_remaining > 0) {
+            printf(" [Cooldown: %d turns]", action->cooldown_remaining);
+        }
+        if (action->target_type == TARGET_OPPONENT) {
+            printf(" (Applies damage to the enemy's stats)");
+        } else if (action->target_type == TARGET_SELF) {
+            printf(" (Boost your own stats!)");
+        }
+        printf("\n");
+    }
+}
+
+void cli_show_auto_selection(const char* choice_name) {
+    printf("(Choix-automatique: %s)\n", choice_name);
+}
+
+void cli_show_invalid_target(void) {
+    printf("Cible invalide!\n");
+}
+
+void cli_show_creature_generation_error(void) {
+    printf("Erreur: Impossible de generer les creatures!\n");
+}
+
 // ========== REWARD INTERFACE IMPLEMENTATIONS ==========
 
 void cli_show_pearl_reward(int amount, int total) {
@@ -553,4 +609,12 @@ InterfaceVTable cli_interface = {
     .show_refresh_failed = cli_show_refresh_failed,
     .show_discount_applied = cli_show_discount_applied,
     .show_shop_restocked = cli_show_shop_restocked,
+    .show_damage_calculation = cli_show_damage_calculation,
+    .show_oxygen_stress = cli_show_oxygen_stress,
+    .show_inventory_selection = cli_show_inventory_selection,
+    .show_consumable_no_effect = cli_show_consumable_no_effect,
+    .show_weapon_actions = cli_show_weapon_actions,
+    .show_auto_selection = cli_show_auto_selection,
+    .show_invalid_target = cli_show_invalid_target,
+    .show_creature_generation_error = cli_show_creature_generation_error,
 };

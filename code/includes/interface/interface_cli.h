@@ -54,4 +54,14 @@ void cli_show_refresh_failed(int cost, int player_gold);
 void cli_show_discount_applied(int discount_percent);
 void cli_show_shop_restocked(void);
 
+// ========== COMBAT LOOP SPECIFIC INTERFACE ==========
+void cli_show_damage_calculation(int atk, int def, int raw);
+void cli_show_oxygen_stress(int oxygen_stress, int current, int max);
+void cli_show_inventory_selection(Item* items, int item_count);
+void cli_show_consumable_no_effect(const char* item_name);
+void cli_show_weapon_actions(Item* weapon);
+void cli_show_auto_selection(const char* choice_name);
+void cli_show_invalid_target(void);
+void cli_show_creature_generation_error(void);
+
 #endif //OCEANDEPTHS_INTERFACE_CLI_H
