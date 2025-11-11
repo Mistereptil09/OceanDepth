@@ -58,11 +58,15 @@
 
 ### Bonus : Défis spéciaux : Boss
 
-# Insérer image de boss
+![boss_img.png](images/boss_img.png)
 
 ### Bonus : Système de progression (le joueur débloque des parties de la carte, pas de niveaux)
 
-# Insérer image de progression de la map (complétement débloquée)
+![progression_img.png](images/progression_img.png)
+
+Cette version de la carte est une version antérieure à la version finale, mais elle illustre le système de progression.
+
+La seule différence est la partie visuelle, qui à été changée pour être compatible avec tout terminal qui supporte l'ASCII
 
 ## Difficultés rencontrées
 
