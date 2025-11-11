@@ -402,6 +402,10 @@ int game_init(void) {
                     // Game over if player won final boss or lost a battle
                     if (cell_result == WIN || cell_result != SUCCESS) {
                         game_running = 0;
+                        // Delete save file on loss
+                        if (cell_result == LOSS) {
+                            delete_save_file();
+                        }
                     }
                     break;
 
