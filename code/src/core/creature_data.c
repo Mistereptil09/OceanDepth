@@ -21,7 +21,7 @@ void init_creature_templates(void) {
 
    // KRAKEN - Physical attacker with bleeding
     CREATURE_TEMPLATES[0] = (CreatureTemplate){
-        KRAKEN, CREATURE_HARD, "Kraken", 120, 180, 25, 40, 10, 5,
+        KRAKEN, CREATURE_HARD, "Kraken", 120, 180, 25, 40, 12, 5,
         {
             {"etreinte tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 2, 0,
                 create_effect("ATTACK X2", "L'attaque du Kraken a ete doublee !",
@@ -47,7 +47,7 @@ void init_creature_templates(void) {
 
     // KING_CRAB - Tank with defense
     CREATURE_TEMPLATES[1] = (CreatureTemplate){
-        KING_CRAB, CREATURE_MEDIUM, "Crabe Geant", 80, 120, 12, 20, 10, 3,
+        KING_CRAB, CREATURE_MEDIUM, "Crabe Geant", 80, 120, 13, 25, 12, 3,
         {
             {"Pince ecrasante", PHYSICAL_ATTACK, TARGET_OPPONENT, 0, 0,
                 create_effect("MALUS ATK -3", "Le joueur subit -3 d'attaque au prochain tour!",
@@ -73,7 +73,7 @@ void init_creature_templates(void) {
 
     // JELLYFISH - Poison specialist
     CREATURE_TEMPLATES[2] = (CreatureTemplate){
-        JELLYFISH, CREATURE_EASY, "Meduse", 20, 60, 10, 15, 8, 0,
+        JELLYFISH, CREATURE_EASY, "Meduse", 26, 60, 12, 15, 10, 0,
         {
             {"Piqûre tentaculaire", PHYSICAL_ATTACK, TARGET_SELF, 0, 0,
                 create_effect("ATK BOOST +4", "+4 points d'attaque pour la meduse !",
@@ -101,7 +101,7 @@ void init_creature_templates(void) {
 
     // SHARK - Berserker with bleeding and frenzy
     CREATURE_TEMPLATES[3] = (CreatureTemplate){
-        SHARK, CREATURE_MEDIUM, "Requin", 60, 100, 15, 25, 20, 4,
+        SHARK, CREATURE_MEDIUM, "Requin", 60, 100, 18, 28, 20, 4,
         {
             {"Morsure", SPECIAL_SKILL,TARGET_SELF, 2, 0,
                 create_effect("DEF BOOST +2", " +2 de defense pour le Requin sur 2 tours !",
@@ -127,7 +127,7 @@ void init_creature_templates(void) {
 
     // LEVIATHAN - Boss with massive damage
     CREATURE_TEMPLATES[4] = (CreatureTemplate){
-        LEVIATHAN, CREATURE_BOSS, "Leviathan", 210, 230, 30, 45, 15, 3,
+        LEVIATHAN, CREATURE_BOSS, "Leviathan", 210, 230, 30, 45, 17, 3,
         {
             {"Morsure antique", PHYSICAL_ATTACK, TARGET_SELF, 1, 0,
                 create_effect("ATK BOOST +8", "+ 8 d'attaque pour le Leviathan durant ce tour !",
@@ -153,7 +153,7 @@ void init_creature_templates(void) {
 
     // ANGLERFISH - Ambush predator
     CREATURE_TEMPLATES[5] = (CreatureTemplate){
-        ANGLERFISH, CREATURE_HARD, "Anglerfish", 180, 180, 12, 20, 15, 3,
+        ANGLERFISH, CREATURE_HARD, "Anglerfish", 180, 180, 10, 26, 20, 3,
         {
             {"Leurre hypnotique", PHYSICAL_ATTACK, TARGET_SELF, 1, 0,
                 create_effect("ATK BOOST +10%", "+10% d'attaque pour l'Anglerfish durant ce tour !",
@@ -179,7 +179,7 @@ void init_creature_templates(void) {
 
     // SWORDFISH - Fast striker
     CREATURE_TEMPLATES[6] = (CreatureTemplate){
-        SWORDFISH, CREATURE_MEDIUM, "Swordfish", 70, 90, 18, 28, 10, 4,
+        SWORDFISH, CREATURE_MEDIUM, "Swordfish", 70, 99, 18, 28, 10, 4,
         {
             {"Charge perforante", PHYSICAL_ATTACK, TARGET_OPPONENT, 0, 0,
                 create_effect("DEF MALUS -2", "L'epee transperce vos defenses, -2 !",
@@ -205,7 +205,7 @@ void init_creature_templates(void) {
 
     // MEGALODON - Ultimate boss
     CREATURE_TEMPLATES[7] = (CreatureTemplate){
-        MEGALODON, CREATURE_BOSS, "Megalodon", 210, 230, 25, 45, 15, 1,
+        MEGALODON, CREATURE_BOSS, "Megalodon", 210, 230, 20, 30, 12, 1,
         {
             {"Morsure prehistorique", PHYSICAL_ATTACK,TARGET_OPPONENT, 2, 0,
                 create_effect("DEF MALUS -7", "-7 de defense sur 2 tours pour le joueur !",

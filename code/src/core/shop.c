@@ -154,7 +154,7 @@ int shop_buy_item(Shop* shop, int slot_index, int* player_gold, Item* player_inv
 
     // Check if player can afford
     if (*player_gold < slot->current_price) {
-        current_interface->show_purchase_failed("Pas assez d'or!");
+        current_interface->show_purchase_failed("Pas assez de perles!");
         return 0;
     }
 

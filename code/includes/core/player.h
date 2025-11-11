@@ -24,6 +24,12 @@ typedef struct Player {
 
     // The last cell unlocked
     Position max_position;
+
+    // Heal center usage tracking (session-wide limit)
+    int heal_uses_left;
+
+    // Cave usage tracking (one-time only)
+    int has_used_cave;  // 0 = not used, 1 = used
 } Player;
 
 /**

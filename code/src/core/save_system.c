@@ -94,6 +94,10 @@ static Player* save_data_to_player(SaveData* save_data) {
     player->base.fatigue_level = save_data->fatigue_level;
     player->pearls = save_data->pearls;
 
+    // Restore session-wide limits
+    player->heal_uses_left = save_data->heal_uses_left;
+    player->has_used_cave = save_data->has_used_cave;
+
     // Restore stats
     player->base.attack.base_value = save_data->base_attack;
     player->base.defense.base_value = save_data->base_defense;
@@ -172,6 +176,10 @@ int save_player_data(Player* player, SaveData* save_data) {
     save_data->max_oxygen = player->base.max_oxygen_level;
     save_data->fatigue_level = player->base.fatigue_level;
     save_data->pearls = player->pearls;
+
+    // Copy session-wide limits
+    save_data->heal_uses_left = player->heal_uses_left;
+    save_data->has_used_cave = player->has_used_cave;
 
     // Copy player stats
     save_data->base_attack = player->base.attack.base_value;
@@ -471,14 +479,12 @@ int load_game_extended(Player** player, int* difficulty, int* battles_won,
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Check version
     if (save_data.version != SAVE_VERSION) {
         fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
                 SAVE_VERSION, save_data.version);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Create player from saved data (always load player if data exists)
     *player = save_data_to_player(&save_data);
     if (!*player) {
         return MEMORY_ALLOCATION_ERROR;
@@ -531,7 +537,6 @@ int delete_save_file(void) {
 int get_map_seed_from_save(int* map_seed) {
     if (!map_seed) return POINTER_NULL;
 
-    // Open and read file
     FILE* file = fopen(SAVE_FILE_PATH, "rb");
     if (!file) {
         perror("Error opening save file for reading");
@@ -547,7 +552,6 @@ int get_map_seed_from_save(int* map_seed) {
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Check version
     if (save_data.version != SAVE_VERSION) {
         fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
                 SAVE_VERSION, save_data.version);
@@ -564,20 +568,17 @@ int save_game_complete(Player* player, int difficulty, int battles_won, int map_
     SaveData save_data = {0};
     save_data.version = SAVE_VERSION;
 
-    // Save all components
     save_player_data(player, &save_data);
     save_inventory_data(player, &save_data);
     save_effects_data(player, &save_data);
     save_progress_data(difficulty, battles_won, &save_data);
     save_position_data(player, map_seed, &save_data);
 
-    // Ensure save directory exists before writing
     if (ensure_save_directory_exists() != 0) {
         fprintf(stderr, "Error: Could not create save directory\n");
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Write to file
     FILE* file = fopen(SAVE_FILE_PATH, "wb");
     if (!file) {
         perror("Error opening save file for writing");

@@ -19,9 +19,8 @@
 #include "interface/interface_table.h"
 #include "core/error_codes.h"
 
-// Global variable to track last heal center use (0 = never used)
 static time_t last_heal_time = 0;
-#define HEAL_COOLDOWN_SECONDS (7 * 60)  // 7 minutes in seconds
+#define HEAL_COOLDOWN_SECONDS (7 * 60)
 
 static Difficulty get_difficulty_for_cell(CellType type) {
     switch (type) {
@@ -30,8 +29,9 @@ static Difficulty get_difficulty_for_cell(CellType type) {
         case SHIPWRECK:
             return MEDIUM;
         case PIT:
-        case ABYSS:
             return HARD;
+        case ABYSS:
+            return FINAL;
         default:
             return EASY;
     }
@@ -67,6 +67,13 @@ static int handle_combat_cell(Player* player, Map* map, Difficulty diff, int* ba
 static void handle_heal_cell(Player* player) {
     printf("\n=== CENTRE DE SOIN ===\n");
 
+    // Check if player has any heals left
+    if (player->heal_uses_left <= 0) {
+        printf("⚠️  Vous avez epuise tous vos soins pour cette partie!\n");
+        printf("Vous ne pouvez plus utiliser le centre de soin.\n");
+        return;
+    }
+
     time_t current_time = time(NULL);
     if (last_heal_time != 0) {
         double seconds_since_last = difftime(current_time, last_heal_time);
@@ -81,6 +88,7 @@ static void handle_heal_cell(Player* player) {
     }
 
     printf("Vous recuperez 50%% de votre sante et votre oxygene!\n");
+    printf("Soins restants: %d -> %d\n", player->heal_uses_left, player->heal_uses_left - 1);
 
     int hp_heal = player->base.max_health_points / 2;
     int oxygen_heal = player->base.max_oxygen_level / 2;
@@ -98,6 +106,7 @@ static void handle_heal_cell(Player* player) {
     printf("HP: %d/%d\n", player->base.current_health_points, player->base.max_health_points);
     printf("O2: %d/%d\n", player->base.oxygen_level, player->base.max_oxygen_level);
 
+    player->heal_uses_left--;
     last_heal_time = current_time;
 }
 
@@ -132,13 +141,40 @@ static void handle_shop_cell(Player* player) {
                 if (item_choice == 0) break;
 
                 int slot_index = item_choice - 1;
+
+                // Check space BEFORE purchasing
+                if (player->inventory.count >= INVENTORY_SIZE) {
+                    // Inventory is full - ask to replace or cancel
+                    printf("\nVotre inventaire est plein. Remplacer un objet par: %s ?\n",
+                           shop.slots[slot_index].item.name);
+                    current_interface->show_inventory(&player->inventory);
+                    printf("Choisissez un emplacement a remplacer, ou %d pour annuler.\n",
+                           player->inventory.count + 1);
+
+                    int replace_choice = current_interface->get_choice("Votre choix",
+                                                                        1, player->inventory.count + 1);
+
+                    if (replace_choice == player->inventory.count + 1) {
+                        printf("Achat annule.\n");
+                        break; // cancel purchase
+                    }
+
+                    // Remove item to make space then purchase
+                    int replace_index = replace_choice - 1;
+                    remove_item_by_index(&player->inventory, replace_index);
+                }
+
+                // now purchase and add to inventory
                 if (shop_buy_item(&shop, slot_index, &player->pearls, NULL)) {
                     Item* bought_item = &shop.slots[slot_index].item;
                     int result = add_item_to_inventory(&player->inventory, bought_item);
-                    if (result == INVENTORY_FULL) {
-                        printf("Inventaire plein! Article perdu\n");
-                    } else {
+                    if (result == SUCCESS) {
                         printf("Article ajoute a votre inventaire!\n");
+                    } else {
+                        printf("Erreur: Impossible d'ajouter l'article!\n");
+                        // refund pearls
+                        player->pearls += shop.slots[slot_index].current_price;
+                        shop.slots[slot_index].stock++;
                     }
                 }
                 break;
@@ -249,7 +285,7 @@ int game_init(void) {
         current_interface->get_input("", player_name, sizeof(player_name));
 
         Position start_pos = {1, 0};
-        player = create_player(player_name, 100, 10, 100, start_pos, start_pos);
+        player = create_player(player_name, 150, 10, 150, start_pos, start_pos);
 
         if (!player) {
             fprintf(stderr, "Erreur: impossible de creer le joueur\n");
@@ -274,11 +310,9 @@ int game_init(void) {
     // Main loop
     int game_running = 1;
     while (game_running) {
-        // Display map
         printf("\n");
         current_interface->display_map(map, player);
 
-        // Check if player is dead
         if (player->base.current_health_points <= 0) {
             printf("\n💀 GAME OVER - Vous etes mort!\n");
             delete_save_file();
@@ -291,7 +325,6 @@ int game_init(void) {
             break;
         }
 
-        // Show options
         printf("\n[Position: %d,%d] Type: ", player->current_position.row, player->current_position.col);
         switch (current_cell->type) {
             case SHOP: printf("BOUTIQUE\n"); break;
@@ -318,10 +351,22 @@ int game_init(void) {
             current_interface->get_input("", choice, sizeof(choice));
 
             Position new_pos = player->current_position;
-            if (strcmp(choice, "up") == 0 || strcmp(choice, "u") == 0) new_pos.row--;
-            else if (strcmp(choice, "down") == 0 || strcmp(choice, "d") == 0) new_pos.row++;
-            else if (strcmp(choice, "left") == 0 || strcmp(choice, "l") == 0) new_pos.col--;
-            else if (strcmp(choice, "right") == 0 || strcmp(choice, "r") == 0) new_pos.col++;
+            if (strcmp(choice, "up") == 0 || strcmp(choice, "u") == 0) {
+                new_pos.row--;
+                if (new_pos.row < 0) new_pos.row = map->rows - 1;
+            }
+            else if (strcmp(choice, "down") == 0 || strcmp(choice, "d") == 0) {
+                new_pos.row++;
+                if (new_pos.row >= map->rows) new_pos.row = 0;
+            }
+            else if (strcmp(choice, "left") == 0 || strcmp(choice, "l") == 0) {
+                new_pos.col--;
+                if (new_pos.col < 0) new_pos.col = map->cols - 1;
+            }
+            else if (strcmp(choice, "right") == 0 || strcmp(choice, "r") == 0) {
+                new_pos.col++;
+                if (new_pos.col >= map->cols) new_pos.col = 0;
+            }
             else {
                 printf("Direction invalide.\n");
                 continue;
@@ -361,10 +406,36 @@ int game_init(void) {
                     break;
 
                 case CAVE:
-                    printf("\n🏖️  === GROTTE ===\n");
-                    printf("Un endroit paisible pour se reposer !\n");
-                    printf("(Fonctionnalite a venir)\n");
-                    // Heal 100% but once
+                    printf("\n === GROTTE ===\n");
+
+                    if (player->has_used_cave) {
+                        printf("Vous avez deja utilise cette grotte.\n");
+                        printf("Elle ne peut etre utilisee qu'une seule fois par partie.\n");
+                    } else {
+                        printf("Une grotte mystique! Elle restaure completement votre sante et oxygene!\n");
+                        printf("Attention: Vous ne pourrez l'utiliser qu'une seule fois!\n");
+
+                        // full heal
+                        player->base.current_health_points = player->base.max_health_points;
+                        player->base.oxygen_level = player->base.max_oxygen_level;
+                        player->base.fatigue_level = 0;
+
+                        printf("HP: %d/%d (100%% restaure!)\n", player->base.current_health_points, player->base.max_health_points);
+                        printf("O2: %d/%d (100%% restaure!)\n", player->base.oxygen_level, player->base.max_oxygen_level);
+                        printf("Fatigue: 0 (completement repose!)\n");
+
+                        player->has_used_cave = 1;
+
+                        int unlock_result = unlock_new_position(player);
+                        if (unlock_result == NEW_CELL) {
+                            printf("Nouvelle cellule débloquée!\n");
+                        } else if (unlock_result == NEW_ROW) {
+                            printf("Nouvelle profondeur débloquée!\n");
+                        } else if (unlock_result == WIN) {
+                            printf("\n🏆VICTOIRE! Vous avez atteint l'Abysse !\n");
+                            cell_result = WIN;
+                        }
+                    }
                     break;
 
                 case EMPTY:

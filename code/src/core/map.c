@@ -82,8 +82,7 @@ int generate_depth_2(Cell* cells, int seed, int size) {
 }
 int generate_depth_3(Cell* cells, int seed, int size) {
     if (size != 4) return INVALID_INPUT;
-    cells[0].type = CAVE;
-    cells[1].type = cells[2].type = PIT;
+    cells[0].type = cells[1].type = cells[2].type = PIT;
     cells[3].type = ABYSS;
 
     return SUCCESS;
@@ -116,10 +115,17 @@ int is_valid_move(Map* map, Player* player, Position to_position) {
                        to_position.col <= player->max_position.col);
     if (!is_unlocked) return 0;
 
-    int is_adjacent = (player->current_position.col == to_position.col &&
-                       abs(player->current_position.row - to_position.row) == 1) ||
-                      (player->current_position.row == to_position.row &&
-                       abs(player->current_position.col - to_position.col) == 1);
+    // Check adjacency with wrapping support
+    int row_diff = abs(player->current_position.row - to_position.row);
+    int col_diff = abs(player->current_position.col - to_position.col);
+
+    // For wrapping: distance can be 1 OR (max - 1) when wrapping around
+    int row_adjacent = (row_diff == 1) || (row_diff == map->rows - 1);
+    int col_adjacent = (col_diff == 1) || (col_diff == map->cols - 1);
+
+    // Adjacent means same row and adjacent column, OR same column and adjacent row
+    int is_adjacent = (player->current_position.col == to_position.col && row_adjacent) ||
+                      (player->current_position.row == to_position.row && col_adjacent);
 
     return is_adjacent;
 }

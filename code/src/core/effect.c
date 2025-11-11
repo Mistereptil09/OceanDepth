@@ -243,7 +243,5 @@ void effect_remove(EntityBase* base, Effect* effect)
         stat_modifier_remove_by_source(&base->speed, effect);
     }
 
-    print_current_stat_modifier_list(base);
-
     effect->is_active = 0;
 }
