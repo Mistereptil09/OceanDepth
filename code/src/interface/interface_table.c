@@ -13,7 +13,7 @@
 InterfaceVTable* current_interface = NULL;
 
 InterfaceVTable* select_interface() {
-    printf("Choose interface:\n");
+    printf("Choix Interface:\n");
     printf("1 - Terminal\n");
     printf("2 - SDL\n");
     printf("> ");
@@ -28,16 +28,16 @@ InterfaceVTable* select_interface() {
 
         if (choice == 1) {
             current_interface = &cli_interface;
-            printf("Terminal interface selected!\n");
+            printf("Terminal selectionne!\n");
         } else if (choice == 2) {
-            printf("SDL interface not yet implemented!\nDefaulting to terminal.\n");
-            current_interface = &cli_interface;  // ← Don't exit, just default
+            printf("SDL non implemente!\nPassage au terminal.\n");
+            current_interface = &cli_interface;
         } else {
-            printf("Invalid choice, defaulting to terminal.\n");
+            printf("Choix invalide, passage au terminal.\n");
             current_interface = &cli_interface;
         }
     } else {
-        printf("Invalid input, defaulting to terminal.\n");
+        printf("Choix invalide, passage au terminal.\n");
         current_interface = &cli_interface;
     }
 

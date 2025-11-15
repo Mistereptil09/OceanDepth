@@ -10,7 +10,7 @@
 #include <string.h>
 #include <time.h>
 
-// Helper function to determine stock based on rarity
+// helper function to determine stock based on rarity
 static int get_stock_by_rarity(ItemRarity rarity) {
     switch(rarity) {
         case RARITY_COMMON: return 5 + (rand() % 6);
@@ -22,7 +22,7 @@ static int get_stock_by_rarity(ItemRarity rarity) {
     }
 }
 
-// Helper function to populate shop inventory
+// helper function to populate shop
 static void populate_shop_inventory(Shop* shop) {
     shop->slot_count = 0;
 
@@ -35,7 +35,7 @@ static void populate_shop_inventory(Shop* shop) {
     int epic_slots = 1;
     int legendary_chance = (rand() % 100) < 5;
 
-    // Fill common items
+    // fill common items
     for (int i = 0; i < common_slots && shop->slot_count < num_slots; i++) {
         Item item = draw_item_by_rarity(shop->item_pool, RARITY_COMMON);
         shop->slots[shop->slot_count].item = item;
@@ -46,7 +46,7 @@ static void populate_shop_inventory(Shop* shop) {
         shop->slot_count++;
     }
 
-    // Fill uncommon items
+    // fill uncommon items
     for (int i = 0; i < uncommon_slots && shop->slot_count < num_slots; i++) {
         Item item = draw_item_by_rarity(shop->item_pool, RARITY_UNCOMMON);
         shop->slots[shop->slot_count].item = item;
@@ -57,7 +57,7 @@ static void populate_shop_inventory(Shop* shop) {
         shop->slot_count++;
     }
 
-    // Fill rare items
+    // fill rare items
     for (int i = 0; i < rare_slots && shop->slot_count < num_slots; i++) {
         Item item = draw_item_by_rarity(shop->item_pool, RARITY_RARE);
         shop->slots[shop->slot_count].item = item;
@@ -68,7 +68,7 @@ static void populate_shop_inventory(Shop* shop) {
         shop->slot_count++;
     }
 
-    // Fill epic items
+    // fill epic items
     for (int i = 0; i < epic_slots && shop->slot_count < num_slots; i++) {
         Item item = draw_item_by_rarity(shop->item_pool, RARITY_EPIC);
         shop->slots[shop->slot_count].item = item;
@@ -79,7 +79,7 @@ static void populate_shop_inventory(Shop* shop) {
         shop->slot_count++;
     }
 
-    // Maybe add legendary
+    // maybe add legendary
     if (legendary_chance && shop->slot_count < num_slots) {
         Item item = draw_item_by_rarity(shop->item_pool, RARITY_LEGENDARY);
         shop->slots[shop->slot_count].item = item;
@@ -108,7 +108,7 @@ Shop create_shop(const char* name, ItemPool* pool) {
 void display_shop(Shop* shop, int player_gold) {
     if (!current_interface) return;
 
-    // Prepare arrays for interface
+    // prepare arrays for interface
     const char* items[MAX_SHOP_SLOTS];
     int prices[MAX_SHOP_SLOTS];
     int stocks[MAX_SHOP_SLOTS];
@@ -146,23 +146,22 @@ int shop_buy_item(Shop* shop, int slot_index, int* player_gold, Item* player_inv
 
     ShopSlot* slot = &shop->slots[slot_index];
 
-    // Check stock
+    // check stock
     if (slot->stock <= 0) {
         current_interface->show_purchase_failed("Rupture de stock!");
         return 0;
     }
 
-    // Check if player can afford
+    // check if player can afford
     if (*player_gold < slot->current_price) {
         current_interface->show_purchase_failed("Pas assez de perles!");
         return 0;
     }
 
-    // Process purchase
+    // process purchase
     *player_gold -= slot->current_price;
     slot->stock--;
 
-    // Show success
     int quantity = (slot->item.type == ITEM_CONSUMABLE) ? slot->item.quantity : 0;
     current_interface->show_purchase_success(
             slot->item.name,
@@ -206,12 +205,12 @@ int shop_refresh_inventory(Shop* shop, int* player_gold) {
     shop->times_refreshed++;
     shop->refresh_cost = SHOP_REFRESH_COST + (shop->times_refreshed * 10);
 
-    // Free old items
+    // free old items
     for (int i = 0; i < shop->slot_count; i++) {
         free_item(&shop->slots[i].item);
     }
 
-    // Generate new inventory
+    // generate new inventory
     populate_shop_inventory(shop);
 
     current_interface->show_shop_refreshed();

@@ -141,33 +141,33 @@ void free_item_pool(ItemPool* pool) {
 
 ItemPool create_shop_pool(void) {
     static ItemPoolEntry shop_entries[] = {
-            // COMMON - Basic consumables from both inventories (weight: 60-100)
+            // COMMON = basic consumables from both inventories (weight: 60-100)
             {NULL, create_oxygen_capsule, RARITY_COMMON, 100, 1, 1, 3},
             {NULL, create_health_kit, RARITY_COMMON, 100, 1, 1, 2},
             {NULL, create_fatigue_stimulant, RARITY_COMMON, 80, 1, 1, 3},
             {NULL, create_energy_drink, RARITY_COMMON, 70, 1, 1, 2},
             {NULL, create_antidote, RARITY_COMMON, 60, 1, 1, 2},
 
-            // UNCOMMON - Enhanced consumables and starter weapons (weight: 30-50)
+            // UNCOMMON = enhanced consumables and starter weapons (weight: 30-50)
             {NULL, create_mega_oxygen, RARITY_UNCOMMON, 50, 1, 1, 2},
             {NULL, create_adrenaline_shot, RARITY_UNCOMMON, 45, 1, 1, 2},
             {NULL, create_emergency_medkit, RARITY_UNCOMMON, 40, 1, 1, 1},
             {create_epee, NULL, RARITY_UNCOMMON, 35, 0, 0, 0},
             {create_combinaison, NULL, RARITY_UNCOMMON, 30, 0, 0, 0},
 
-            // RARE - Advanced items (weight: 15-25)
+            // RARE = advanced items (weight: 15-25)
             {NULL, create_nanobots, RARITY_RARE, 25, 1, 1, 2},
             {create_harpon, NULL, RARITY_RARE, 20, 0, 0, 0},
             {create_reinforced_suit, NULL, RARITY_RARE, 18, 0, 0, 0},
             {create_net_launcher, NULL, RARITY_RARE, 15, 0, 0, 0},
 
-            // EPIC - Premium equipment (weight: 7-12)
+            // EPIC = premium equipment (weight: 7-12)
             {NULL, create_full_restore, RARITY_EPIC, 12, 1, 1, 1},
             {create_trident, NULL, RARITY_EPIC, 10, 0, 0, 0},
             {create_coral_staff, NULL, RARITY_EPIC, 8, 0, 0, 0},
             {create_power_armor, NULL, RARITY_EPIC, 7, 0, 0, 0},
 
-            // LEGENDARY - Rare elite gear (weight: 2-5)
+            // LEGENDARY = rare elite gear (weight: 2-5)
             {create_sonic_blade, NULL, RARITY_LEGENDARY, 5, 0, 0, 0},
             {create_abyssal_hammer, NULL, RARITY_LEGENDARY, 3, 0, 0, 0},
             {create_stealth_suit, NULL, RARITY_LEGENDARY, 2, 0, 0, 0},
@@ -182,32 +182,32 @@ ItemPool create_shop_pool(void) {
 
 ItemPool create_loot_pool(void) {
     static ItemPoolEntry loot_entries[] = {
-            // COMMON - High drop rate basics (weight: 90-150)
+            // COMMON = high drop rate basics (weight: 90-150)
             {NULL, create_oxygen_capsule, RARITY_COMMON, 150, 1, 1, 5},
             {NULL, create_health_kit, RARITY_COMMON, 120, 1, 1, 3},
             {NULL, create_fatigue_stimulant, RARITY_COMMON, 100, 1, 1, 4},
             {NULL, create_energy_drink, RARITY_COMMON, 90, 1, 2, 4},
 
-            // UNCOMMON - Medium drop rate (weight: 45-60)
+            // UNCOMMON = medium drop rate (weight: 45-60)
             {NULL, create_mega_oxygen, RARITY_UNCOMMON, 60, 1, 1, 3},
             {NULL, create_adrenaline_shot, RARITY_UNCOMMON, 55, 1, 1, 2},
             {NULL, create_emergency_medkit, RARITY_UNCOMMON, 50, 1, 1, 2},
             {NULL, create_antidote, RARITY_UNCOMMON, 45, 1, 1, 3},
             {create_epee, NULL, RARITY_UNCOMMON, 30, 0, 0, 0},
 
-            // RARE - Lower drop rate (weight: 20-35)
+            // RARE = lower drop rate (weight: 20-35)
             {NULL, create_nanobots, RARITY_RARE, 35, 1, 1, 2},
             {create_harpon, NULL, RARITY_RARE, 25, 0, 0, 0},
             {create_combinaison, NULL, RARITY_RARE, 22, 0, 0, 0},
             {create_reinforced_suit, NULL, RARITY_RARE, 20, 0, 0, 0},
 
-            // EPIC - Rare combat drops (weight: 8-15)
+            // EPIC = rare combat drops (weight: 8-15)
             {NULL, create_full_restore, RARITY_EPIC, 15, 1, 1, 1},
             {create_trident, NULL, RARITY_EPIC, 12, 0, 0, 0},
             {create_net_launcher, NULL, RARITY_EPIC, 10, 0, 0, 0},
             {create_coral_staff, NULL, RARITY_EPIC, 8, 0, 0, 0},
 
-            // LEGENDARY - Extremely rare (weight: 1-6)
+            // LEGENDARY = extremely rare (weight: 1-6)
             {create_power_armor, NULL, RARITY_LEGENDARY, 6, 0, 0, 0},
             {create_sonic_blade, NULL, RARITY_LEGENDARY, 4, 0, 0, 0},
             {create_abyssal_hammer, NULL, RARITY_LEGENDARY, 2, 0, 0, 0},

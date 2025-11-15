@@ -53,22 +53,21 @@ int add_item_to_inventory_with_callback(Inventory* inventory, Item* item,
         return SUCCESS;
     }
 
-    // Inventory is full - invoke callback if provided
+    // inventory is full - invoke callback if provided
     if (result == INVENTORY_FULL && replace_callback) {
         int replace_index = replace_callback(inventory, item);
 
-        // User cancelled or invalid index
+        // user cancelled or invalid index
         if (replace_index < 0 || replace_index >= inventory->count) {
             return INVENTORY_FULL;
         }
 
-        // Replace item at chosen index
+        // replace item at chosen index
         free_item(&inventory->items[replace_index]);
         inventory->items[replace_index] = *item;
         return SUCCESS;
     }
 
-    // No callback provided or other error
     return result;
 }
 
@@ -78,7 +77,7 @@ int remove_item_by_index(Inventory* inventory, int index) {
 
     free_item(&inventory->items[index]);
 
-    // Shift items down
+    // shift items down
     for (int i = index; i < inventory->count - 1; i++) {
         inventory->items[i] = inventory->items[i + 1];
     }

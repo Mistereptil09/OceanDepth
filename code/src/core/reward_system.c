@@ -13,9 +13,8 @@
 #include <malloc.h>
 #endif
 
-// ======================= REWARD SYSTEM HELPERS =======================
 
-// Decide how many pearls to award based on difficulty
+// decide how many pearls to give out based on difficulty
 static int get_pearl_reward(Difficulty d) {
     switch (d) {
         case EASY: return 5 + (rand() % 6);      // 5-10 pearls
@@ -26,7 +25,7 @@ static int get_pearl_reward(Difficulty d) {
     }
 }
 
-// Decide how many loot options to draw based on difficulty
+// decide how many loot options to draw based on difficulty
 static int get_reward_draw_count(Difficulty d) {
     switch (d) {
         case EASY: return 2;
@@ -37,16 +36,16 @@ static int get_reward_draw_count(Difficulty d) {
     }
 }
 
-// When inventory is full, ask the player which slot to replace or cancel
+// when inventory is full ask the player which slot to replace or cancel
 static int reward_inventory_replace_callback(Inventory* inv, Item* new_item) {
     if (!inv) return -1;
 
-    // Show current inventory via interface
+    // show current inventory
     if (current_interface && current_interface->show_inventory) {
         current_interface->show_inventory(inv);
     }
 
-    // Show inventory replacement prompt
+    // show replacement prompt
     if (current_interface && current_interface->show_inventory_replacement_prompt) {
         current_interface->show_inventory_replacement_prompt((new_item && new_item->name[0]) ? new_item->name : "(inconnu)");
     }
@@ -65,11 +64,10 @@ static int reward_inventory_replace_callback(Inventory* inv, Item* new_item) {
         return -1; // cancel
     }
 
-    // Convert to 0-based index
     return choice - 1;
 }
 
-// Draw N loot options from the loot pool
+//dDraw N loot options from the loot pool
 static void draw_loot_options(Item* out_items, int count) {
     ItemPool pool = create_loot_pool();
     for (int i = 0; i < count; i++) {
@@ -78,7 +76,7 @@ static void draw_loot_options(Item* out_items, int count) {
     free_item_pool(&pool);
 }
 
-// Present rewards using interface; return chosen index
+// present rewards and return chosen index
 static int choose_reward_index(Item* options, int count) {
     if (!options || count <= 0) return -1;
 
@@ -88,7 +86,7 @@ static int choose_reward_index(Item* options, int count) {
         return (int)(chosen_ptr - options);
     }
 
-    // Fallback: present via show_information then ask choice
+    // fallback
     if (current_interface && current_interface->show_information) {
         current_interface->show_information("\n=== Choisissez une recompense ===");
         char line[96];
@@ -104,7 +102,7 @@ static int choose_reward_index(Item* options, int count) {
     return idx - 1;
 }
 
-// Add selected reward to inventory, handling full inventory via callback
+// add selected reward to inventory handling full inventory
 static int grant_reward_to_player(Player* player, Item* reward) {
     if (!player || !reward) return POINTER_NULL;
 
@@ -114,7 +112,7 @@ static int grant_reward_to_player(Player* player, Item* reward) {
             current_interface->show_reward_obtained(reward->name);
         }
     } else if (res == INVENTORY_FULL) {
-        // If still full and user cancelled replacement
+        // if still full and user cancelled replacement
         if (current_interface && current_interface->show_inventory_full) {
             current_interface->show_inventory_full();
         }
@@ -122,7 +120,7 @@ static int grant_reward_to_player(Player* player, Item* reward) {
     return res;
 }
 
-// Free all unselected items to avoid leaks
+// free all unselected items
 static void free_unselected_items(Item* options, int count, int keep_index) {
     for (int i = 0; i < count; i++) {
         if (i != keep_index) {
@@ -131,15 +129,13 @@ static void free_unselected_items(Item* options, int count, int keep_index) {
     }
 }
 
-// Orchestrates the reward flow at end of battle
+// orchestrates the reward flow at end of battle
 void award_post_battle_rewards(Player* player, Difficulty difficulty) {
     if (!player) return;
 
-    // Award pearls first
+    // pearls first
     int pearl_reward = get_pearl_reward(difficulty);
     increase_pearls(player, pearl_reward);
-
-    // Show pearl reward via interface
     if (current_interface && current_interface->show_pearl_reward) {
         current_interface->show_pearl_reward(pearl_reward, player->pearls);
     }
@@ -150,28 +146,27 @@ void award_post_battle_rewards(Player* player, Difficulty difficulty) {
     Item* options = calloc((size_t)draw_count, sizeof(Item));
     if (!options) return;
 
-    // Draw loot
+    // draw loot
     draw_loot_options(options, draw_count);
 
-    // Present and choose
+    // present and choose
     int chosen = choose_reward_index(options, draw_count);
     if (chosen < 0 || chosen >= draw_count) {
-        // Invalid choice: free all and exit
+        // invalid choice: free all and exit
         for (int i = 0; i < draw_count; i++) free_item(&options[i]);
         free(options);
         return;
     }
 
-    // Grant and cleanup others
+    // grant and cleanup others
     int grant_res = grant_reward_to_player(player, &options[chosen]);
     free_unselected_items(options, draw_count, chosen);
 
-    // Free the chosen only if not granted (to avoid leaking)
+    // free the chosen only if not granted
     if (grant_res != SUCCESS) {
         free_item(&options[chosen]);
     }
 
-    // Chosen item memory is now owned by the inventory (shallow-copied struct with pointers),
-    // do NOT free it here to avoid dangling pointers.
+    // chosen item memory is now owned by the inventory
     free(options);
 }

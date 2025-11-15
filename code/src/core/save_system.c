@@ -12,7 +12,7 @@
 #include "core/entity.h"
 #include "core/inventory_data.h"
 
-// Platform-specific includes for directory creation
+// platform-specific includes for directory creation
 #ifdef _WIN32
     #include <direct.h>
     #define MKDIR(path) _mkdir(path)
@@ -27,41 +27,41 @@
  * @return 0 on success, -1 on failure
  */
 static int ensure_save_directory_exists(void) {
-    // Extract directory path from SAVE_FILE_PATH
+    // extract directory path from SAVE_FILE_PATH
     char dir_path[256];
     strncpy(dir_path, SAVE_FILE_PATH, sizeof(dir_path) - 1);
     dir_path[sizeof(dir_path) - 1] = '\0';
 
-    // Find last slash or backslash
+    // find last slash or backslash
     char *last_slash = strrchr(dir_path, '/');
     char *last_backslash = strrchr(dir_path, '\\');
     char *separator = (last_backslash > last_slash) ? last_backslash : last_slash;
 
     if (!separator) {
-        // No directory in path, save in current directory
+        // no directory in path, save in current directory
         return 0;
     }
 
-    *separator = '\0';  // Terminate string at directory
+    *separator = '\0';
 
-    // Try to create each directory in the path
+    // try to create each directory in the path
     for (char *p = dir_path; *p; p++) {
         if (*p == '/' || *p == '\\') {
             char temp = *p;
             *p = '\0';
 
-            // Skip empty path components (like leading slash)
+            // skip empty path components (like leading slash)
             if (p > dir_path) {
-                MKDIR(dir_path);  // Ignore errors - might already exist
+                MKDIR(dir_path);  // Ignore errors, might already exist
             }
 
             *p = temp;
         }
     }
 
-    // Create the final directory
+    // create the final directory
     if (MKDIR(dir_path) != 0 && errno != EEXIST) {
-        return -1;  // Failed to create directory
+        return -1;
     }
 
     return 0;
@@ -73,7 +73,7 @@ static int ensure_save_directory_exists(void) {
 static Player* save_data_to_player(SaveData* save_data) {
     if (!save_data) return NULL;
 
-    // Restore positions from save data
+    // restore position
     Position current_pos = {save_data->player_current_row, save_data->player_current_col};
     Position max_pos = {save_data->player_max_row, save_data->player_max_col};
 
@@ -88,36 +88,36 @@ static Player* save_data_to_player(SaveData* save_data) {
 
     if (!player) return NULL;
 
-    // Restore player state
+    // restore player state
     player->base.current_health_points = save_data->current_hp;
     player->base.oxygen_level = save_data->oxygen_level;
     player->base.fatigue_level = save_data->fatigue_level;
     player->pearls = save_data->pearls;
 
-    // Restore session-wide limits
+    // restore session-wide limits
     player->heal_uses_left = save_data->heal_uses_left;
     player->has_used_cave = save_data->has_used_cave;
 
-    // Restore stats
+    // restore stats
     player->base.attack.base_value = save_data->base_attack;
     player->base.defense.base_value = save_data->base_defense;
     player->base.speed.base_value = save_data->base_speed;
 
-    // Restore inventory by looking up items from inventory_data
+    // restore inventory by looking up items from inventory_data
     player->inventory.count = save_data->inventory_count;
     for (int i = 0; i < save_data->inventory_count && i < INVENTORY_SIZE; i++) {
         const char* item_name = save_data->inventory_items[i].name;
         int quantity = save_data->inventory_items[i].quantity;
 
-        // Lookup the item to get its full definition including actions
+        // lookup the item to get its full definition including actions
         Item* looked_up_item = lookup_item_by_name(item_name, quantity);
 
         if (looked_up_item) {
-            // Copy the fully initialized item (including actions)
+            // copy the fully initialized item WITH actions
             player->inventory.items[i] = *looked_up_item;
             free(looked_up_item);  // Free the temporary lookup result
         } else {
-            // Item not found in lookup - restore what we can from save data
+            // item not found in lookup - restore what we can from save data
             Item* item = &player->inventory.items[i];
             strncpy(item->name, item_name, sizeof(item->name) - 1);
             item->name[sizeof(item->name) - 1] = '\0';
@@ -129,11 +129,11 @@ static Player* save_data_to_player(SaveData* save_data) {
             item->price = save_data->inventory_items[i].price;
             item->actions = NULL;
             item->action_count = 0;
-            printf("Warning: Item '%s' not found in item database\n", item_name);
+            printf("Attention: L'objet '%s' n'a pas ete trouve dans la base de donnees\n", item_name);
         }
     }
 
-    // Restore effects (simplified - doesn't restore function pointers)
+    // restore effects
     player->base.effects_number = save_data->effects_count;
     for (int i = 0; i < save_data->effects_count && i < MAX_EFFECTS; i++) {
         Effect* effect = &player->base.effects[i];
@@ -152,7 +152,7 @@ static Player* save_data_to_player(SaveData* save_data) {
         effect->oxygen_max_boost_percent = save_data->effects[i].oxygen_max_boost_percent;
         effect->hp_max_boost_percent = save_data->effects[i].hp_max_boost_percent;
         effect->is_active = 1;
-        effect->on_tick = NULL; // Function pointers cannot be saved
+        effect->on_tick = NULL; // pointers cannot be saved
         effect->display_message = NULL;
     }
 
@@ -166,7 +166,7 @@ static Player* save_data_to_player(SaveData* save_data) {
 int save_player_data(Player* player, SaveData* save_data) {
     if (!player || !save_data) return POINTER_NULL;
 
-    // Copy player basic info
+    // copy player basic info
     strncpy(save_data->player_name, player->base.name, sizeof(save_data->player_name) - 1);
     save_data->player_name[sizeof(save_data->player_name) - 1] = '\0';
 
@@ -177,11 +177,11 @@ int save_player_data(Player* player, SaveData* save_data) {
     save_data->fatigue_level = player->base.fatigue_level;
     save_data->pearls = player->pearls;
 
-    // Copy session-wide limits
+    // copy session-wide limits
     save_data->heal_uses_left = player->heal_uses_left;
     save_data->has_used_cave = player->has_used_cave;
 
-    // Copy player stats
+    // copy player stats
     save_data->base_attack = player->base.attack.base_value;
     save_data->base_defense = player->base.defense.base_value;
     save_data->base_speed = player->base.speed.base_value;
@@ -192,7 +192,7 @@ int save_player_data(Player* player, SaveData* save_data) {
 int save_inventory_data(Player* player, SaveData* save_data) {
     if (!player || !save_data) return POINTER_NULL;
 
-    // Copy inventory
+    // copy inventory
     save_data->inventory_count = player->inventory.count;
     for (int i = 0; i < player->inventory.count && i < INVENTORY_SIZE; i++) {
         Item* item = &player->inventory.items[i];
@@ -213,7 +213,7 @@ int save_inventory_data(Player* player, SaveData* save_data) {
 int save_effects_data(Player* player, SaveData* save_data) {
     if (!player || !save_data) return POINTER_NULL;
 
-    // Copy active effects
+    // copy active effects
     save_data->effects_count = player->base.effects_number;
     for (int i = 0; i < player->base.effects_number && i < MAX_EFFECTS; i++) {
         Effect* effect = &player->base.effects[i];
@@ -262,18 +262,18 @@ int save_position_data(Player* player, int map_seed, SaveData* save_data) {
 int save_map_data(int width, int height, char map_tiles[100][100], SaveData* save_data) {
     if (!save_data || !map_tiles) return POINTER_NULL;
 
-    // Validate dimensions
+    // validate dimensions
     if (width < 1 || width > 100 || height < 1 || height > 100) {
-        fprintf(stderr, "Invalid map dimensions: %dx%d (must be 1-100)\n", width, height);
+        fprintf(stderr, "Dimensions de carte invalides: %dx%d (doit etre 1-100)\n", width, height);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Mark that map data is present
+    // mark that map data is present
     save_data->has_map_data = 1;
     save_data->map_width = width;
     save_data->map_height = height;
 
-    // Copy map tiles
+    // copy map tiles
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
             save_data->map_tiles[y][x] = map_tiles[y][x];
@@ -286,25 +286,25 @@ int save_map_data(int width, int height, char map_tiles[100][100], SaveData* sav
 int load_map_data(SaveData* save_data, int* width, int* height, char map_tiles[100][100]) {
     if (!save_data || !width || !height || !map_tiles) return POINTER_NULL;
 
-    // Check if map data exists
+    // check if map data exists
     if (!save_data->has_map_data) {
-        fprintf(stderr, "No map data in save file\n");
+        fprintf(stderr, "Aucune donnee de carte dans le fichier de sauvegarde\n");
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Validate dimensions
+    // validate dimensions
     if (save_data->map_width < 1 || save_data->map_width > 100 ||
         save_data->map_height < 1 || save_data->map_height > 100) {
-        fprintf(stderr, "Invalid saved map dimensions: %dx%d\n",
+        fprintf(stderr, "Dimensions de carte sauvegardee invalides: %dx%d\n",
                 save_data->map_width, save_data->map_height);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Return dimensions
+    // return dimensions
     *width = save_data->map_width;
     *height = save_data->map_height;
 
-    // Copy map tiles
+    // copy map tiles
     for (int y = 0; y < save_data->map_height; y++) {
         for (int x = 0; x < save_data->map_width; x++) {
             map_tiles[y][x] = save_data->map_tiles[y][x];
@@ -320,7 +320,7 @@ int save_game_modular(Player* player, int difficulty, int battles_won, int save_
     SaveData save_data = {0};
     save_data.version = SAVE_VERSION;
 
-    // Save components based on flags
+    // save components based on flags
     if (save_flags & SAVE_PLAYER_DATA) {
         save_player_data(player, &save_data);
     }
@@ -337,13 +337,13 @@ int save_game_modular(Player* player, int difficulty, int battles_won, int save_
         save_progress_data(difficulty, battles_won, &save_data);
     }
 
-    // Ensure save directory exists before writing
+    // ensure save directory exists before writing
     if (ensure_save_directory_exists() != 0) {
-        fprintf(stderr, "Error: Could not create save directory\n");
+        fprintf(stderr, "Erreur: Impossible de creer le repertoire de sauvegarde\n");
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Write to file
+    // write to file
     FILE* file = fopen(SAVE_FILE_PATH, "wb");
     if (!file) {
         perror("Error opening save file for writing");
@@ -358,14 +358,14 @@ int save_game_modular(Player* player, int difficulty, int battles_won, int save_
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    printf("Game saved successfully to %s\n", SAVE_FILE_PATH);
+    printf("Partie sauvegardee avec succes dans %s\n", SAVE_FILE_PATH);
     return SUCCESS;
 }
 
 int load_game_modular(Player** player, int* difficulty, int* battles_won, int load_flags) {
     if (!player || !difficulty || !battles_won) return POINTER_NULL;
 
-    // Open and read file
+    // open and read
     FILE* file = fopen(SAVE_FILE_PATH, "rb");
     if (!file) {
         perror("Error opening save file for reading");
@@ -381,26 +381,26 @@ int load_game_modular(Player** player, int* difficulty, int* battles_won, int lo
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Check version
+    // check version
     if (save_data.version != SAVE_VERSION) {
-        fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
+        fprintf(stderr, "Incompatibilite de version du fichier de sauvegarde! Attendu %d, recu %d\n",
                 SAVE_VERSION, save_data.version);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    // Create player from saved data (always load player if data exists)
+    // create player from saved data
     *player = save_data_to_player(&save_data);
     if (!*player) {
         return MEMORY_ALLOCATION_ERROR;
     }
 
-    // Load progression data if requested
+    // load progression data if requested
     if (load_flags & SAVE_PROGRESS_DATA) {
         *difficulty = save_data.current_difficulty;
         *battles_won = save_data.battles_won;
     }
 
-    printf("Game loaded successfully from %s\n", SAVE_FILE_PATH);
+    printf("Partie chargee avec succes depuis %s\n", SAVE_FILE_PATH);
     return SUCCESS;
 }
 
@@ -412,7 +412,7 @@ int save_game_extended(Player* player, int difficulty, int battles_won,
     SaveData save_data = {0};
     save_data.version = SAVE_VERSION;
 
-    // Save components based on flags
+    // save components based on flags
     if (save_flags & SAVE_PLAYER_DATA) {
         save_player_data(player, &save_data);
     }
@@ -429,12 +429,11 @@ int save_game_extended(Player* player, int difficulty, int battles_won,
         save_progress_data(difficulty, battles_won, &save_data);
     }
 
-    // Save map data if provided and flag is set
+    // save map data if provided and flag is set
     if ((save_flags & SAVE_MAP_DATA) && map_tiles && map_width > 0 && map_height > 0) {
         save_map_data(map_width, map_height, map_tiles, &save_data);
     }
 
-    // Write to file
     FILE* file = fopen(SAVE_FILE_PATH, "wb");
     if (!file) {
         perror("Error opening save file for writing");
@@ -449,9 +448,9 @@ int save_game_extended(Player* player, int difficulty, int battles_won,
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    printf("Game saved successfully to %s", SAVE_FILE_PATH);
+    printf("Partie sauvegardee avec succes dans %s", SAVE_FILE_PATH);
     if (save_data.has_map_data) {
-        printf(" (including map: %dx%d)", save_data.map_width, save_data.map_height);
+        printf(" (incluant la carte: %dx%d)", save_data.map_width, save_data.map_height);
     }
     printf("\n");
 
@@ -463,7 +462,6 @@ int load_game_extended(Player** player, int* difficulty, int* battles_won,
                        int load_flags) {
     if (!player || !difficulty || !battles_won) return POINTER_NULL;
 
-    // Open and read file
     FILE* file = fopen(SAVE_FILE_PATH, "rb");
     if (!file) {
         perror("Error opening save file for reading");
@@ -480,7 +478,7 @@ int load_game_extended(Player** player, int* difficulty, int* battles_won,
     }
 
     if (save_data.version != SAVE_VERSION) {
-        fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
+        fprintf(stderr, "Incompatibilite de version du fichier de sauvegarde! Attendu %d, recu %d\n",
                 SAVE_VERSION, save_data.version);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
@@ -490,7 +488,6 @@ int load_game_extended(Player** player, int* difficulty, int* battles_won,
         return MEMORY_ALLOCATION_ERROR;
     }
 
-    // Load progression data if requested
     if (load_flags & SAVE_PROGRESS_DATA) {
         *difficulty = save_data.current_difficulty;
         *battles_won = save_data.battles_won;
@@ -501,18 +498,18 @@ int load_game_extended(Player** player, int* difficulty, int* battles_won,
         if (save_data.has_map_data) {
             int result = load_map_data(&save_data, map_width, map_height, map_tiles);
             if (result != SUCCESS) {
-                fprintf(stderr, "Warning: Failed to load map data\n");
+                fprintf(stderr, "Attention: Echec du chargement des donnees de carte\n");
             } else {
-                printf("Map loaded: %dx%d\n", *map_width, *map_height);
+                printf("Carte chargee: %dx%d\n", *map_width, *map_height);
             }
         } else {
-            printf("No map data in save file\n");
+            printf("Aucune donnee de carte dans le fichier de sauvegarde\n");
             *map_width = 0;
             *map_height = 0;
         }
     }
 
-    printf("Game loaded successfully from %s\n", SAVE_FILE_PATH);
+    printf("Partie chargee avec succes depuis %s\n", SAVE_FILE_PATH);
     return SUCCESS;
 }
 
@@ -527,7 +524,7 @@ int save_file_exists(void) {
 
 int delete_save_file(void) {
     if (remove(SAVE_FILE_PATH) == 0) {
-        printf("Save file deleted successfully.\n");
+        printf("Fichier de sauvegarde supprime avec succes.\n");
         return SUCCESS;
     }
     perror("Error deleting save file");
@@ -553,7 +550,7 @@ int get_map_seed_from_save(int* map_seed) {
     }
 
     if (save_data.version != SAVE_VERSION) {
-        fprintf(stderr, "Save file version mismatch! Expected %d, got %d\n",
+        fprintf(stderr, "Incompatibilite de version du fichier de sauvegarde! Attendu %d, recu %d\n",
                 SAVE_VERSION, save_data.version);
         return UNPROCESSABLE_REQUEST_ERROR;
     }
@@ -575,7 +572,7 @@ int save_game_complete(Player* player, int difficulty, int battles_won, int map_
     save_position_data(player, map_seed, &save_data);
 
     if (ensure_save_directory_exists() != 0) {
-        fprintf(stderr, "Error: Could not create save directory\n");
+        fprintf(stderr, "Erreur: Impossible de creer le repertoire de sauvegarde\n");
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
@@ -593,6 +590,6 @@ int save_game_complete(Player* player, int difficulty, int battles_won, int map_
         return UNPROCESSABLE_REQUEST_ERROR;
     }
 
-    printf("Game saved successfully to %s\n", SAVE_FILE_PATH);
+    printf("Partie sauvegardee avec succes dans %s\n", SAVE_FILE_PATH);
     return SUCCESS;
 }

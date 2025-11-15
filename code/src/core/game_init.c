@@ -338,7 +338,7 @@ int game_init(void) {
             case ABYSS: printf("ABYSSE\n"); break;
         }
 
-        printf("\nActions: [(e)nter] Interagir | [(m)ove] Deplacer | [(q)uit] Quitter\n> ");
+        printf("\nActions: [(e)nter] Interagir | [W/A/S/D] Deplacer | [(q)uit] Quitter\n> ");
         current_interface->get_input("", choice, sizeof(choice));
 
         if (strcmp(choice, "quit") == 0 || strcmp(choice, "q") == 0) {
@@ -346,30 +346,26 @@ int game_init(void) {
             save_game_complete(player, difficulty, battles_won, map_seed);
             game_running = 0;
         }
-        else if (strcmp(choice, "move") == 0 || strcmp(choice, "m") == 0) {
-            printf("Direction [up/down/left/right]: ");
-            current_interface->get_input("", choice, sizeof(choice));
-
+        else if (strcmp(choice, "w") == 0 || strcmp(choice, "W") == 0 ||
+                 strcmp(choice, "s") == 0 || strcmp(choice, "S") == 0 ||
+                 strcmp(choice, "a") == 0 || strcmp(choice, "A") == 0 ||
+                 strcmp(choice, "d") == 0 || strcmp(choice, "D") == 0) {
             Position new_pos = player->current_position;
-            if (strcmp(choice, "up") == 0 || strcmp(choice, "u") == 0) {
+            if (strcmp(choice, "w") == 0 || strcmp(choice, "W") == 0) {
                 new_pos.row--;
                 if (new_pos.row < 0) new_pos.row = map->rows - 1;
             }
-            else if (strcmp(choice, "down") == 0 || strcmp(choice, "d") == 0) {
+            else if (strcmp(choice, "s") == 0 || strcmp(choice, "S") == 0) {
                 new_pos.row++;
                 if (new_pos.row >= map->rows) new_pos.row = 0;
             }
-            else if (strcmp(choice, "left") == 0 || strcmp(choice, "l") == 0) {
+            else if (strcmp(choice, "a") == 0 || strcmp(choice, "A") == 0) {
                 new_pos.col--;
                 if (new_pos.col < 0) new_pos.col = map->cols - 1;
             }
-            else if (strcmp(choice, "right") == 0 || strcmp(choice, "r") == 0) {
+            else if (strcmp(choice, "d") == 0 || strcmp(choice, "D") == 0) {
                 new_pos.col++;
                 if (new_pos.col >= map->cols) new_pos.col = 0;
-            }
-            else {
-                printf("Direction invalide.\n");
-                continue;
             }
 
             if (is_valid_move(map, player, new_pos)) {

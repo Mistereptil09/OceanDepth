@@ -6,6 +6,7 @@
 
 #include "interface/interface_cli.h"
 #include "interface/interface_api.h"
+#include "interface/colors.h"
 
 #include <string.h>
 
@@ -24,7 +25,7 @@ void cli_display_map(Map* map, Player* player) {
 
         for (int col = 0; col < map->cols; col++) {
             if (is_player_at(player, row, col)) {
-                printf("[@]");
+                printf(COLOR_CYAN"[@]"COLOR_RESET);
             } else if (!is_cell_unlocked(player, row, col)) {
                 printf("[?]");
             } else {
@@ -42,21 +43,6 @@ void cli_display_map(Map* map, Player* player) {
     printf("[R]=Facile [W]=Moyen [P]=Difficile\n");
     printf("[A]=Boss  [?]=Verrouille\n");
     printf("========================================\n");
-}
-
-Position cli_get_movement_choice(Player* player) {
-    printf("\n========================================\n");
-    printf("Position actuelle: (%d, %d)\n",
-           player->current_position.row, player->current_position.col);
-    printf("Ou voulez-vous aller?\n");
-    printf("[U] Haut | [D] Bas | [L] Gauche | [R] Droite\n");
-    printf("[Q] Quitter\n");
-    printf("========================================\n");
-
-    char choice[10];
-    cli_get_input("Direction", choice, sizeof(choice));
-
-    return parse_direction_input(choice, player->current_position);
 }
 
 void cli_display_combat_state(void)
@@ -158,31 +144,31 @@ void cli_display_round_header(int round_number)
 void cli_display_victory(void)
 {
     printf("\n\n");
-    printf("========================================\n");
+    printf(COLOR_BRIGHT_GREEN "========================================\n");
     printf("|                                      |\n");
     printf("|      VICTOIRE!                       |\n");
     printf("|                                      |\n");
-    printf("========================================\n");
+    printf("========================================\n" COLOR_RESET);
 }
 
 void cli_display_defeat(void)
 {
     printf("\n\n");
-    printf("========================================\n");
+    printf(COLOR_RED "========================================\n");
     printf("|                                      |\n");
     printf("|      PARTIE TERMINEE                 |\n");
     printf("|                                      |\n");
-    printf("========================================\n");
+    printf("========================================\n" COLOR_RESET);
 }
 
 void cli_display_battle_start(void)
 {
     printf("\n\n");
-    printf("========================================\n");
+    printf(COLOR_YELLOW "========================================\n");
     printf("|                                      |\n");
     printf("|       COMBAT COMMENCE!               |\n");
     printf("|                                      |\n");
-    printf("========================================\n\n");
+    printf("========================================\n\n" COLOR_RESET);
 }
 
 void cli_wait_for_enter(const char* prompt)
@@ -266,14 +252,14 @@ void cli_show_information(const char* message)
 
 void cli_show_oxygen_consumed(int amount, int current, int max)
 {
-    printf("Oxygene consomme: -%d (actuel: %d/%d)\n", amount, current, max);
+    printf("Oxygene consomme: " COLOR_CYAN "-%d" COLOR_RESET " (actuel: " COLOR_CYAN "%d/%d" COLOR_RESET ")\n", amount, current, max);
 }
 
 void cli_show_oxygen_critical(int current)
 {
-    printf("\n!  === OXYGENE CRITIQUE! === !\n");
+    printf(COLOR_RED "\n!  === OXYGENE CRITIQUE! === !\n");
     printf("️! Il ne reste que %d d'oxygene! !\n", current);
-    printf("Utilisez une capsule MAINTENANT ou vous allez suffoquer!\n\n");
+    printf("Utilisez une capsule MAINTENANT ou vous allez suffoquer!\n\n" COLOR_RESET);
 }
 
 void cli_show_oxygen_death(int damage, int hp, int max_hp)
@@ -307,8 +293,8 @@ void cli_show_passive_oxygen(int amount, int current, int max)
 void cli_show_damage_dealt(const char* attacker_name, const char* target_name,
                            int damage, int target_hp, int target_max_hp)
 {
-    printf("%s inflige %d degats a %s!\n", attacker_name, damage, target_name);
-    printf("%s a maintenant %d/%d PV restants.\n", target_name, target_hp, target_max_hp);
+    printf("%s inflige " COLOR_RED "%d degats" COLOR_RESET " a %s!\n", attacker_name, damage, target_name);
+    printf("%s a maintenant " COLOR_YELLOW "%d/%d PV" COLOR_RESET " restants.\n", target_name, target_hp, target_max_hp);
 }
 
 void cli_show_attack_blocked(const char* defender_name)
@@ -318,7 +304,7 @@ void cli_show_attack_blocked(const char* defender_name)
 
 void cli_show_creature_defeated(const char* creature_name)
 {
-    printf("\n>> Vous avez vaincu le %s! <<\n", creature_name);
+    printf(COLOR_BRIGHT_GREEN "\n>> Vous avez vaincu le %s! <<\n" COLOR_RESET, creature_name);
 }
 
 void cli_show_actions_taken(int actions_taken)
@@ -338,12 +324,12 @@ void cli_show_death_from_suffocation(void)
 
 void cli_show_enemy_turn(void)
 {
-    printf("\n--- Tour des Ennemis ---\n");
+    printf(COLOR_RED "\n--- Tour des Ennemis ---\n" COLOR_RESET);
 }
 
 void cli_show_your_turn(void)
 {
-    printf("\n=== Votre Tour ===\n");
+    printf(COLOR_BRIGHT_CYAN "\n=== Votre Tour ===\n" COLOR_RESET);
 }
 
 void cli_show_ending_turn(void)
@@ -480,24 +466,24 @@ void cli_show_damage_calculation(int atk, int def, int raw) {
 }
 
 void cli_show_oxygen_stress(int oxygen_stress, int current, int max) {
-    printf("Stress from attack: -%d oxygen (current: %d/%d)\n", oxygen_stress, current, max);
+    printf("Stress de l'attaque: -%d oxygene (actuel: %d/%d)\n", oxygen_stress, current, max);
 }
 
 void cli_show_inventory_selection(Item* items, int item_count) {
-    printf("\n=== Your Inventory ===\n");
+    printf("\n=== Votre Inventaire ===\n");
     for (int i = 0; i < item_count; i++) {
         Item *item = &items[i];
         printf("%d. %s", i + 1, item->name);
         int is_on_cooldown = item_on_cooldown(item);
         if (is_on_cooldown && item->type == ITEM_WEAPON) {
-            printf("[Cooldown]");
+            printf("[En recharge]");
         }
         printf("\n");
     }
 }
 
 void cli_show_consumable_no_effect(const char* item_name) {
-    printf("\n%s would have no effect right now! All stats are already maxed.\n", item_name);
+    printf("\n%s n'aurait aucun effet maintenant! Toutes les statistiques sont deja au maximum.\n", item_name);
 }
 
 void cli_show_weapon_actions(Item* weapon) {
@@ -506,12 +492,12 @@ void cli_show_weapon_actions(Item* weapon) {
         Action *action = &weapon->actions[i];
         printf("%d. %s", i + 1, action->name);
         if (action->cooldown_remaining > 0) {
-            printf(" [Cooldown: %d turns]", action->cooldown_remaining);
+            printf(" [En recharge: %d tours]", action->cooldown_remaining);
         }
         if (action->target_type == TARGET_OPPONENT) {
-            printf(" (Applies damage to the enemy's stats)");
+            printf(" (Inflige des degats aux statistiques de l'ennemi)");
         } else if (action->target_type == TARGET_SELF) {
-            printf(" (Boost your own stats!)");
+            printf(" (Ameliore vos statistiques!)");
         }
         printf("\n");
     }
@@ -533,8 +519,8 @@ void cli_show_creature_generation_error(void) {
 
 void cli_show_pearl_reward(int amount, int total) {
     printf("\n========================================\n");
-    printf("Vous avez gagne %d perles!\n", amount);
-    printf("Total: %d perles\n", total);
+    printf("Vous avez gagne " COLOR_BRIGHT_YELLOW "%d perles" COLOR_RESET "!\n", amount);
+    printf("Total: " COLOR_YELLOW "%d perles" COLOR_RESET "\n", total);
     printf("========================================\n");
 }
 

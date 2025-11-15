@@ -114,22 +114,21 @@ int is_valid_move(Map* map, Player* player, Position to_position) {
                        to_position.col <= player->max_position.col);
     if (!is_unlocked) return 0;
 
-    // Check adjacency with wrapping support
+    // check adjacency with wrapping support
     int row_diff = abs(player->current_position.row - to_position.row);
     int col_diff = abs(player->current_position.col - to_position.col);
 
-    // For wrapping: distance can be 1 OR (max - 1) when wrapping around
+    // for wrapping = distance can be 1 OR max - 1 when wrapping around
     int row_adjacent = (row_diff == 1) || (row_diff == map->rows - 1);
     int col_adjacent = (col_diff == 1) || (col_diff == map->cols - 1);
 
-    // Adjacent means same row and adjacent column, OR same column and adjacent row
+    // same row adjacent column, OR same column adjacent row
     int is_adjacent = (player->current_position.col == to_position.col && row_adjacent) ||
                       (player->current_position.row == to_position.row && col_adjacent);
 
     return is_adjacent;
 }
 
-// Helper functions for display
 const char* get_depth_name(int row) {
     static const char* depth_names[] = {
         "SURFACE",
@@ -170,25 +169,3 @@ int is_player_at(Player* player, int row, int col) {
     return (player->current_position.row == row &&
             player->current_position.col == col);
 }
-
-Position parse_direction_input(const char* input, Position current) {
-    Position new_pos = current;
-
-    if (!input) return new_pos;
-
-    if (input[0] == 'u' || input[0] == 'U') {
-        new_pos.row--;
-    } else if (input[0] == 'd' || input[0] == 'D') {
-        new_pos.row++;
-    } else if (input[0] == 'l' || input[0] == 'L') {
-        new_pos.col--;
-    } else if (input[0] == 'r' || input[0] == 'R') {
-        new_pos.col++;
-    } else if (input[0] == 'q' || input[0] == 'Q') {
-        new_pos.row = -1;
-        new_pos.col = -1;
-    }
-
-    return new_pos;
-}
-

@@ -59,7 +59,7 @@ Effect *insert_effect_in_effects(EntityBase* target, Effect effect) {
     // replace oldest
     last_replaced = (last_replaced + 1) % MAX_EFFECTS;
 
-    effect_remove(target, &target->effects[last_replaced]); // REMOVE EFFECT
+    effect_remove(target, &target->effects[last_replaced]);
     free_effect_content(&target->effects[last_replaced]);
 
     target->effects[last_replaced] = effect_copy(&effect);

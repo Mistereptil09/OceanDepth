@@ -8,7 +8,6 @@
 #include "core/error_codes.h"
 #include "core/entity.h"
 /*
- * player.c = Player stats, actions, resources (HP, oxygen, fatigue, pearls, inventory)
  */
 
 Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen, Position current, Position max) {
@@ -28,7 +27,6 @@ Player *create_player(char *name, int max_hp, int base_defense, int max_oxygen, 
     p->current_position = current;
     p->max_position = max;
 
-    // Initialize usage limits
     p->heal_uses_left = 2;  // Can use heal center 2 times per game
     p->has_used_cave = 0;   // Haven't used cave yet
 
@@ -118,48 +116,48 @@ void use_consumable(Player *p, Item *item) {
     if (item->type != ITEM_CONSUMABLE) return;
     if (item->quantity <= 0) return;
 
-    printf("\nYou used %s!\n", item->name);
+    printf("\nVous avez utilise %s!\n", item->name);
 
     if (item->oxygen_boost > 0) {
         int result = recover_oxygen(p, item->oxygen_boost);
         if (result == SUCCESS_SATURATED) {
-            printf("Oxygen restored to maximum (%d/%d)!\n", p->base.oxygen_level, p->base.max_oxygen_level);
+            printf("Oxygene restaure au maximum (%d/%d)!\n", p->base.oxygen_level, p->base.max_oxygen_level);
         } else {
-            printf("Oxygen recovered by %d! (%d/%d)\n", item->oxygen_boost, p->base.oxygen_level, p->base.max_oxygen_level);
+            printf("Oxygene recupere de %d! (%d/%d)\n", item->oxygen_boost, p->base.oxygen_level, p->base.max_oxygen_level);
         }
     }
 
     if (item->fatigue_relief > 0) {
         int result = recover_fatigue(p, item->fatigue_relief);
         if (result == SUCCESS_SATURATED) {
-            printf("Fatigue completely recovered!\n");
+            printf("Fatigue completement recuperee!\n");
         } else {
-            printf("Fatigue reduced by %d!\n", item->fatigue_relief);
+            printf("Fatigue reduite de %d!\n", item->fatigue_relief);
         }
     }
 
     if (item->hp_boost > 0) {
         int result = entity_recover_hp(&p->base, item->hp_boost);
         if (result == SUCCESS_SATURATED) {
-            printf("HP restored to maximum (%d/%d)!\n", p->base.current_health_points, p->base.max_health_points);
+            printf("PV restaures au maximum (%d/%d)!\n", p->base.current_health_points, p->base.max_health_points);
         } else {
-            printf("HP recovered by %d! (%d/%d)\n", item->hp_boost, p->base.current_health_points, p->base.max_health_points);
+            printf("PV recuperes de %d! (%d/%d)\n", item->hp_boost, p->base.current_health_points, p->base.max_health_points);
         }
     }
 
-    // Decrement quantity
+    // decrement quantity
     item->quantity--;
     if (item->quantity == 0) {
-        printf("You have used your last %s.\n", item->name);
+        printf("Vous avez utilise votre dernier %s.\n", item->name);
     } else {
-        printf("Remaining: %d\n", item->quantity);
+        printf("Restant: %d\n", item->quantity);
     }
 }
 
 int unlock_new_position(Player *player) {
     if (player == NULL) return POINTER_NULL;
 
-    // Player must be at the frontier (max_position) to unlock
+    // player must be at the max_position to unlock
     if (player->current_position.row == player->max_position.row &&
         player->current_position.col == player->max_position.col) {
 
@@ -174,7 +172,6 @@ int unlock_new_position(Player *player) {
         return WIN;
     }
 
-    // Player is not at frontier - invalid operation
     return INVALID_INPUT;
 }
 

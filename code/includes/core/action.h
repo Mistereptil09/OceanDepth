@@ -19,20 +19,18 @@ typedef struct {
     char name[30];
     ActionType type;
     TargetType target_type;
-    int cooldown_turns;      // Base cooldown duration
-    int cooldown_remaining;  // Current cooldown remaining (0 = ready to use)
-    Effect effect;           // The effect the action applies on the receiver
+    int cooldown_turns;      // cooldown duration
+    int cooldown_remaining;  // current cooldown remaining
+    Effect effect;           // the effect the action applies on the receiver
 } Action;
 
 /**
 * @brief Add an Action's effect to the target's Effect effects array
-*   Checks if it's already active, non-active in the array, or simply not there.
 * @param target Entity base pointer
  * @param effect
  * @return ERROR CODES
  */
 Effect *apply_effect_to_target(EntityBase *target, Effect effect);
-
 Effect *apply_action_to_target(EntityBase *target, Action *action);
 
 /**

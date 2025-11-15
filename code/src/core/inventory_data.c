@@ -20,8 +20,8 @@ Item create_epee() {
             "Boost de l'epee",
             "+15 points d'attaque pour toi",
             1,
-            15, 0, 0, 0, 0,  // flat: +10 attack
-            0, 0, 0, 0, 0,   // percent: none
+            15, 0, 0, 0, 0,
+            0, 0, 0, 0, 0,
             NULL, 0
         )
     };
@@ -36,8 +36,8 @@ Item create_epee() {
             "Boost d'attaque",
             "Montee de puissance de 0.5 pour toi",
             1,
-            0, 0, 0, 0, 0,     // flat: none
-            0.5, 0, 0, 0, 0,   // percent: +40% attack
+            0, 0, 0, 0, 0,
+            0.5, 0, 0, 0, 0,
             NULL, 0
         )
     };
@@ -158,7 +158,7 @@ Item* lookup_item_by_name(const char* name, int quantity) {
     Item* item = malloc(sizeof(Item));
     if (!item) return NULL;
 
-    // Lookup weapons
+    // lookup weapons
     if (strcmp(name, "epee") == 0) {
         *item = create_epee();
     } else if (strcmp(name, "Harpon") == 0) {
@@ -166,7 +166,7 @@ Item* lookup_item_by_name(const char* name, int quantity) {
     } else if (strcmp(name, "Combinaison") == 0) {
         *item = create_combinaison();
     }
-    // Lookup consumables
+    // lookup consumables
     else if (strcmp(name, "Capsule O2") == 0) {
         *item = create_oxygen_capsule(quantity);
     } else if (strcmp(name, "Stimulant Marin") == 0) {
@@ -174,7 +174,7 @@ Item* lookup_item_by_name(const char* name, int quantity) {
     } else if (strcmp(name, "Trousse de soin") == 0) {
         *item = create_health_kit(quantity);
     }
-    // Unknown item
+    // unknown item
     else {
         free(item);
         return NULL;

@@ -219,7 +219,7 @@ static int player_turn(Player *player, int alive_count) {
         }
     }
 
-    // Decrement cooldowns for ALL item actions
+    // Decrement all cooldowns
     for (int i = 0; i < player->inventory.count; i++) {
         Item *item = &player->inventory.items[i];
         for (int j = 0; j < item->action_count; j++) {
