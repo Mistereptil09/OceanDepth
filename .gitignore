@@ -1,0 +1,116 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# debug information files
+*.dwo
+
+# CMake / build system
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+Testing/
+build/
+cmake-build-*/
+
+# CLion / JetBrains
+.idea/
+*.iml
+/cmake-build-debug/
+
+# Editor swap/temp files
+*~
+#*#
+*.sw?
+*.swo
+*.swn
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and reports
+*.log
+*.trace
+coverage/
+*.coverage
+
+# Coverage / gcov
+*.gcda
+*.gcno
+*.gcov
+
+# Dependency managers / package artifacts
+conanbuildinfo.*
+conaninfo.txt
+.vcpkg/
+*.egg-info/
+dist/
+
+# Temporary / backup files
+*.tmp
+*.bak
+*.orig
+
+# Environment / secrets
+.env
+.env.local
+*.secret
+
+# Test outputs
+/test_output/
+*.tap
+
+# Generated documentation
+doc/html/
