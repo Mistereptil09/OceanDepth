@@ -63,3 +63,6 @@ dkms.conf
 
 # debug information files
 *.dwo
+/editor.xml
+/OceanDepth.iml
+/vcs.xml
